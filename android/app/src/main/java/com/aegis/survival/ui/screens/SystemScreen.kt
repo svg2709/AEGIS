@@ -4,6 +4,7 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -12,18 +13,12 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.BatterySaver
-import androidx.compose.material.icons.outlined.SystemUpdate
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.HorizontalDivider
-import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
@@ -72,458 +67,222 @@ fun SystemScreen(
             .fillMaxSize()
             .background(palette.canvas)
             .verticalScroll(rememberScrollState())
-            .padding(16.dp),
-        verticalArrangement = Arrangement.spacedBy(14.dp),
+            .padding(horizontal = 20.dp, vertical = 16.dp),
     ) {
-        // 1. App Auto-Update Card (always asks before downloading/installing)
-        Surface(
-            color = if (state.availableUpdate != null) palette.surfaceTinted else palette.surface,
-            border = BorderStroke(
-                1.dp,
-                if (state.availableUpdate != null) palette.accent else palette.border,
-            ),
-            shape = RoundedCornerShape(16.dp),
+        // 1. Display & Battery Saver
+        SectionHeading("DISPLAY & BATTERY")
+        SettingsInfoRow(
+            label = "Battery Status",
+            value = "${state.batteryStatus.batteryPercent}%${if (state.batteryStatus.isSystemPowerSave) " · System Saver ON" else ""}",
+            valueColor = if (state.batteryStatus.isSystemPowerSave) palette.ok else palette.textPrimary,
+        )
+        SettingsSwitchRow(
+            title = "Auto AMOLED on Battery Saver",
+            subtitle = "Use pitch-black #000000 when phone Battery Saver activates",
+            checked = state.settings.autoBatterySaverAmoled,
+            onCheckedChange = onToggleAutoBatterySaverAmoled,
+            accentColor = palette.ok,
+        )
+        SettingsSwitchRow(
+            title = "Manual Battery Saver",
+            subtitle = "Force Ultra AMOLED and pause routine haptics",
+            checked = state.settings.manualBatterySaver,
+            onCheckedChange = onToggleManualBatterySaver,
+            accentColor = palette.ok,
+        )
+
+        Spacer(modifier = Modifier.height(10.dp))
+        Row(
             modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.spacedBy(8.dp),
         ) {
-            Column(modifier = Modifier.padding(16.dp)) {
-                Row(verticalAlignment = Alignment.CenterVertically) {
-                    Icon(
-                        imageVector = Icons.Outlined.SystemUpdate,
-                        contentDescription = "App Updates",
-                        tint = palette.accentSoft,
-                        modifier = Modifier.size(18.dp),
-                    )
-                    Spacer(modifier = Modifier.width(6.dp))
-                    Text(
-                        text = "APP UPDATES · GITHUB RELEASES",
-                        style = MaterialTheme.typography.labelMedium,
-                        color = palette.accentSoft,
-                    )
-                }
-                Spacer(modifier = Modifier.height(10.dp))
-                SystemStatRow("Installed Version", "v${BuildConfig.VERSION_NAME} (code ${BuildConfig.VERSION_CODE})")
-                SystemStatRow("Release Source", BuildConfig.GITHUB_REPO)
-
-                Spacer(modifier = Modifier.height(10.dp))
-                Row(
+            DisplayThemeMode.entries.forEach { mode ->
+                val selected = state.settings.displayThemeMode == mode
+                Surface(
+                    color = if (selected) palette.surfaceTinted else palette.surface,
+                    border = BorderStroke(1.dp, if (selected) palette.accent else palette.borderSubtle),
+                    shape = RoundedCornerShape(10.dp),
                     modifier = Modifier
-                        .fillMaxWidth()
-                        .heightIn(min = 48.dp),
-                    verticalAlignment = Alignment.CenterVertically,
+                        .weight(1f)
+                        .heightIn(min = 40.dp)
+                        .clickable { onSetDisplayThemeMode(mode) },
                 ) {
-                    Column(modifier = Modifier.weight(1f)) {
+                    Box(contentAlignment = Alignment.Center) {
                         Text(
-                            text = "Auto-Check on Launch",
-                            style = MaterialTheme.typography.titleSmall,
-                            color = palette.textPrimary,
+                            text = if (mode == DisplayThemeMode.AMOLED) "AMOLED #000" else "Obsidian",
+                            style = MaterialTheme.typography.labelMedium,
+                            color = if (selected) palette.accentSoft else palette.textSecondary,
                         )
-                        Text(
-                            text = "Always asks your permission before downloading or installing",
-                            style = MaterialTheme.typography.bodyMedium,
-                            color = palette.textSecondary,
-                        )
-                    }
-                    Switch(
-                        checked = state.settings.autoCheckUpdates,
-                        onCheckedChange = onToggleAutoCheckUpdates,
-                        colors = SwitchDefaults.colors(
-                            checkedThumbColor = Color.White,
-                            checkedTrackColor = palette.accent,
-                        ),
-                    )
-                }
-
-                Spacer(modifier = Modifier.height(12.dp))
-
-                if (state.availableUpdate != null) {
-                    Button(
-                        onClick = onOpenUpdatePrompt,
-                        colors = ButtonDefaults.buttonColors(containerColor = palette.accent),
-                        shape = RoundedCornerShape(12.dp),
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .heightIn(min = 48.dp),
-                    ) {
-                        Text(
-                            text = "Review & Update to v${state.availableUpdate.latestVersion}",
-                            color = Color.White,
-                        )
-                    }
-                } else {
-                    OutlinedButton(
-                        onClick = onCheckForUpdates,
-                        enabled = !state.isCheckingUpdate,
-                        border = BorderStroke(1.dp, palette.border),
-                        shape = RoundedCornerShape(12.dp),
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .heightIn(min = 48.dp),
-                    ) {
-                        Text(
-                            text = if (state.isCheckingUpdate) "Checking Releases..." else "Check for Updates",
-                            color = palette.textPrimary,
-                        )
-                    }
-                }
-
-                if (!state.updateStatusMessage.isNullOrBlank()) {
-                    Spacer(modifier = Modifier.height(8.dp))
-                    Text(
-                        text = state.updateStatusMessage,
-                        style = MaterialTheme.typography.labelSmall,
-                        color = palette.accentSoft,
-                    )
-                }
-            }
-        }
-
-        // 2. Battery Saver & AMOLED Display Card
-        Surface(
-            color = palette.surface,
-            border = BorderStroke(
-                1.dp,
-                if (state.isBatterySaverActive) palette.ok.copy(alpha = 0.6f) else palette.border,
-            ),
-            shape = RoundedCornerShape(16.dp),
-            modifier = Modifier.fillMaxWidth(),
-        ) {
-            Column(modifier = Modifier.padding(16.dp)) {
-                Row(verticalAlignment = Alignment.CenterVertically) {
-                    Icon(
-                        imageVector = Icons.Outlined.BatterySaver,
-                        contentDescription = "Battery saver",
-                        tint = if (state.isBatterySaverActive) palette.ok else palette.accentSoft,
-                        modifier = Modifier.size(18.dp),
-                    )
-                    Spacer(modifier = Modifier.width(6.dp))
-                    Text(
-                        text = "BATTERY SAVER & AMOLED DISPLAY",
-                        style = MaterialTheme.typography.labelMedium,
-                        color = if (state.isBatterySaverActive) palette.ok else palette.accentSoft,
-                    )
-                }
-                Spacer(modifier = Modifier.height(10.dp))
-
-                SystemStatRow(
-                    "Phone Battery",
-                    "${state.batteryStatus.batteryPercent}%${if (state.batteryStatus.isCharging) " · Charging" else ""}",
-                    valueColor = if (state.batteryStatus.batteryPercent <= 20 && !state.batteryStatus.isCharging) palette.warn else palette.textPrimary,
-                )
-                SystemStatRow(
-                    "Android Battery Saver",
-                    if (state.batteryStatus.isSystemPowerSave) "DETECTED (ON)" else "OFF",
-                    valueColor = if (state.batteryStatus.isSystemPowerSave) palette.ok else palette.textSecondary,
-                )
-                SystemStatRow(
-                    "Active Display Profile",
-                    when {
-                        state.isBatterySaverActive -> "Ultra AMOLED #000000 (Power Save)"
-                        state.effectiveUseAmoled -> "True AMOLED #000000"
-                        else -> "Obsidian Dark"
-                    },
-                    valueColor = if (state.effectiveUseAmoled) palette.ok else palette.textPrimary,
-                )
-
-                Spacer(modifier = Modifier.height(10.dp))
-
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .heightIn(min = 52.dp),
-                    verticalAlignment = Alignment.CenterVertically,
-                ) {
-                    Column(modifier = Modifier.weight(1f)) {
-                        Text(
-                            text = "Auto AMOLED on Battery Saver",
-                            style = MaterialTheme.typography.titleSmall,
-                            color = palette.textPrimary,
-                        )
-                        Text(
-                            text = "Detects phone Battery Saver and enforces pure #000000 OLED settings",
-                            style = MaterialTheme.typography.bodyMedium,
-                            color = palette.textSecondary,
-                        )
-                    }
-                    Switch(
-                        checked = state.settings.autoBatterySaverAmoled,
-                        onCheckedChange = onToggleAutoBatterySaverAmoled,
-                        colors = SwitchDefaults.colors(
-                            checkedThumbColor = Color.White,
-                            checkedTrackColor = palette.ok,
-                        ),
-                    )
-                }
-
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .heightIn(min = 52.dp),
-                    verticalAlignment = Alignment.CenterVertically,
-                ) {
-                    Column(modifier = Modifier.weight(1f)) {
-                        Text(
-                            text = "Manual Battery Saver Mode",
-                            style = MaterialTheme.typography.titleSmall,
-                            color = palette.textPrimary,
-                        )
-                        Text(
-                            text = "Force Ultra AMOLED #000000 and pause routine haptics & update checks",
-                            style = MaterialTheme.typography.bodyMedium,
-                            color = palette.textSecondary,
-                        )
-                    }
-                    Switch(
-                        checked = state.settings.manualBatterySaver,
-                        onCheckedChange = onToggleManualBatterySaver,
-                        colors = SwitchDefaults.colors(
-                            checkedThumbColor = Color.White,
-                            checkedTrackColor = palette.ok,
-                        ),
-                    )
-                }
-
-                Spacer(modifier = Modifier.height(12.dp))
-                Text(
-                    text = "DEFAULT SURFACE STYLE",
-                    style = MaterialTheme.typography.labelSmall,
-                    color = palette.textMuted,
-                )
-                Spacer(modifier = Modifier.height(8.dp))
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.spacedBy(8.dp),
-                ) {
-                    DisplayThemeMode.entries.forEach { mode ->
-                        val selected = state.settings.displayThemeMode == mode
-                        Surface(
-                            color = if (selected) palette.surfaceTinted else palette.surfaceElevated,
-                            border = BorderStroke(1.dp, if (selected) palette.accent else palette.border),
-                            shape = RoundedCornerShape(12.dp),
-                            modifier = Modifier
-                                .weight(1f)
-                                .heightIn(min = 44.dp)
-                                .clickable { onSetDisplayThemeMode(mode) },
-                        ) {
-                            Row(
-                                modifier = Modifier.padding(horizontal = 10.dp, vertical = 10.dp),
-                                horizontalArrangement = Arrangement.Center,
-                                verticalAlignment = Alignment.CenterVertically,
-                            ) {
-                                Text(
-                                    text = mode.label,
-                                    style = MaterialTheme.typography.labelSmall,
-                                    color = if (selected) palette.accentSoft else palette.textSecondary,
-                                    maxLines = 1,
-                                )
-                            }
-                        }
-                    }
-                }
-
-                Spacer(modifier = Modifier.height(14.dp))
-                Text(
-                    text = "READING LEGIBILITY SIZE",
-                    style = MaterialTheme.typography.labelSmall,
-                    color = palette.textMuted,
-                )
-                Spacer(modifier = Modifier.height(8.dp))
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.spacedBy(8.dp),
-                ) {
-                    listOf(
-                        0.92f to "S",
-                        1.0f to "M",
-                        1.14f to "L",
-                        1.28f to "XL",
-                    ).forEach { (scale, label) ->
-                        val selected = kotlin.math.abs(state.settings.readingFontScale - scale) < 0.05f
-                        Surface(
-                            color = if (selected) palette.surfaceTinted else palette.surfaceElevated,
-                            border = BorderStroke(1.dp, if (selected) palette.accent else palette.border),
-                            shape = RoundedCornerShape(10.dp),
-                            modifier = Modifier
-                                .weight(1f)
-                                .heightIn(min = 42.dp)
-                                .clickable { onSetReadingFontScale(scale) },
-                        ) {
-                            Row(
-                                modifier = Modifier.padding(vertical = 8.dp),
-                                horizontalArrangement = Arrangement.Center,
-                                verticalAlignment = Alignment.CenterVertically,
-                            ) {
-                                Text(
-                                    text = label,
-                                    style = MaterialTheme.typography.labelMedium,
-                                    color = if (selected) palette.accentSoft else palette.textSecondary,
-                                )
-                            }
-                        }
                     }
                 }
             }
         }
 
-        // 3. Offline Core Integrity Card
-        Surface(
-            color = palette.surface,
-            border = BorderStroke(1.dp, palette.border),
-            shape = RoundedCornerShape(16.dp),
+        Spacer(modifier = Modifier.height(10.dp))
+        Row(
             modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.spacedBy(8.dp),
         ) {
-            Column(modifier = Modifier.padding(16.dp)) {
-                Text(
-                    text = "OFFLINE SURVIVAL CORE",
-                    style = MaterialTheme.typography.labelMedium,
-                    color = palette.accentSoft,
-                )
-                Spacer(modifier = Modifier.height(10.dp))
-                SystemStatRow("Knowledge Domains", "${state.domains.size} loaded")
-                SystemStatRow("Offline Protocols", "${state.allArticlesCount} verified")
-                SystemStatRow("Saved Bookmarks", "${state.settings.bookmarkedArticleIds.size} pinned")
-                SystemStatRow(
-                    "Network Status",
-                    if (state.isOnline) "Online" else "Offline (Autonomous)",
-                    valueColor = if (state.isOnline) palette.ok else palette.textSecondary,
-                )
-
-                Spacer(modifier = Modifier.height(10.dp))
-                Row(
+            listOf(0.92f to "S", 1.0f to "M", 1.14f to "L", 1.28f to "XL").forEach { (scale, label) ->
+                val selected = kotlin.math.abs(state.settings.readingFontScale - scale) < 0.05f
+                Surface(
+                    color = if (selected) palette.surfaceTinted else palette.surface,
+                    border = BorderStroke(1.dp, if (selected) palette.accent else palette.borderSubtle),
+                    shape = RoundedCornerShape(10.dp),
                     modifier = Modifier
-                        .fillMaxWidth()
-                        .heightIn(min = 48.dp),
-                    verticalAlignment = Alignment.CenterVertically,
+                        .weight(1f)
+                        .heightIn(min = 38.dp)
+                        .clickable { onSetReadingFontScale(scale) },
                 ) {
-                    Column(modifier = Modifier.weight(1f)) {
+                    Box(contentAlignment = Alignment.Center) {
                         Text(
-                            text = "Haptic Feedback",
-                            style = MaterialTheme.typography.titleSmall,
-                            color = palette.textPrimary,
-                        )
-                        Text(
-                            text = "Vibrate on SOS triggers and critical actions",
-                            style = MaterialTheme.typography.bodyMedium,
-                            color = palette.textSecondary,
+                            text = label,
+                            style = MaterialTheme.typography.labelMedium,
+                            color = if (selected) palette.accentSoft else palette.textSecondary,
                         )
                     }
-                    Switch(
-                        checked = state.settings.hapticsEnabled,
-                        onCheckedChange = onToggleHaptics,
-                        colors = SwitchDefaults.colors(
-                            checkedThumbColor = Color.White,
-                            checkedTrackColor = palette.accent,
-                        ),
-                    )
                 }
             }
         }
 
-        // 4. Optional Server-Side AI Proxy
-        Surface(
-            color = palette.surface,
-            border = BorderStroke(1.dp, palette.border),
-            shape = RoundedCornerShape(16.dp),
-            modifier = Modifier.fillMaxWidth(),
-        ) {
-            Column(modifier = Modifier.padding(16.dp)) {
+        Spacer(modifier = Modifier.height(22.dp))
+        HorizontalDivider(color = palette.borderSubtle, thickness = 1.dp)
+        Spacer(modifier = Modifier.height(20.dp))
+
+        // 2. App Updates
+        SectionHeading("APP UPDATES")
+        SettingsInfoRow("Version", "v${BuildConfig.VERSION_NAME}")
+        SettingsSwitchRow(
+            title = "Auto-Check GitHub Releases",
+            subtitle = "Asks your confirmation before downloading or installing",
+            checked = state.settings.autoCheckUpdates,
+            onCheckedChange = onToggleAutoCheckUpdates,
+        )
+        Spacer(modifier = Modifier.height(10.dp))
+        if (state.availableUpdate != null) {
+            Button(
+                onClick = onOpenUpdatePrompt,
+                colors = ButtonDefaults.buttonColors(containerColor = palette.accent),
+                shape = RoundedCornerShape(12.dp),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .heightIn(min = 46.dp),
+            ) {
+                Text("Review Update v${state.availableUpdate.latestVersion}", color = Color.White)
+            }
+        } else {
+            OutlinedButton(
+                onClick = onCheckForUpdates,
+                enabled = !state.isCheckingUpdate,
+                border = BorderStroke(1.dp, palette.border),
+                shape = RoundedCornerShape(12.dp),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .heightIn(min = 46.dp),
+            ) {
                 Text(
-                    text = "OPTIONAL ONLINE AI PROXY",
-                    style = MaterialTheme.typography.labelMedium,
-                    color = palette.accentSoft,
+                    text = if (state.isCheckingUpdate) "Checking..." else "Check for Updates",
+                    color = palette.textPrimary,
                 )
-                Spacer(modifier = Modifier.height(6.dp))
-                Text(
-                    text = "When connected, route queries to your self-hosted AEGIS HTTPS proxy. API keys stay strictly on the server.",
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = palette.textSecondary,
-                )
-                Spacer(modifier = Modifier.height(10.dp))
+            }
+        }
+        if (!state.updateStatusMessage.isNullOrBlank()) {
+            Spacer(modifier = Modifier.height(6.dp))
+            Text(
+                text = state.updateStatusMessage,
+                style = MaterialTheme.typography.labelSmall,
+                color = palette.accentSoft,
+            )
+        }
 
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .heightIn(min = 48.dp),
-                    verticalAlignment = Alignment.CenterVertically,
-                ) {
-                    Text(
-                        text = "Enable Online AI Proxy",
-                        style = MaterialTheme.typography.titleSmall,
-                        color = palette.textPrimary,
-                        modifier = Modifier.weight(1f),
-                    )
-                    Switch(
-                        checked = state.settings.onlineProxyEnabled,
-                        onCheckedChange = onToggleOnlineProxy,
-                        colors = SwitchDefaults.colors(
-                            checkedThumbColor = Color.White,
-                            checkedTrackColor = palette.accent,
-                        ),
-                    )
-                }
+        Spacer(modifier = Modifier.height(22.dp))
+        HorizontalDivider(color = palette.borderSubtle, thickness = 1.dp)
+        Spacer(modifier = Modifier.height(20.dp))
 
-                Spacer(modifier = Modifier.height(10.dp))
-
-                OutlinedTextField(
-                    value = proxyInput,
-                    onValueChange = {
-                        proxyInput = it
-                        onDismissNotice()
-                    },
-                    label = { Text("HTTPS Proxy Base URL") },
-                    placeholder = { Text("https://your-aegis-server.example.com") },
-                    singleLine = true,
-                    colors = OutlinedTextFieldDefaults.colors(
-                        focusedContainerColor = palette.surfaceElevated,
-                        unfocusedContainerColor = palette.canvas,
-                        focusedBorderColor = palette.accent,
-                        unfocusedBorderColor = palette.border,
-                        focusedTextColor = palette.textPrimary,
-                        unfocusedTextColor = palette.textPrimary,
-                    ),
-                    shape = RoundedCornerShape(12.dp),
-                    modifier = Modifier.fillMaxWidth(),
-                )
-
-                Spacer(modifier = Modifier.height(10.dp))
-
-                Button(
-                    onClick = { onSaveProxyUrl(proxyInput) },
-                    colors = ButtonDefaults.buttonColors(containerColor = palette.accent),
-                    shape = RoundedCornerShape(12.dp),
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .heightIn(min = 48.dp),
-                ) {
-                    Text("Save Proxy Endpoint", color = Color.White)
-                }
-
-                if (!state.statusNotice.isNullOrBlank()) {
-                    Spacer(modifier = Modifier.height(8.dp))
-                    Text(
-                        text = state.statusNotice,
-                        style = MaterialTheme.typography.labelSmall,
-                        color = palette.accentSoft,
-                    )
-                }
+        // 3. Optional AI Proxy (URL input only expands when toggled ON)
+        SectionHeading("ONLINE AI PROXY")
+        SettingsSwitchRow(
+            title = "Use Server AI Proxy",
+            subtitle = "Optional Gemini chat & grounding with automatic offline fallback",
+            checked = state.settings.onlineProxyEnabled,
+            onCheckedChange = onToggleOnlineProxy,
+        )
+        if (state.settings.onlineProxyEnabled) {
+            Spacer(modifier = Modifier.height(10.dp))
+            OutlinedTextField(
+                value = proxyInput,
+                onValueChange = {
+                    proxyInput = it
+                    onDismissNotice()
+                },
+                label = { Text("HTTPS Server URL") },
+                placeholder = { Text("https://your-aegis-server.example.com") },
+                singleLine = true,
+                colors = OutlinedTextFieldDefaults.colors(
+                    focusedContainerColor = palette.surfaceElevated,
+                    unfocusedContainerColor = palette.surface,
+                    focusedBorderColor = palette.accent,
+                    unfocusedBorderColor = palette.borderSubtle,
+                    focusedTextColor = palette.textPrimary,
+                    unfocusedTextColor = palette.textPrimary,
+                ),
+                shape = RoundedCornerShape(12.dp),
+                modifier = Modifier.fillMaxWidth(),
+            )
+            Spacer(modifier = Modifier.height(8.dp))
+            Button(
+                onClick = { onSaveProxyUrl(proxyInput) },
+                colors = ButtonDefaults.buttonColors(containerColor = palette.accent),
+                shape = RoundedCornerShape(12.dp),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .heightIn(min = 44.dp),
+            ) {
+                Text("Save Server URL", color = Color.White)
             }
         }
 
-        // Session Reset
+        Spacer(modifier = Modifier.height(22.dp))
+        HorizontalDivider(color = palette.borderSubtle, thickness = 1.dp)
+        Spacer(modifier = Modifier.height(20.dp))
+
+        // 4. Offline Core & Haptics
+        SectionHeading("OFFLINE DATA & DEVICE")
+        SettingsInfoRow("Bundled Guides", "${state.allArticlesCount} guides · ${state.domains.size} domains")
+        SettingsSwitchRow(
+            title = "Haptic Feedback",
+            subtitle = "Vibrate on SOS and key actions",
+            checked = state.settings.hapticsEnabled,
+            onCheckedChange = onToggleHaptics,
+        )
+        Spacer(modifier = Modifier.height(12.dp))
         OutlinedButton(
             onClick = onClearChatHistory,
-            border = BorderStroke(1.dp, palette.border),
+            border = BorderStroke(1.dp, palette.borderSubtle),
             shape = RoundedCornerShape(12.dp),
             modifier = Modifier
                 .fillMaxWidth()
-                .heightIn(min = 48.dp),
+                .heightIn(min = 44.dp),
         ) {
-            Text("Clear Assistant History", color = palette.textPrimary)
+            Text("Clear Chat History", color = palette.textSecondary)
         }
+        Spacer(modifier = Modifier.height(16.dp))
     }
 }
 
 @Composable
-private fun SystemStatRow(
+private fun SectionHeading(text: String) {
+    val palette = LocalAegisPalette.current
+    Text(
+        text = text,
+        style = MaterialTheme.typography.labelSmall,
+        color = palette.accentSoft,
+        modifier = Modifier.padding(bottom = 8.dp),
+    )
+}
+
+@Composable
+private fun SettingsInfoRow(
     label: String,
     value: String,
     valueColor: Color = LocalAegisPalette.current.textPrimary,
@@ -532,14 +291,14 @@ private fun SystemStatRow(
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(vertical = 6.dp),
+            .padding(vertical = 8.dp),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically,
     ) {
         Text(
             text = label,
             style = MaterialTheme.typography.bodyMedium,
-            color = palette.textMuted,
+            color = palette.textSecondary,
         )
         Text(
             text = value,
@@ -547,5 +306,42 @@ private fun SystemStatRow(
             color = valueColor,
         )
     }
-    HorizontalDivider(color = palette.borderSubtle, thickness = 1.dp)
+}
+
+@Composable
+private fun SettingsSwitchRow(
+    title: String,
+    subtitle: String,
+    checked: Boolean,
+    onCheckedChange: (Boolean) -> Unit,
+    accentColor: Color = LocalAegisPalette.current.accent,
+) {
+    val palette = LocalAegisPalette.current
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(vertical = 8.dp),
+        verticalAlignment = Alignment.CenterVertically,
+    ) {
+        Column(modifier = Modifier.weight(1f)) {
+            Text(
+                text = title,
+                style = MaterialTheme.typography.titleSmall,
+                color = palette.textPrimary,
+            )
+            Text(
+                text = subtitle,
+                style = MaterialTheme.typography.bodyMedium,
+                color = palette.textMuted,
+            )
+        }
+        Switch(
+            checked = checked,
+            onCheckedChange = onCheckedChange,
+            colors = SwitchDefaults.colors(
+                checkedThumbColor = Color.White,
+                checkedTrackColor = accentColor,
+            ),
+        )
+    }
 }

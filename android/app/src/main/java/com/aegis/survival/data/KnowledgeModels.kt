@@ -81,6 +81,7 @@ data class ChatMessage(
     val confidencePercent: Int? = null,
     val citedArticles: List<IndexedArticle> = emptyList(),
     val groundingSources: List<GroundingSource> = emptyList(),
+    val followUps: List<String> = emptyList(),
     val timestampLabel: String = "",
 )
 
@@ -88,6 +89,8 @@ data class OfflineAnswer(
     val text: String,
     val confidencePercent: Int,
     val matchedArticles: List<IndexedArticle>,
+    val followUps: List<String> = emptyList(),
+    val contextTopic: String? = null,
 )
 
 enum class DisplayThemeMode(val label: String) {

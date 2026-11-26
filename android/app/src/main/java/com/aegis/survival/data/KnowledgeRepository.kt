@@ -112,10 +112,31 @@ class KnowledgeRepository(private val context: Context) {
         query: String,
         emergencyMode: Boolean,
         domainIdFilter: String? = null,
+        recentMessages: List<ChatMessage> = emptyList(),
+        activeArticleId: String? = null,
     ): OfflineAnswer {
         val trimmed = query.trim()
         val queryLower = trimmed.lowercase()
         val queryTokens = tokenize(trimmed)
+
+        val priorUserMessages = recentMessages
+            .filter { it.role == ChatRole.USER }
+            .takeLast(3)
+        val lastCitedArticle = activeArticleId?.let { getArticleById(it) }
+            ?: recentMessages
+                .lastOrNull { it.citedArticles.isNotEmpty() }
+                ?.citedArticles
+                ?.firstOrNull()
+
+        val isFollowUp = lastCitedArticle != null && isLikelyFollowUp(queryLower, queryTokens)
+        val contextTokens = if (recentMessages.isNotEmpty()) {
+            tokenize(
+                priorUserMessages.joinToString(" ") { it.text } + " " +
+                    (lastCitedArticle?.article?.title.orEmpty())
+            )
+        } else {
+            emptySet()
+        }
 
         val candidates = if (domainIdFilter.isNullOrBlank() || domainIdFilter == "all") {
             indexed
@@ -124,7 +145,29 @@ class KnowledgeRepository(private val context: Context) {
         }
 
         val ranked = candidates
-            .map { item -> item to scoreArticle(item, queryLower, queryTokens, emergencyMode) }
+            .map { item ->
+                var score = scoreArticle(item, queryLower, queryTokens, emergencyMode)
+
+                // Carry over conversation context when user asks follow-ups or stays in the same scenario
+                if (contextTokens.isNotEmpty()) {
+                    var ctxBoost = 0.0
+                    for (tok in contextTokens) {
+                        if (item.titleLower.contains(tok)) ctxBoost += 1.1
+                        else if (item.searchTokens.contains(tok)) ctxBoost += 0.3
+                    }
+                    score += ctxBoost.coerceAtMost(if (isFollowUp) 6.0 else 2.0)
+                }
+
+                if (lastCitedArticle != null && item.article.id == lastCitedArticle.article.id) {
+                    if (isFollowUp) {
+                        score += 6.5
+                    } else if (activeArticleId == item.article.id) {
+                        score += 5.0
+                    }
+                }
+
+                item to score
+            }
             .filter { it.second > 0.0 }
             .sortedByDescending { it.second }
 
@@ -132,24 +175,33 @@ class KnowledgeRepository(private val context: Context) {
             return OfflineAnswer(
                 text = buildString {
                     appendLine("**No Exact Offline Protocol Match**")
-                    appendLine("Try specific survival terms such as bleeding, airway, water purification, bow drill fire, shelter, hypothermia, wound infection, or solar power.")
+                    appendLine("Try describing your situation with terms like bleeding, airway, water purification, bow drill fire, shelter, hypothermia, wound infection, or solar power.")
                     appendLine()
                     appendLine("You can also browse all ${indexed.size} protocols across ${dataset.domains.size} domains in the Library tab.")
                 }.trim(),
                 confidencePercent = 0,
                 matchedArticles = emptyList(),
+                followUps = listOf(
+                    "Stop severe bleeding",
+                    "Purify water without fire",
+                    "Build emergency shelter",
+                ),
+                contextTopic = lastCitedArticle?.article?.title,
             )
         }
 
         val top = ranked.first()
         val topArticle = top.first
         val related = ranked.take(3).map { it.first }
-        val confidence = min(98, (top.second * 12.0).toInt().coerceIn(38, 98))
+        val confidence = min(98, (top.second * 11.0).toInt().coerceIn(42, 98))
+        val continuingSameTopic = lastCitedArticle != null &&
+            topArticle.article.id == lastCitedArticle.article.id &&
+            isFollowUp
 
-        val formatted = if (emergencyMode) {
-            formatEmergencySummary(topArticle)
-        } else {
-            buildString {
+        val formatted = when {
+            emergencyMode -> formatEmergencySummary(topArticle)
+            continuingSameTopic -> formatContextualFollowUp(topArticle, queryLower, queryTokens)
+            else -> buildString {
                 appendLine("**${topArticle.article.title}**")
                 appendLine("${topArticle.domainLabel} · ${topArticle.topicLabel} · ${topArticle.article.priority.uppercase()} · ${topArticle.article.time}")
                 appendLine()
@@ -168,7 +220,105 @@ class KnowledgeRepository(private val context: Context) {
             text = formatted,
             confidencePercent = confidence,
             matchedArticles = related,
+            followUps = buildFollowUpSuggestions(topArticle, related, queryLower),
+            contextTopic = topArticle.article.title,
         )
+    }
+
+    private fun isLikelyFollowUp(queryLower: String, queryTokens: Set<String>): Boolean {
+        if (FOLLOW_UP_PHRASES.any { queryLower.contains(it) }) return true
+        if (queryTokens.size <= 3 && FOLLOW_UP_PRONOUNS.any { Regex("\\b$it\\b").containsMatchIn(queryLower) }) {
+            return true
+        }
+        return false
+    }
+
+    private fun formatContextualFollowUp(
+        item: IndexedArticle,
+        queryLower: String,
+        queryTokens: Set<String>,
+    ): String {
+        val lines = item.article.body.lines().map { it.trim() }.filter { it.isNotEmpty() }
+        val intentKeywords = buildSet {
+            addAll(queryTokens)
+            if (queryLower.contains("without") || queryLower.contains("no ") || queryLower.contains("alternative") || queryLower.contains("instead")) {
+                addAll(listOf("alternative", "improvised", "bleach", "solar", "sodis", "filter", "cloth", "chemical", "backup", "substitute"))
+            }
+            if (queryLower.contains("long") || queryLower.contains("time") || queryLower.contains("wait") || queryLower.contains("minute") || queryLower.contains("hour")) {
+                addAll(listOf("min", "minute", "hour", "second", "wait", "boil", "duration", "check", "every"))
+            }
+            if (queryLower.contains("much") || queryLower.contains("many") || queryLower.contains("dose") || queryLower.contains("ratio") || queryLower.contains("liter")) {
+                addAll(listOf("drop", "drops", "liter", "gallon", "mg", "ml", "ratio", "dose", "tsp", "tbsp", "cup"))
+            }
+            if (queryLower.contains("warning") || queryLower.contains("danger") || queryLower.contains("avoid") || queryLower.contains("safe") || queryLower.contains("risk")) {
+                addAll(listOf("warning", "danger", "never", "do not", "avoid", "critical", "fatal", "toxic", "infection"))
+            }
+            if (queryLower.contains("sign") || queryLower.contains("symptom") || queryLower.contains("check") || queryLower.contains("know")) {
+                addAll(listOf("sign", "symptom", "check", "assess", "pulse", "color", "shock", "fever", "confusion"))
+            }
+        }
+
+        val scoredLines = lines.mapIndexed { idx, line ->
+            val lower = line.lowercase()
+            var lineScore = 0
+            for (kw in intentKeywords) {
+                if (lower.contains(kw)) lineScore += if (kw in queryTokens) 4 else 2
+            }
+            if (lower.contains("warning") || lower.contains("do not")) lineScore += 1
+            Triple(idx, line, lineScore)
+        }
+
+        val topIndices = scoredLines
+            .filter { it.third > 0 }
+            .sortedByDescending { it.third }
+            .take(8)
+            .map { it.first }
+            .sorted()
+
+        val focusedExcerpt = if (topIndices.isNotEmpty()) {
+            val expanded = linkedSetOf<Int>()
+            for (idx in topIndices) {
+                // Include immediate section heading above if present
+                if (idx > 0 && (lines[idx - 1].startsWith("**") || lines[idx - 1].endsWith(":"))) {
+                    expanded.add(idx - 1)
+                }
+                expanded.add(idx)
+                if (idx + 1 < lines.size && lines[idx].endsWith(":")) {
+                    expanded.add(idx + 1)
+                }
+            }
+            expanded.sorted().take(12).joinToString("\n") { lines[it] }
+        } else {
+            lines.take(10).joinToString("\n")
+        }
+
+        return buildString {
+            appendLine("**Continuing: ${item.article.title}**")
+            appendLine(focusedExcerpt)
+            appendLine()
+            append("Need another angle? Ask a specific constraint (gear missing, timing, warnings) or tap the guide below for the full manual.")
+        }.trim()
+    }
+
+    private fun buildFollowUpSuggestions(
+        top: IndexedArticle,
+        related: List<IndexedArticle>,
+        queryLower: String,
+    ): List<String> {
+        val suggestions = mutableListOf<String>()
+        if (!queryLower.contains("warning") && !queryLower.contains("avoid")) {
+            suggestions.add("What mistakes or warnings to avoid?")
+        }
+        if (!queryLower.contains("without") && !queryLower.contains("alternative")) {
+            suggestions.add("What if I don't have standard gear?")
+        }
+        if (!queryLower.contains("long") && !queryLower.contains("dose")) {
+            suggestions.add("Exact timing, dosage, or ratios?")
+        }
+        if (related.size > 1) {
+            suggestions.add("Next step: ${related[1].article.title.take(36)}")
+        }
+        return suggestions.distinct().take(3)
     }
 
     private fun formatEmergencySummary(item: IndexedArticle): String {
@@ -208,10 +358,10 @@ class KnowledgeRepository(private val context: Context) {
     ): Double {
         var score = 0.0
 
-        if (item.titleLower.contains(queryLower)) {
+        if (queryLower.length >= 3 && item.titleLower.contains(queryLower)) {
             score += 9.0
         }
-        if (item.bodyLower.contains(queryLower)) {
+        if (queryLower.length >= 4 && item.bodyLower.contains(queryLower)) {
             score += 4.5
         }
 
@@ -275,5 +425,12 @@ class KnowledgeRepository(private val context: Context) {
             "are", "how", "what", "when", "where", "into", "about", "can", "you",
             "will", "not", "use", "using", "make", "get", "need", "should", "must",
         )
+        private val FOLLOW_UP_PHRASES = listOf(
+            "what if", "how long", "how much", "how many", "what next", "next step",
+            "without", "don't have", "dont have", "no gear", "alternative", "instead",
+            "warning", "mistakes", "avoid", "dosage", "ratio", "symptoms", "signs of",
+            "explain", "more detail", "step by step", "for a child", "if it", "if they",
+        )
+        private val FOLLOW_UP_PRONOUNS = listOf("it", "that", "this", "them", "they", "one")
     }
 }

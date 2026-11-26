@@ -4,6 +4,7 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -25,7 +26,6 @@ import androidx.compose.material.icons.outlined.LightMode
 import androidx.compose.material.icons.outlined.Pause
 import androidx.compose.material.icons.outlined.PlayArrow
 import androidx.compose.material.icons.outlined.Refresh
-import androidx.compose.material.icons.outlined.WaterDrop
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.HorizontalDivider
@@ -65,336 +65,341 @@ fun EmergencyScreen(
     onOpenArticle: (IndexedArticle) -> Unit,
 ) {
     val palette = LocalAegisPalette.current
+    var activeSegment by rememberSaveable { mutableIntStateOf(0) } // 0 = Field Tools, 1 = Critical Guides
     var selectedLiters by rememberSaveable { mutableIntStateOf(1) }
 
-    LazyColumn(
+    Column(
         modifier = Modifier
             .fillMaxSize()
             .background(palette.canvas),
-        contentPadding = PaddingValues(bottom = 24.dp),
     ) {
-        item {
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(16.dp),
-                verticalArrangement = Arrangement.spacedBy(14.dp),
-            ) {
-                // Rule of 3 Quick Triage 2x2 Grid
-                Text(
-                    text = "RULE OF 3 · TAP FOR IMMEDIATE ACTION",
-                    style = MaterialTheme.typography.labelSmall,
-                    color = palette.accentSoft,
-                )
-                Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                    Row(
-                        modifier = Modifier.fillMaxWidth(),
-                        horizontalArrangement = Arrangement.spacedBy(8.dp),
-                    ) {
-                        TriageTile(
-                            metric = "3 MIN",
-                            label = "Airway & Bleeding",
-                            onClick = { onQuickTriageQuery("Airway management and severe bleeding control") },
-                            modifier = Modifier.weight(1f),
-                        )
-                        TriageTile(
-                            metric = "3 HRS",
-                            label = "Shelter & Exposure",
-                            onClick = { onQuickTriageQuery("Emergency shelter hypothermia prevention") },
-                            modifier = Modifier.weight(1f),
-                        )
-                    }
-                    Row(
-                        modifier = Modifier.fillMaxWidth(),
-                        horizontalArrangement = Arrangement.spacedBy(8.dp),
-                    ) {
-                        TriageTile(
-                            metric = "3 DAYS",
-                            label = "Water Purification",
-                            onClick = { onQuickTriageQuery("Water purification all methods") },
-                            modifier = Modifier.weight(1f),
-                        )
-                        TriageTile(
-                            metric = "3 WKS",
-                            label = "Food & Edibility",
-                            onClick = { onQuickTriageQuery("Universal edibility test food procurement") },
-                            modifier = Modifier.weight(1f),
+        // Clean 2-tab segmented switcher to eliminate vertical crowding
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 16.dp, vertical = 12.dp),
+            horizontalArrangement = Arrangement.spacedBy(8.dp),
+        ) {
+            listOf("Field Tools", "Critical Guides (${state.emergencyArticles.size})").forEachIndexed { idx, label ->
+                val selected = activeSegment == idx
+                Surface(
+                    color = if (selected) palette.surfaceElevated else palette.surface,
+                    border = BorderStroke(1.dp, if (selected) palette.accent else palette.borderSubtle),
+                    shape = RoundedCornerShape(12.dp),
+                    modifier = Modifier
+                        .weight(1f)
+                        .heightIn(min = 42.dp)
+                        .clickable { activeSegment = idx },
+                ) {
+                    Box(contentAlignment = Alignment.Center) {
+                        Text(
+                            text = label,
+                            style = MaterialTheme.typography.labelMedium,
+                            color = if (selected) palette.accentSoft else palette.textSecondary,
                         )
                     }
                 }
+            }
+        }
 
-                // Morse SOS Beacon Card
-                Surface(
-                    color = if (state.sosActive) palette.surfaceTinted else palette.surface,
-                    border = BorderStroke(
-                        1.dp,
-                        if (state.sosActive) palette.danger else palette.border,
-                    ),
-                    shape = RoundedCornerShape(16.dp),
-                    modifier = Modifier.fillMaxWidth(),
-                ) {
-                    Column(modifier = Modifier.padding(16.dp)) {
-                        Text(
-                            text = if (state.sosActive) {
-                                "MORSE SOS TRANSMITTING"
-                            } else {
-                                "EMERGENCY HARDWARE BEACON"
-                            },
-                            style = MaterialTheme.typography.labelMedium,
-                            color = if (state.sosActive) palette.danger else palette.accentSoft,
-                        )
-                        Spacer(modifier = Modifier.height(6.dp))
+        HorizontalDivider(color = palette.borderSubtle, thickness = 1.dp)
 
-                        // Visual Morse step readout
-                        Row(
-                            horizontalArrangement = Arrangement.spacedBy(6.dp),
-                            verticalAlignment = Alignment.CenterVertically,
-                        ) {
-                            MORSE_SYMBOLS.forEachIndexed { idx, sym ->
-                                val lit = state.sosActive && state.beaconLit && state.morseStepIndex == idx
+        if (activeSegment == 0) {
+            LazyColumn(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(palette.canvas),
+                contentPadding = PaddingValues(16.dp),
+                verticalArrangement = Arrangement.spacedBy(16.dp),
+            ) {
+                // 1. Morse SOS Beacon
+                item {
+                    Surface(
+                        color = if (state.sosActive) palette.surfaceTinted else palette.surface,
+                        border = BorderStroke(
+                            1.dp,
+                            if (state.sosActive) palette.danger else palette.borderSubtle,
+                        ),
+                        shape = RoundedCornerShape(16.dp),
+                        modifier = Modifier.fillMaxWidth(),
+                    ) {
+                        Column(modifier = Modifier.padding(16.dp)) {
+                            Row(
+                                modifier = Modifier.fillMaxWidth(),
+                                verticalAlignment = Alignment.CenterVertically,
+                                horizontalArrangement = Arrangement.SpaceBetween,
+                            ) {
                                 Text(
-                                    text = sym,
-                                    style = MaterialTheme.typography.titleMedium,
-                                    fontFamily = FontFamily.Monospace,
-                                    fontWeight = FontWeight.Bold,
-                                    color = if (lit) palette.danger else palette.textMuted,
+                                    text = if (state.sosActive) "SOS TRANSMITTING" else "MORSE SOS BEACON",
+                                    style = MaterialTheme.typography.labelMedium,
+                                    color = if (state.sosActive) palette.danger else palette.textSecondary,
                                 )
+                                Row(horizontalArrangement = Arrangement.spacedBy(4.dp)) {
+                                    MORSE_SYMBOLS.forEachIndexed { idx, sym ->
+                                        val lit = state.sosActive && state.beaconLit && state.morseStepIndex == idx
+                                        Text(
+                                            text = sym,
+                                            style = MaterialTheme.typography.bodyMedium,
+                                            fontFamily = FontFamily.Monospace,
+                                            fontWeight = FontWeight.Bold,
+                                            color = if (lit) palette.danger else palette.textMuted,
+                                        )
+                                    }
+                                }
+                            }
+
+                            Spacer(modifier = Modifier.height(14.dp))
+
+                            Row(
+                                modifier = Modifier.fillMaxWidth(),
+                                horizontalArrangement = Arrangement.spacedBy(10.dp),
+                            ) {
+                                Button(
+                                    onClick = onToggleSosTorch,
+                                    colors = ButtonDefaults.buttonColors(
+                                        containerColor = if (state.sosActive) palette.danger else palette.accent,
+                                    ),
+                                    shape = RoundedCornerShape(12.dp),
+                                    modifier = Modifier
+                                        .weight(1f)
+                                        .heightIn(min = 48.dp),
+                                ) {
+                                    Icon(
+                                        imageVector = if (state.sosActive) Icons.Outlined.FlashlightOff else Icons.Outlined.FlashlightOn,
+                                        contentDescription = "SOS Torch",
+                                        tint = Color.White,
+                                        modifier = Modifier.size(18.dp),
+                                    )
+                                    Spacer(modifier = Modifier.width(6.dp))
+                                    Text(
+                                        text = if (state.sosActive) "Stop" else "Torch SOS",
+                                        color = Color.White,
+                                        maxLines = 1,
+                                    )
+                                }
+
+                                OutlinedButton(
+                                    onClick = onToggleScreenBeacon,
+                                    border = BorderStroke(1.dp, palette.border),
+                                    shape = RoundedCornerShape(12.dp),
+                                    modifier = Modifier
+                                        .weight(1f)
+                                        .heightIn(min = 48.dp),
+                                ) {
+                                    Icon(
+                                        imageVector = Icons.Outlined.LightMode,
+                                        contentDescription = "Screen SOS",
+                                        tint = palette.accentSoft,
+                                        modifier = Modifier.size(18.dp),
+                                    )
+                                    Spacer(modifier = Modifier.width(6.dp))
+                                    Text(
+                                        text = "Screen",
+                                        color = palette.textPrimary,
+                                        maxLines = 1,
+                                    )
+                                }
                             }
                         }
+                    }
+                }
 
-                        Spacer(modifier = Modifier.height(12.dp))
-
+                // 2. Rule of 3 Triage
+                item {
+                    Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                        Text(
+                            text = "RULE OF 3 · QUICK TRIAGE",
+                            style = MaterialTheme.typography.labelSmall,
+                            color = palette.textMuted,
+                        )
                         Row(
                             modifier = Modifier.fillMaxWidth(),
-                            horizontalArrangement = Arrangement.spacedBy(10.dp),
+                            horizontalArrangement = Arrangement.spacedBy(8.dp),
                         ) {
-                            Button(
-                                onClick = onToggleSosTorch,
-                                colors = ButtonDefaults.buttonColors(
-                                    containerColor = if (state.sosActive) palette.danger else palette.accent,
-                                ),
-                                shape = RoundedCornerShape(12.dp),
-                                modifier = Modifier
-                                    .weight(1f)
-                                    .heightIn(min = 48.dp),
-                            ) {
-                                Icon(
-                                    imageVector = if (state.sosActive) Icons.Outlined.FlashlightOff else Icons.Outlined.FlashlightOn,
-                                    contentDescription = "SOS Torch",
-                                    tint = Color.White,
-                                    modifier = Modifier.size(18.dp),
-                                )
-                                Spacer(modifier = Modifier.width(6.dp))
-                                Text(
-                                    text = if (state.sosActive) "Stop SOS" else "Torch SOS",
-                                    color = Color.White,
-                                    maxLines = 1,
-                                )
-                            }
-
-                            OutlinedButton(
-                                onClick = onToggleScreenBeacon,
-                                border = BorderStroke(1.dp, palette.border),
-                                shape = RoundedCornerShape(12.dp),
-                                modifier = Modifier
-                                    .weight(1f)
-                                    .heightIn(min = 48.dp),
-                            ) {
-                                Icon(
-                                    imageVector = Icons.Outlined.LightMode,
-                                    contentDescription = "Screen SOS",
-                                    tint = palette.accentSoft,
-                                    modifier = Modifier.size(18.dp),
-                                )
-                                Spacer(modifier = Modifier.width(6.dp))
-                                Text(
-                                    text = "Screen SOS",
-                                    color = palette.textPrimary,
-                                    maxLines = 1,
-                                )
-                            }
+                            TriageTile(
+                                metric = "3 MIN",
+                                label = "Airway & Bleeding",
+                                onClick = { onQuickTriageQuery("Airway management and severe bleeding control") },
+                                modifier = Modifier.weight(1f),
+                            )
+                            TriageTile(
+                                metric = "3 HRS",
+                                label = "Shelter & Exposure",
+                                onClick = { onQuickTriageQuery("Emergency shelter hypothermia prevention") },
+                                modifier = Modifier.weight(1f),
+                            )
                         }
-
-                        if (!state.hasFlashHardware) {
-                            Spacer(modifier = Modifier.height(8.dp))
-                            Text(
-                                text = "Rear camera flash not detected — SOS automatically uses the screen beacon.",
-                                style = MaterialTheme.typography.labelSmall,
-                                color = palette.textMuted,
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.spacedBy(8.dp),
+                        ) {
+                            TriageTile(
+                                metric = "3 DAYS",
+                                label = "Water Purification",
+                                onClick = { onQuickTriageQuery("Water purification all methods") },
+                                modifier = Modifier.weight(1f),
+                            )
+                            TriageTile(
+                                metric = "3 WKS",
+                                label = "Food & Edibility",
+                                onClick = { onQuickTriageQuery("Universal edibility test food procurement") },
+                                modifier = Modifier.weight(1f),
                             )
                         }
                     }
                 }
 
-                // Field Utility: Water Boiling Timer & Bleach Dosage Calculator
-                Surface(
-                    color = palette.surface,
-                    border = BorderStroke(1.dp, palette.border),
-                    shape = RoundedCornerShape(16.dp),
-                    modifier = Modifier.fillMaxWidth(),
-                ) {
-                    Column(modifier = Modifier.padding(16.dp)) {
-                        Row(verticalAlignment = Alignment.CenterVertically) {
-                            Icon(
-                                imageVector = Icons.Outlined.WaterDrop,
-                                contentDescription = "Water safety tool",
-                                tint = palette.info,
-                                modifier = Modifier.size(18.dp),
-                            )
-                            Spacer(modifier = Modifier.width(6.dp))
+                // 3. Water Purification Timer & Bleach Dosage
+                item {
+                    Surface(
+                        color = palette.surface,
+                        border = BorderStroke(1.dp, palette.borderSubtle),
+                        shape = RoundedCornerShape(16.dp),
+                        modifier = Modifier.fillMaxWidth(),
+                    ) {
+                        Column(modifier = Modifier.padding(16.dp)) {
                             Text(
-                                text = "WATER PURIFICATION FIELD TOOL",
+                                text = "WATER BOIL & BLEACH",
                                 style = MaterialTheme.typography.labelMedium,
                                 color = palette.info,
                             )
-                        }
+                            Spacer(modifier = Modifier.height(10.dp))
 
-                        Spacer(modifier = Modifier.height(10.dp))
+                            val mins = state.boilTimerRemainingSec / 60
+                            val secs = state.boilTimerRemainingSec % 60
+                            val formattedTime = String.format("%02d:%02d", mins, secs)
 
-                        // Rolling Boil Timer
-                        val mins = state.boilTimerRemainingSec / 60
-                        val secs = state.boilTimerRemainingSec % 60
-                        val formattedTime = String.format("%02d:%02d", mins, secs)
+                            Row(
+                                modifier = Modifier.fillMaxWidth(),
+                                verticalAlignment = Alignment.CenterVertically,
+                                horizontalArrangement = Arrangement.SpaceBetween,
+                            ) {
+                                Column {
+                                    Text(
+                                        text = formattedTime,
+                                        style = MaterialTheme.typography.headlineMedium,
+                                        fontFamily = FontFamily.Monospace,
+                                        color = if (state.boilTimerRunning) palette.ok else palette.textPrimary,
+                                    )
+                                    Text(
+                                        text = if (state.boilTimerHighAltitude) ">2,000m (3 min)" else "Sea level (1 min)",
+                                        style = MaterialTheme.typography.labelSmall,
+                                        color = palette.textMuted,
+                                    )
+                                }
 
-                        Row(
-                            modifier = Modifier.fillMaxWidth(),
-                            verticalAlignment = Alignment.CenterVertically,
-                            horizontalArrangement = Arrangement.SpaceBetween,
-                        ) {
-                            Column {
-                                Text(
-                                    text = formattedTime,
-                                    style = MaterialTheme.typography.headlineMedium,
-                                    fontFamily = FontFamily.Monospace,
-                                    color = if (state.boilTimerRunning) palette.ok else palette.textPrimary,
+                                Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                                    IconButton(
+                                        onClick = onToggleBoilTimer,
+                                        modifier = Modifier
+                                            .size(44.dp)
+                                            .background(palette.accent, RoundedCornerShape(12.dp)),
+                                    ) {
+                                        Icon(
+                                            imageVector = if (state.boilTimerRunning) Icons.Outlined.Pause else Icons.Outlined.PlayArrow,
+                                            contentDescription = "Start or pause boil timer",
+                                            tint = Color.White,
+                                        )
+                                    }
+                                    IconButton(
+                                        onClick = onResetBoilTimer,
+                                        modifier = Modifier
+                                            .size(44.dp)
+                                            .background(palette.surfaceElevated, RoundedCornerShape(12.dp)),
+                                    ) {
+                                        Icon(
+                                            imageVector = Icons.Outlined.Refresh,
+                                            contentDescription = "Reset boil timer",
+                                            tint = palette.textPrimary,
+                                        )
+                                    }
+                                }
+                            }
+
+                            Spacer(modifier = Modifier.height(10.dp))
+                            Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                                CompactToggle(
+                                    label = "Sea Level",
+                                    selected = !state.boilTimerHighAltitude,
+                                    onClick = { onSetBoilAltitude(false) },
                                 )
-                                Text(
-                                    text = if (state.boilTimerHighAltitude) {
-                                        "Rolling boil · >2,000m altitude (3 min)"
-                                    } else {
-                                        "Rolling boil · Sea level (1 min)"
-                                    },
-                                    style = MaterialTheme.typography.labelSmall,
-                                    color = palette.textMuted,
+                                CompactToggle(
+                                    label = ">2,000m",
+                                    selected = state.boilTimerHighAltitude,
+                                    onClick = { onSetBoilAltitude(true) },
                                 )
                             }
 
-                            Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
-                                IconButton(
-                                    onClick = onToggleBoilTimer,
-                                    modifier = Modifier
-                                        .size(46.dp)
-                                        .background(palette.accent, RoundedCornerShape(12.dp)),
-                                ) {
-                                    Icon(
-                                        imageVector = if (state.boilTimerRunning) Icons.Outlined.Pause else Icons.Outlined.PlayArrow,
-                                        contentDescription = "Start or pause boil timer",
-                                        tint = Color.White,
-                                    )
-                                }
-                                IconButton(
-                                    onClick = onResetBoilTimer,
-                                    modifier = Modifier
-                                        .size(46.dp)
-                                        .background(palette.surfaceElevated, RoundedCornerShape(12.dp)),
-                                ) {
-                                    Icon(
-                                        imageVector = Icons.Outlined.Refresh,
-                                        contentDescription = "Reset boil timer",
-                                        tint = palette.textPrimary,
+                            Spacer(modifier = Modifier.height(14.dp))
+                            HorizontalDivider(color = palette.borderSubtle, thickness = 1.dp)
+                            Spacer(modifier = Modifier.height(12.dp))
+
+                            Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                                listOf(1, 4, 10, 20).forEach { liters ->
+                                    CompactToggle(
+                                        label = "${liters}L",
+                                        selected = selectedLiters == liters,
+                                        onClick = { selectedLiters = liters },
                                     )
                                 }
                             }
-                        }
-
-                        Spacer(modifier = Modifier.height(10.dp))
-                        Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                            AltitudeToggle(
-                                label = "Sea Level (1m)",
-                                selected = !state.boilTimerHighAltitude,
-                                onClick = { onSetBoilAltitude(false) },
-                            )
-                            AltitudeToggle(
-                                label = ">2,000m (3m)",
-                                selected = state.boilTimerHighAltitude,
-                                onClick = { onSetBoilAltitude(true) },
+                            Spacer(modifier = Modifier.height(8.dp))
+                            Text(
+                                text = "5–6% unscented bleach: ${selectedLiters * 2} drops clear · ${selectedLiters * 4} drops cloudy · Wait 30 min",
+                                style = MaterialTheme.typography.bodyMedium,
+                                color = palette.textSecondary,
                             )
                         }
-
-                        Spacer(modifier = Modifier.height(14.dp))
-                        HorizontalDivider(color = palette.borderSubtle, thickness = 1.dp)
-                        Spacer(modifier = Modifier.height(12.dp))
-
-                        // Unscented Bleach Dosage (5–6% sodium hypochlorite)
+                    }
+                }
+            }
+        } else {
+            LazyColumn(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(palette.canvas),
+                contentPadding = PaddingValues(bottom = 20.dp),
+            ) {
+                if (state.bookmarkedArticles.isNotEmpty()) {
+                    item {
                         Text(
-                            text = "Unscented Bleach (5–6% NaOCl) · Wait 30 min",
+                            text = "SAVED GUIDES",
                             style = MaterialTheme.typography.labelSmall,
-                            color = palette.textSecondary,
+                            color = palette.ok,
+                            modifier = Modifier.padding(start = 18.dp, top = 14.dp, bottom = 6.dp),
                         )
-                        Spacer(modifier = Modifier.height(8.dp))
-                        Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                            listOf(1, 4, 10, 20).forEach { liters ->
-                                AltitudeToggle(
-                                    label = "${liters}L",
-                                    selected = selectedLiters == liters,
-                                    onClick = { selectedLiters = liters },
-                                )
-                            }
-                        }
-                        Spacer(modifier = Modifier.height(8.dp))
-                        val clearDrops = selectedLiters * 2
-                        val cloudyDrops = selectedLiters * 4
-                        Text(
-                            text = "Clear water: $clearDrops drops · Cloudy water: $cloudyDrops drops (filter through cloth first)",
-                            style = MaterialTheme.typography.bodyMedium,
-                            color = palette.textPrimary,
+                    }
+                    items(state.bookmarkedArticles, key = { "saved_${it.article.id}" }) { article ->
+                        ArticleListRow(
+                            item = article,
+                            isBookmarked = true,
+                            onToggleBookmark = { onToggleBookmark(article.article.id) },
+                            onClick = { onOpenArticle(article) },
                         )
+                        HorizontalDivider(color = palette.borderSubtle, thickness = 1.dp)
                     }
                 }
 
-                // Saved Bookmarks Quick Section
-                if (state.bookmarkedArticles.isNotEmpty()) {
+                item {
                     Text(
-                        text = "SAVED PROTOCOLS · ${state.bookmarkedArticles.size} PINNED",
+                        text = "CRITICAL IMMEDIATE",
                         style = MaterialTheme.typography.labelSmall,
-                        color = palette.ok,
+                        color = palette.textMuted,
+                        modifier = Modifier.padding(start = 18.dp, top = 14.dp, bottom = 6.dp),
                     )
                 }
-            }
-        }
 
-        if (state.bookmarkedArticles.isNotEmpty()) {
-            items(state.bookmarkedArticles, key = { "saved_${it.article.id}" }) { article ->
-                ArticleListRow(
-                    item = article,
-                    isBookmarked = true,
-                    onToggleBookmark = { onToggleBookmark(article.article.id) },
-                    onClick = { onOpenArticle(article) },
-                )
-                HorizontalDivider(color = palette.borderSubtle, thickness = 1.dp)
+                items(state.emergencyArticles, key = { "em_${it.domainId}_${it.article.id}" }) { article ->
+                    val isSaved = article.article.id in state.settings.bookmarkedArticleIds
+                    ArticleListRow(
+                        item = article,
+                        isBookmarked = isSaved,
+                        onToggleBookmark = { onToggleBookmark(article.article.id) },
+                        onClick = { onOpenArticle(article) },
+                    )
+                    HorizontalDivider(color = palette.borderSubtle, thickness = 1.dp)
+                }
             }
-        }
-
-        item {
-            Column(modifier = Modifier.padding(start = 16.dp, end = 16.dp, top = 16.dp, bottom = 8.dp)) {
-                Text(
-                    text = "CRITICAL IMMEDIATE PROTOCOLS · ${state.emergencyArticles.size} LOADED",
-                    style = MaterialTheme.typography.labelSmall,
-                    color = palette.accentSoft,
-                )
-            }
-            HorizontalDivider(color = palette.border, thickness = 1.dp)
-        }
-
-        items(state.emergencyArticles, key = { "em_${it.domainId}_${it.article.id}" }) { article ->
-            val isSaved = article.article.id in state.settings.bookmarkedArticleIds
-            ArticleListRow(
-                item = article,
-                isBookmarked = isSaved,
-                onToggleBookmark = { onToggleBookmark(article.article.id) },
-                onClick = { onOpenArticle(article) },
-            )
-            HorizontalDivider(color = palette.borderSubtle, thickness = 1.dp)
         }
     }
 }
@@ -409,10 +414,10 @@ private fun TriageTile(
     val palette = LocalAegisPalette.current
     Surface(
         color = palette.surface,
-        border = BorderStroke(1.dp, palette.border),
+        border = BorderStroke(1.dp, palette.borderSubtle),
         shape = RoundedCornerShape(14.dp),
         modifier = modifier
-            .heightIn(min = 72.dp)
+            .heightIn(min = 68.dp)
             .clickable { onClick() },
     ) {
         Column(
@@ -421,7 +426,7 @@ private fun TriageTile(
         ) {
             Text(
                 text = metric,
-                style = MaterialTheme.typography.titleMedium,
+                style = MaterialTheme.typography.titleSmall,
                 fontFamily = FontFamily.Monospace,
                 fontWeight = FontWeight.Bold,
                 color = palette.accentSoft,
@@ -438,7 +443,7 @@ private fun TriageTile(
 }
 
 @Composable
-private fun AltitudeToggle(
+private fun CompactToggle(
     label: String,
     selected: Boolean,
     onClick: () -> Unit,
@@ -446,15 +451,15 @@ private fun AltitudeToggle(
     val palette = LocalAegisPalette.current
     Surface(
         color = if (selected) palette.surfaceTinted else palette.surfaceElevated,
-        border = BorderStroke(1.dp, if (selected) palette.accent else palette.border),
+        border = BorderStroke(1.dp, if (selected) palette.accent else palette.borderSubtle),
         shape = RoundedCornerShape(10.dp),
         modifier = Modifier
-            .heightIn(min = 38.dp)
+            .heightIn(min = 36.dp)
             .clickable { onClick() },
     ) {
-        Row(
-            modifier = Modifier.padding(horizontal = 12.dp, vertical = 8.dp),
-            verticalAlignment = Alignment.CenterVertically,
+        Box(
+            contentAlignment = Alignment.Center,
+            modifier = Modifier.padding(horizontal = 12.dp, vertical = 6.dp),
         ) {
             Text(
                 text = label,

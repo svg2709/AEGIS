@@ -56,6 +56,8 @@ data class AegisUiState(
     val showSavedOnly: Boolean = false,
     val chatDomainFocus: String = "all",
     val onlineChatMode: OnlineChatMode = OnlineChatMode.GENERAL,
+    val activeContextTopic: String? = null,
+    val activeContextArticleId: String? = null,
     val chatMessages: List<ChatMessage> = emptyList(),
     val isThinking: Boolean = false,
     val settings: AppSettings = AppSettings(),
@@ -444,6 +446,8 @@ class AegisViewModel(application: Application) : AndroidViewModel(application) {
         hardware.vibrate(25L, _uiState.value.effectiveRoutineHaptics)
         _uiState.update { state ->
             state.copy(
+                activeContextTopic = null,
+                activeContextArticleId = null,
                 chatMessages = listOf(
                     ChatMessage(
                         id = UUID.randomUUID().toString(),
@@ -686,11 +690,23 @@ class AegisViewModel(application: Application) : AndroidViewModel(application) {
         _uiState.update { it.copy(onlineChatMode = mode) }
     }
 
-    fun sendQuery(rawQuery: String) {
+    fun askAboutArticle(article: IndexedArticle, rawQuery: String) {
+        _uiState.update {
+            it.copy(
+                activeContextTopic = article.article.title,
+                activeContextArticleId = article.article.id,
+            )
+        }
+        sendQuery(rawQuery = rawQuery, pinnedArticleId = article.article.id)
+    }
+
+    fun sendQuery(rawQuery: String, pinnedArticleId: String? = null) {
         val query = rawQuery.trim()
         if (query.isEmpty() || _uiState.value.isThinking) return
 
         val stateSnapshot = _uiState.value
+        val priorMessages = stateSnapshot.chatMessages
+        val effectiveArticleId = pinnedArticleId ?: stateSnapshot.activeContextArticleId
         val onlineNow = hardware.isOnline()
         val userMsg = ChatMessage(
             id = UUID.randomUUID().toString(),
@@ -720,6 +736,8 @@ class AegisViewModel(application: Application) : AndroidViewModel(application) {
 
             var replyMsg: ChatMessage? = null
             var fallbackNotice: String? = null
+            var nextContextTopic: String? = stateSnapshot.activeContextTopic
+            var nextContextArticleId: String? = effectiveArticleId
 
             if (canTryOnline) {
                 val result = proxyClient.sendChat(
@@ -728,10 +746,26 @@ class AegisViewModel(application: Application) : AndroidViewModel(application) {
                     emergency = settings.emergencyMode,
                     domain = domainFocus,
                     mode = chatMode.apiValue,
-                    recentMessages = _uiState.value.chatMessages,
+                    activeArticleId = effectiveArticleId,
+                    recentMessages = priorMessages,
                 )
                 result.onSuccess { proxyReply ->
-                    val related = repository.answerOffline(query, settings.emergencyMode, domainFocus).matchedArticles
+                    val citedFromIds = proxyReply.citedArticleIds
+                        .mapNotNull { repository.getArticleById(it) }
+                    val related = citedFromIds.ifEmpty {
+                        repository.answerOffline(
+                            query = query,
+                            emergencyMode = settings.emergencyMode,
+                            domainIdFilter = domainFocus,
+                            recentMessages = priorMessages,
+                            activeArticleId = effectiveArticleId,
+                        ).matchedArticles
+                    }
+                    nextContextTopic = proxyReply.contextTopic?.takeIf { it.isNotBlank() }
+                        ?: related.firstOrNull()?.article?.title
+                        ?: nextContextTopic
+                    nextContextArticleId = related.firstOrNull()?.article?.id ?: nextContextArticleId
+
                     replyMsg = ChatMessage(
                         id = UUID.randomUUID().toString(),
                         role = if (settings.emergencyMode) ChatRole.EMERGENCY else ChatRole.ASSISTANT,
@@ -739,6 +773,7 @@ class AegisViewModel(application: Application) : AndroidViewModel(application) {
                         sourceLabel = proxyReply.source.uppercase(),
                         citedArticles = related,
                         groundingSources = proxyReply.groundingSources,
+                        followUps = proxyReply.followUps,
                         timestampLabel = currentTime(),
                     )
                 }.onFailure { err ->
@@ -751,14 +786,19 @@ class AegisViewModel(application: Application) : AndroidViewModel(application) {
                     query = query,
                     emergencyMode = settings.emergencyMode,
                     domainIdFilter = domainFocus,
+                    recentMessages = priorMessages,
+                    activeArticleId = effectiveArticleId,
                 )
+                nextContextTopic = offline.contextTopic ?: nextContextTopic
+                nextContextArticleId = offline.matchedArticles.firstOrNull()?.article?.id ?: nextContextArticleId
                 replyMsg = ChatMessage(
                     id = UUID.randomUUID().toString(),
                     role = if (settings.emergencyMode) ChatRole.EMERGENCY else ChatRole.ASSISTANT,
                     text = offline.text,
-                    sourceLabel = "OFFLINE KB",
+                    sourceLabel = "OFFLINE CONTEXT",
                     confidencePercent = offline.confidencePercent.takeIf { it > 0 },
                     citedArticles = offline.matchedArticles,
+                    followUps = offline.followUps,
                     timestampLabel = currentTime(),
                 )
             }
@@ -781,6 +821,8 @@ class AegisViewModel(application: Application) : AndroidViewModel(application) {
                 }
                 state.copy(
                     isThinking = false,
+                    activeContextTopic = nextContextTopic,
+                    activeContextArticleId = nextContextArticleId,
                     chatMessages = nextMessages,
                 )
             }

@@ -57,6 +57,10 @@ fun LibraryScreen(
     onAskFallback: (String) -> Unit,
 ) {
     val palette = LocalAegisPalette.current
+    val isAllSelected = !state.showSavedOnly &&
+        state.selectedPriorityFilter == null &&
+        state.selectedDomainFilter == null &&
+        state.selectedTierFilter == null
 
     Column(
         modifier = Modifier
@@ -70,7 +74,7 @@ fun LibraryScreen(
                 Icon(
                     imageVector = Icons.Outlined.Search,
                     contentDescription = "Search",
-                    tint = palette.textSecondary,
+                    tint = palette.textMuted,
                 )
             },
             trailingIcon = {
@@ -86,7 +90,7 @@ fun LibraryScreen(
             },
             placeholder = {
                 Text(
-                    text = "Search ${state.allArticlesCount} offline protocols...",
+                    text = "Search ${state.allArticlesCount} guides...",
                     style = MaterialTheme.typography.bodyMedium,
                     color = palette.textMuted,
                 )
@@ -96,7 +100,7 @@ fun LibraryScreen(
                 focusedContainerColor = palette.surfaceElevated,
                 unfocusedContainerColor = palette.surface,
                 focusedBorderColor = palette.accent,
-                unfocusedBorderColor = palette.border,
+                unfocusedBorderColor = palette.borderSubtle,
                 focusedTextColor = palette.textPrimary,
                 unfocusedTextColor = palette.textPrimary,
                 cursorColor = palette.accentSoft,
@@ -107,7 +111,7 @@ fun LibraryScreen(
                 .padding(horizontal = 16.dp, vertical = 10.dp),
         )
 
-        // Saved + Tier + Priority filters
+        // Single clean horizontal filter row (replaces two stacked chip rows)
         LazyRow(
             contentPadding = PaddingValues(horizontal = 16.dp),
             horizontalArrangement = Arrangement.spacedBy(8.dp),
@@ -115,51 +119,32 @@ fun LibraryScreen(
         ) {
             item {
                 FilterToggleButton(
-                    label = "Saved (${state.settings.bookmarkedArticleIds.size})",
+                    label = "All",
+                    selected = isAllSelected,
+                    onClick = {
+                        if (state.showSavedOnly) onToggleSavedOnly()
+                        onSelectTier(null)
+                        onSelectPriority(null)
+                        onSelectDomain(null)
+                    },
+                )
+            }
+            item {
+                FilterToggleButton(
+                    label = if (state.settings.bookmarkedArticleIds.isNotEmpty()) {
+                        "Saved (${state.settings.bookmarkedArticleIds.size})"
+                    } else {
+                        "Saved"
+                    },
                     selected = state.showSavedOnly,
                     onClick = onToggleSavedOnly,
                 )
             }
             item {
                 FilterToggleButton(
-                    label = "All Tiers",
-                    selected = state.selectedTierFilter == null && !state.showSavedOnly,
-                    onClick = { onSelectTier(null) },
-                )
-            }
-            listOf(1 to "Tier 1 · Survive", 2 to "Tier 2 · Sustain", 3 to "Tier 3 · Rebuild").forEach { (tier, label) ->
-                item {
-                    FilterToggleButton(
-                        label = label,
-                        selected = state.selectedTierFilter == tier,
-                        onClick = { onSelectTier(tier) },
-                    )
-                }
-            }
-            listOf("critical" to "Critical", "high" to "High").forEach { (prio, label) ->
-                item {
-                    FilterToggleButton(
-                        label = label,
-                        selected = state.selectedPriorityFilter == prio,
-                        onClick = { onSelectPriority(prio) },
-                    )
-                }
-            }
-        }
-
-        Spacer(modifier = Modifier.height(8.dp))
-
-        // Domain filters
-        LazyRow(
-            contentPadding = PaddingValues(horizontal = 16.dp),
-            horizontalArrangement = Arrangement.spacedBy(8.dp),
-            modifier = Modifier.fillMaxWidth(),
-        ) {
-            item {
-                FilterToggleButton(
-                    label = "All Domains (${state.domains.size})",
-                    selected = state.selectedDomainFilter == null,
-                    onClick = { onSelectDomain(null) },
+                    label = "Critical",
+                    selected = state.selectedPriorityFilter == "critical",
+                    onClick = { onSelectPriority("critical") },
                 )
             }
             items(state.domains, key = { it.id }) { domain ->
@@ -172,15 +157,7 @@ fun LibraryScreen(
         }
 
         Spacer(modifier = Modifier.height(10.dp))
-
-        Text(
-            text = "${state.filteredArticles.size} of ${state.allArticlesCount} offline protocols",
-            style = MaterialTheme.typography.labelSmall,
-            color = palette.textMuted,
-            modifier = Modifier.padding(horizontal = 16.dp, vertical = 4.dp),
-        )
-
-        HorizontalDivider(color = palette.border, thickness = 1.dp)
+        HorizontalDivider(color = palette.borderSubtle, thickness = 1.dp)
 
         if (state.filteredArticles.isEmpty()) {
             Column(
@@ -191,19 +168,19 @@ fun LibraryScreen(
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
                 Text(
-                    text = if (state.showSavedOnly) "No saved protocols yet" else "No matching offline protocols",
+                    text = if (state.showSavedOnly) "No saved guides yet" else "No matching guides",
                     style = MaterialTheme.typography.titleMedium,
                     color = palette.textPrimary,
                 )
-                Spacer(modifier = Modifier.height(8.dp))
+                Spacer(modifier = Modifier.height(6.dp))
                 Text(
                     text = if (state.showSavedOnly) {
-                        "Tap the bookmark icon on any protocol to pin it for instant emergency access."
+                        "Tap the bookmark icon on any guide to pin it here."
                     } else {
-                        "Clear filters or ask the AEGIS assistant directly."
+                        "Try another keyword or ask AEGIS directly."
                     },
                     style = MaterialTheme.typography.bodyMedium,
-                    color = palette.textSecondary,
+                    color = palette.textMuted,
                 )
                 if (state.searchQuery.isNotBlank()) {
                     Spacer(modifier = Modifier.height(16.dp))
@@ -213,7 +190,7 @@ fun LibraryScreen(
                         shape = RoundedCornerShape(12.dp),
                         modifier = Modifier.heightIn(min = 48.dp),
                     ) {
-                        Text(text = "Ask AEGIS Assistant", color = Color.White)
+                        Text(text = "Ask AEGIS", color = Color.White)
                     }
                 }
             }
@@ -247,15 +224,15 @@ private fun FilterToggleButton(
 ) {
     val palette = LocalAegisPalette.current
     Surface(
-        color = if (selected) palette.surfaceTinted else palette.surface,
-        border = BorderStroke(1.dp, if (selected) palette.accent else palette.border),
-        shape = RoundedCornerShape(11.dp),
+        color = if (selected) palette.surfaceTinted else Color.Transparent,
+        border = BorderStroke(1.dp, if (selected) palette.accent else palette.borderSubtle),
+        shape = RoundedCornerShape(10.dp),
         modifier = Modifier
-            .heightIn(min = 40.dp)
+            .heightIn(min = 36.dp)
             .clickable { onClick() },
     ) {
         Row(
-            modifier = Modifier.padding(horizontal = 12.dp, vertical = 8.dp),
+            modifier = Modifier.padding(horizontal = 12.dp, vertical = 7.dp),
             verticalAlignment = Alignment.CenterVertically,
         ) {
             Text(
@@ -279,7 +256,7 @@ fun ArticleListRow(
     val priorityColor = when (item.article.priority.lowercase()) {
         "critical" -> palette.danger
         "high" -> palette.warn
-        else -> palette.ok
+        else -> palette.textMuted
     }
 
     Row(
@@ -288,7 +265,7 @@ fun ArticleListRow(
             .background(palette.canvas)
             .clickable { onClick() }
             .heightIn(min = 68.dp)
-            .padding(start = 16.dp, end = 8.dp, top = 12.dp, bottom = 12.dp),
+            .padding(start = 18.dp, end = 8.dp, top = 14.dp, bottom = 14.dp),
         verticalAlignment = Alignment.CenterVertically,
     ) {
         Column(modifier = Modifier.weight(1f)) {
@@ -299,15 +276,19 @@ fun ArticleListRow(
                 maxLines = 2,
                 overflow = TextOverflow.Ellipsis,
             )
-            Spacer(modifier = Modifier.height(5.dp))
+            Spacer(modifier = Modifier.height(4.dp))
             Row(verticalAlignment = Alignment.CenterVertically) {
+                if (item.article.priority.equals("critical", ignoreCase = true) ||
+                    item.article.priority.equals("high", ignoreCase = true)
+                ) {
+                    Text(
+                        text = "${item.article.priority.uppercase()} · ",
+                        style = MaterialTheme.typography.labelSmall,
+                        color = priorityColor,
+                    )
+                }
                 Text(
-                    text = item.article.priority.uppercase(),
-                    style = MaterialTheme.typography.labelSmall,
-                    color = priorityColor,
-                )
-                Text(
-                    text = " · ${item.article.time} · ${item.domainLabel} · Tier ${item.tier}",
+                    text = item.domainLabel,
                     style = MaterialTheme.typography.labelSmall,
                     color = palette.textMuted,
                     maxLines = 1,
@@ -322,19 +303,19 @@ fun ArticleListRow(
             ) {
                 Icon(
                     imageVector = if (isBookmarked) Icons.Filled.Bookmark else Icons.Outlined.BookmarkBorder,
-                    contentDescription = if (isBookmarked) "Remove bookmark" else "Save protocol",
+                    contentDescription = if (isBookmarked) "Remove bookmark" else "Save guide",
                     tint = if (isBookmarked) palette.accentSoft else palette.textMuted,
-                    modifier = Modifier.size(20.dp),
+                    modifier = Modifier.size(19.dp),
                 )
             }
         }
         Icon(
             imageVector = Icons.Outlined.ChevronRight,
-            contentDescription = "Read protocol",
+            contentDescription = "Read guide",
             tint = palette.textMuted,
             modifier = Modifier
                 .padding(end = 6.dp)
-                .size(20.dp),
+                .size(18.dp),
         )
     }
 }

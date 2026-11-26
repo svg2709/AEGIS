@@ -24,6 +24,7 @@ private data class ProxyChatRequest(
     val emergency: Boolean,
     val domain: String,
     val mode: String = "general",
+    val activeArticleId: String? = null,
     val history: List<ProxyHistoryItem>,
 )
 
@@ -32,6 +33,9 @@ data class ProxyChatResponse(
     val reply: String = "",
     val source: String = "server-proxy",
     val groundingSources: List<GroundingSource> = emptyList(),
+    val citedArticleIds: List<String> = emptyList(),
+    val followUps: List<String> = emptyList(),
+    val contextTopic: String? = null,
     val error: String? = null,
 )
 
@@ -59,6 +63,7 @@ class OnlineProxyClient {
         emergency: Boolean,
         domain: String,
         mode: String = "general",
+        activeArticleId: String? = null,
         recentMessages: List<ChatMessage>,
     ): Result<ProxyChatResponse> = withContext(Dispatchers.IO) {
         if (!isValidHttpsBaseUrl(baseUrl)) {
@@ -72,28 +77,40 @@ class OnlineProxyClient {
             connection = (url.openConnection() as HttpURLConnection).apply {
                 requestMethod = "POST"
                 connectTimeout = 8_000
-                readTimeout = 20_000
+                readTimeout = 25_000
                 doOutput = true
                 setRequestProperty("Content-Type", "application/json; charset=utf-8")
                 setRequestProperty("Accept", "application/json")
             }
 
-            val history = recentMessages
+            val trimmedMessage = message.trim().take(2000)
+            val filtered = recentMessages
                 .filter { it.role == ChatRole.USER || it.role == ChatRole.ASSISTANT || it.role == ChatRole.EMERGENCY }
-                .takeLast(10)
-                .map {
-                    ProxyHistoryItem(
-                        role = if (it.role == ChatRole.USER) "user" else "assistant",
-                        content = it.text.take(1200),
-                    )
-                }
+                .takeLast(14)
+                .toMutableList()
+
+            // Guard against duplicating the active user turn inside history
+            if (filtered.isNotEmpty() &&
+                filtered.last().role == ChatRole.USER &&
+                filtered.last().text.trim().equals(trimmedMessage, ignoreCase = true)
+            ) {
+                filtered.removeAt(filtered.lastIndex)
+            }
+
+            val history = filtered.map {
+                ProxyHistoryItem(
+                    role = if (it.role == ChatRole.USER) "user" else "assistant",
+                    content = it.text.take(1400),
+                )
+            }
 
             val payload = json.encodeToString(
                 ProxyChatRequest(
-                    message = message.trim().take(2000),
+                    message = trimmedMessage,
                     emergency = emergency,
                     domain = domain.ifBlank { "all" },
                     mode = mode,
+                    activeArticleId = activeArticleId,
                     history = history,
                 )
             )

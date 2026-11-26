@@ -15,16 +15,22 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.WindowInsetsSides
+import androidx.compose.foundation.layout.consumeWindowInsets
+import androidx.compose.foundation.layout.displayCutout
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
+import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.navigationBarsPadding
+import androidx.compose.foundation.layout.only
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.statusBarsPadding
+import androidx.compose.foundation.layout.statusBars
+import androidx.compose.foundation.layout.union
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.AutoStories
 import androidx.compose.material.icons.outlined.Forum
@@ -113,6 +119,10 @@ private fun AegisRootApp(
         fontScale = state.settings.readingFontScale,
     ) {
         val palette = LocalAegisPalette.current
+        // Guarantee top bars always clear both the notification bar and camera cutout
+        val topSafeInsets = WindowInsets.statusBars
+            .union(WindowInsets.displayCutout)
+            .only(WindowInsetsSides.Top + WindowInsetsSides.Horizontal)
 
         BackHandler(enabled = state.activeArticle != null || state.sosScreenBeaconVisible) {
             if (state.sosScreenBeaconVisible) {
@@ -133,8 +143,9 @@ private fun AegisRootApp(
                     modifier = Modifier
                         .fillMaxSize()
                         .background(palette.canvas)
-                        .statusBarsPadding()
-                        .navigationBarsPadding(),
+                        .windowInsetsPadding(topSafeInsets)
+                        .navigationBarsPadding()
+                        .imePadding(),
                 ) {
                     ArticleReaderScreen(
                         article = activeArticle,
@@ -144,21 +155,27 @@ private fun AegisRootApp(
                         onToggleBookmark = { viewModel.toggleBookmark(activeArticle.article.id) },
                         onBack = viewModel::closeArticle,
                         onShare = { viewModel.shareArticle(activeArticle) },
-                        onAskFollowUp = { prompt -> viewModel.sendQuery(prompt) },
+                        onAskFollowUp = { prompt -> viewModel.askAboutArticle(activeArticle, prompt) },
                     )
                 }
             } else {
                 Scaffold(
                     containerColor = palette.canvas,
-                    contentWindowInsets = WindowInsets.safeDrawing,
+                    // Insets are handled explicitly on topBar, bottomBar, and content IME padding
+                    contentWindowInsets = WindowInsets(0, 0, 0, 0),
                     snackbarHost = { SnackbarHost(hostState = snackbarHostState) },
                     topBar = {
-                        Column(modifier = Modifier.background(palette.canvas)) {
+                        Column(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .background(palette.canvas)
+                                .windowInsetsPadding(topSafeInsets),
+                        ) {
                             Row(
                                 modifier = Modifier
                                     .fillMaxWidth()
                                     .heightIn(min = 52.dp)
-                                    .padding(horizontal = 16.dp),
+                                    .padding(horizontal = 20.dp),
                                 verticalAlignment = Alignment.CenterVertically,
                                 horizontalArrangement = Arrangement.SpaceBetween,
                             ) {
@@ -169,51 +186,49 @@ private fun AegisRootApp(
                                     color = palette.accentSoft,
                                 )
 
-                                Row(verticalAlignment = Alignment.CenterVertically) {
-                                    if (state.availableUpdate != null && !state.showUpdateDialog) {
-                                        Row(
-                                            modifier = Modifier
-                                                .clickable { viewModel.openUpdatePrompt() }
-                                                .padding(horizontal = 8.dp, vertical = 6.dp),
-                                            verticalAlignment = Alignment.CenterVertically,
-                                        ) {
-                                            Icon(
-                                                imageVector = Icons.Outlined.SystemUpdate,
-                                                contentDescription = "Update available",
-                                                tint = palette.accentSoft,
-                                                modifier = Modifier.size(16.dp),
-                                            )
-                                            Spacer(modifier = Modifier.width(4.dp))
-                                            Text(
-                                                text = "Update v${state.availableUpdate!!.latestVersion}",
-                                                style = MaterialTheme.typography.labelSmall,
-                                                color = palette.accentSoft,
-                                            )
-                                        }
-                                    } else {
+                                if (state.availableUpdate != null && !state.showUpdateDialog) {
+                                    Row(
+                                        modifier = Modifier
+                                            .clickable { viewModel.openUpdatePrompt() }
+                                            .padding(horizontal = 8.dp, vertical = 6.dp),
+                                        verticalAlignment = Alignment.CenterVertically,
+                                    ) {
+                                        Icon(
+                                            imageVector = Icons.Outlined.SystemUpdate,
+                                            contentDescription = "Update available",
+                                            tint = palette.accentSoft,
+                                            modifier = Modifier.size(16.dp),
+                                        )
+                                        Spacer(modifier = Modifier.width(5.dp))
                                         Text(
-                                            text = when {
-                                                state.sosActive -> "SOS ACTIVE"
-                                                state.isBatterySaverActive -> "AMOLED SAVER · ${state.batteryStatus.batteryPercent}%"
-                                                state.settings.onlineProxyEnabled && state.isOnline && state.settings.proxyBaseUrl.isNotBlank() -> "HYBRID ONLINE"
-                                                else -> "OFFLINE · ${state.allArticlesCount} PROTOCOLS"
-                                            },
+                                            text = "v${state.availableUpdate!!.latestVersion}",
                                             style = MaterialTheme.typography.labelSmall,
-                                            color = when {
-                                                state.sosActive -> palette.danger
-                                                state.isBatterySaverActive -> palette.ok
-                                                else -> palette.textMuted
-                                            },
+                                            color = palette.accentSoft,
                                         )
                                     }
+                                } else {
+                                    Text(
+                                        text = when {
+                                            state.sosActive -> "SOS ACTIVE"
+                                            state.isBatterySaverActive -> "AMOLED SAVER · ${state.batteryStatus.batteryPercent}%"
+                                            state.settings.onlineProxyEnabled && state.isOnline && state.settings.proxyBaseUrl.isNotBlank() -> "HYBRID"
+                                            else -> "OFFLINE"
+                                        },
+                                        style = MaterialTheme.typography.labelSmall,
+                                        color = when {
+                                            state.sosActive -> palette.danger
+                                            state.isBatterySaverActive -> palette.ok
+                                            else -> palette.textMuted
+                                        },
+                                    )
                                 }
                             }
-                            HorizontalDivider(color = palette.border, thickness = 1.dp)
+                            HorizontalDivider(color = palette.borderSubtle, thickness = 1.dp)
                         }
                     },
                     bottomBar = {
                         Column(modifier = Modifier.background(palette.canvas)) {
-                            HorizontalDivider(color = palette.border, thickness = 1.dp)
+                            HorizontalDivider(color = palette.borderSubtle, thickness = 1.dp)
                             NavigationBar(
                                 containerColor = palette.canvas,
                                 contentColor = palette.textPrimary,
@@ -255,11 +270,15 @@ private fun AegisRootApp(
                         }
                     },
                 ) { innerPadding ->
+                    // consumeWindowInsets(innerPadding) + imePadding() lifts the bottom composer
+                    // cleanly right above the software keyboard with zero overlap or gap.
                     Box(
                         modifier = Modifier
                             .fillMaxSize()
                             .background(palette.canvas)
-                            .padding(innerPadding),
+                            .padding(innerPadding)
+                            .consumeWindowInsets(innerPadding)
+                            .imePadding(),
                     ) {
                         when (state.selectedTab) {
                             AegisTab.ASK -> AskScreen(
@@ -269,6 +288,7 @@ private fun AegisRootApp(
                                 onSelectOnlineChatMode = viewModel::setOnlineChatMode,
                                 onOpenArticle = viewModel::openArticle,
                                 onCopyMessage = viewModel::copyMessageText,
+                                onResetChat = viewModel::clearChatHistory,
                             )
 
                             AegisTab.LIBRARY -> LibraryScreen(
@@ -315,35 +335,13 @@ private fun AegisRootApp(
                 }
             }
 
-            // Full-screen SOS visual beacon overlay
             if (state.sosScreenBeaconVisible) {
-                Box(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .background(if (state.beaconLit) palette.accent else Color.Black)
-                        .clickable { viewModel.stopSosBeacon() },
-                    contentAlignment = Alignment.Center,
-                ) {
-                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                        Text(
-                            text = "S · O · S",
-                            style = MaterialTheme.typography.headlineMedium,
-                            fontWeight = FontWeight.Bold,
-                            color = Color.White,
-                        )
-                        Spacer(modifier = Modifier.height(16.dp))
-                        Button(
-                            onClick = viewModel::stopSosBeacon,
-                            colors = ButtonDefaults.buttonColors(containerColor = Color.Black),
-                            modifier = Modifier.heightIn(min = 48.dp),
-                        ) {
-                            Text("Tap to Stop Beacon", color = Color.White)
-                        }
-                    }
-                }
+                SosBeaconOverlay(
+                    beaconLit = state.beaconLit,
+                    onStop = viewModel::stopSosBeacon,
+                )
             }
 
-            // Explicit user confirmation dialog before downloading/installing any update
             val pendingUpdate = state.availableUpdate
             if (state.showUpdateDialog && pendingUpdate != null) {
                 UpdatePromptDialog(
@@ -355,6 +353,59 @@ private fun AegisRootApp(
                     onConfirmUpdate = viewModel::confirmAndInstallUpdate,
                     onOpenPermissionSettings = viewModel::openInstallUnknownAppsSettings,
                     onDismiss = viewModel::dismissUpdateDialog,
+                )
+            }
+        }
+    }
+}
+
+@Composable
+private fun SosBeaconOverlay(
+    beaconLit: Boolean,
+    onStop: () -> Unit,
+) {
+    val palette = LocalAegisPalette.current
+    val bg = if (beaconLit) Color(0xFFFF1E3C) else Color.Black
+    val fg = if (beaconLit) Color.White else palette.accentSoft
+    val topSafeInsets = WindowInsets.statusBars
+        .union(WindowInsets.displayCutout)
+        .only(WindowInsetsSides.Top + WindowInsetsSides.Horizontal)
+
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(bg)
+            .windowInsetsPadding(topSafeInsets)
+            .navigationBarsPadding(),
+        contentAlignment = Alignment.Center,
+    ) {
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center,
+            modifier = Modifier.padding(24.dp),
+        ) {
+            Text(
+                text = "S · O · S",
+                style = MaterialTheme.typography.headlineMedium,
+                fontWeight = FontWeight.Bold,
+                color = fg,
+            )
+            Spacer(modifier = Modifier.height(10.dp))
+            Text(
+                text = "••• ——— •••",
+                style = MaterialTheme.typography.titleMedium,
+                color = fg,
+            )
+            Spacer(modifier = Modifier.height(32.dp))
+            Button(
+                onClick = onStop,
+                colors = ButtonDefaults.buttonColors(containerColor = palette.surfaceElevated),
+                modifier = Modifier.heightIn(min = 52.dp),
+            ) {
+                Text(
+                    text = "STOP SOS BEACON",
+                    color = palette.textPrimary,
+                    style = MaterialTheme.typography.titleSmall,
                 )
             }
         }
