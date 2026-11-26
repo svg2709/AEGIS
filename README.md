@@ -1,97 +1,40 @@
-# AEGIS
-AEGIS (Autonomous Emergency Guidance & Intelligence System)
+# AEGIS — Offline Survival AI for Humanity
 
-AEGIS is an offline-first artificial intelligence system designed to preserve and provide critical knowledge required for human survival during extreme global emergencies such as wars, natural disasters, or societal collapse.
+AEGIS (Autonomous Emergency Guidance & Intelligence System) is an offline-first survival and civilization recovery platform designed to work with zero internet connectivity.
 
-The project aims to build a portable AI survival assistant capable of guiding individuals and communities in situations where access to the internet, modern infrastructure, and institutional knowledge is unavailable.
+## What's Inside
 
-AEGIS combines local language models with a curated survival knowledge base to deliver step-by-step instructions, technical guidance, and emergency procedures in a completely offline environment.
+- **Native Android App (`android/`)**: Built with **Kotlin + Jetpack Compose** (Material 3) on a **true AMOLED pitch-black (`#000000`)** default canvas to maximize OLED battery life.
+  - **100% Offline Knowledge Base**: All **14 domains, 37 topics, and 81 survival protocols** bundled directly inside the APK (`aegis_kb.json`) with fast local search and ranking.
+  - **Emergency Hardware Tools**: International Morse SOS camera torch beacon (`... --- ...`) with automatic full-screen beacon fallback, tactile haptics, and native Android share sheet export.
+  - **Optional HTTPS AI Proxy**: Connect to your self-hosted AEGIS server for online synthesis while automatically falling back to the offline knowledge base when disconnected.
+- **Web Preview & Optional Server AI Proxy (`server.js`, `index.html`, `aegis-landing.html`)**:
+  - Serves the interactive web app at `/` and landing page at `/landing` on port `3000`.
+  - Exposes `GET /api/health`, `GET /api/kb`, and `POST /api/ai/chat` (reads `GEMINI_API_KEY` or `ANTHROPIC_API_KEY` strictly from server environment variables).
+- **Automated GitHub APK Builds & Releases (`.github/workflows/android-release.yml`)**:
+  - Compiles release and debug APKs directly on GitHub Actions using JDK 21 and Gradle 8.11.1.
+  - Automatically generates commit changelogs + SHA-256 checksums and publishes a new GitHub Release on every push to `main` or tag `v*.*.*`.
 
-The system is designed to function as a civilization resilience tool, helping humanity maintain access to essential knowledge needed for survival and long-term recovery.
+## Building & Running Locally
 
-Core Modules
-1. Basic Survival Knowledge
-   Provides practical guidance for essential survival situations including:
-     Water purification methods
-     Fire starting techniques
-     Shelter construction
-     Navigation and orientation
-     Food sourcing and preservation
-     Disaster preparedness
+### Web Preview & Optional AI Proxy
+```bash
+npm install
+npm run dev
+```
+Open `http://localhost:3000` for the web app or `http://localhost:3000/landing` for the landing page. Copy `.env.example` to `.env` if you want to enable the optional server-side AI proxy.
 
-2. Emergency Medical Assistance
-   AEGIS includes access to critical medical knowledge designed for resource-limited environments, including:
-     First aid procedures
-     Trauma and bleeding control
-     Fracture stabilization
-     Infection prevention and treatment
-     Emergency childbirth guidance
-     Field medicine protocols
+### Native Android App
+1. Open the `android/` directory in Android Studio (JDK 17/21, Android SDK 35).
+2. Run **Build > Make Project** or `./gradlew assembleRelease`.
 
-3. Engineering and Infrastructure
-   Provides instructions for building essential systems using limited resources:
-     Water filtration systems
-     Mechanical tools and equipment
-     Wind and solar power generation
-     Basic electronics and communication systems
-     Low-tech machinery and repair guides
+### Automated GitHub Releases & Optional Release Signing
+Every push to `main` or version tag (`git tag v1.1.0 && git push origin v1.1.0`) automatically builds the APK, generates a release changelog, and publishes a GitHub Release with attached APKs and `SHA256SUMS.txt`.
 
-4. Agriculture and Sustainability
-   Supports long-term survival through sustainable food production:
-     Soil restoration techniques
-     Crop rotation and irrigation
-     Seed saving and storage
-     Permaculture principles
-     Small-scale farming systems
+To sign release APKs with your own Android release keystore in GitHub Actions, add these repository secrets under **Settings > Secrets and variables > Actions**:
+- `ANDROID_KEYSTORE_BASE64` — Base64-encoded `.jks` keystore file
+- `ANDROID_KEYSTORE_PASSWORD` — Keystore password
+- `ANDROID_KEY_ALIAS` — Signing key alias
+- `ANDROID_KEY_PASSWORD` — Signing key password
 
-5. Civilization Recovery Knowledge
-   AEGIS aims to preserve the scientific and technical knowledge necessary to rebuild basic industries:
-     Metallurgy fundamentals
-     Chemistry basics
-     Mechanical engineering principles
-     Energy generation methods
-     Communication technologies
-
-Key Features
-Fully offline-capable AI system
-Local LLM-based reasoning engine
-Retrieval-Augmented Generation (RAG) for reliable answers
-Curated survival knowledge base
-Expandable knowledge architecture
-Portable deployment (Laptop / Raspberry Pi / Local server)
-
-
-A. Technology Stack
-Programming Language
-  Python
-  AI Models
-  LLaMA
-  Mistral
-  Gemma
-  Phi
-
-
-B. Knowledge Retrieval
-    LangChain / LlamaIndex
-    Vector Database
-    FAISS
-    Embeddings
-    SentenceTransformers
-
-C. Interface
-    Streamlit / Flask
-
-D.Project Vision
-
-AEGIS aims to serve as a digital knowledge safeguard for humanity, ensuring that essential survival knowledge remains accessible even in extreme circumstances where global infrastructure may fail.
-By combining AI reasoning with verified technical knowledge, AEGIS seeks to support human resilience, adaptability, and long-term recovery.
-
-Future Development
-Planned improvements include:
-1. Expansion of the survival knowledge dataset
-2. Deployment on low-power devices
-3. Multi-language support
-4. Distributed knowledge updates
-5. Improved medical guidance safety mechanisms
-
-Redeployment and bug fixes
+Without these secrets, GitHub Actions still builds and publishes an immediately installable APK automatically.

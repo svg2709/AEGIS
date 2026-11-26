@@ -1,0 +1,8 @@
+<resources>
+    <style name="Theme.AEGIS" parent="android:Theme.Material.NoActionBar">
+        <item name="android:windowBackground">@color/amoled_black</item>
+        <item name="android:colorBackground">@color/amoled_black</item>
+        <item name="android:statusBarColor">@color/amoled_black</item>
+        <item name="android:navigationBarColor">@color/amoled_black</item>
+    </style>
+</resources>

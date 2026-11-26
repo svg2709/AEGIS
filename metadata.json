@@ -1,5 +1,8 @@
 {
   "name": "AEGIS — Offline Survival AI for Humanity",
   "description": "An offline AI survival system designed to preserve human knowledge during global catastrophes. Works without internet on any device.",
-  "requestFramePermissions": []
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
 }

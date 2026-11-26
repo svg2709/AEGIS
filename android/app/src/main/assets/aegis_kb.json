@@ -1,0 +1,974 @@
+{
+  "version": "1.0.0",
+  "domainCount": 14,
+  "topicCount": 37,
+  "articleCount": 81,
+  "domains": [
+    {
+      "id": "survival",
+      "label": "Core Survival",
+      "icon": "◈",
+      "color": "#ff1744",
+      "tier": 1,
+      "description": "The foundational priorities for staying alive. Rule of 3 governs everything: air, shelter, water, food. Master these before all else.",
+      "topics": [
+        {
+          "id": "priorities",
+          "label": "Survival Priorities & Psychology",
+          "icon": "◈",
+          "articles": [
+            {
+              "id": "sp1",
+              "title": "Rule of 3 — Survival Priorities",
+              "priority": "critical",
+              "time": "immediate",
+              "body": "Survival decisions must be made in order of urgency. The Rule of 3 defines your timeline.\n\n**The Rule of 3**\n3 minutes without air (airway obstruction, drowning, cardiac arrest)\n3 hours without shelter in harsh weather (hypothermia, hyperthermia)\n3 days without water (severe dehydration, organ failure)\n3 weeks without food (starvation, though functional decline begins sooner)\n\n**Immediate Priority Checklist**\n1. Stop. Breathe. Assess — panic burns calories and causes errors.\n2. Check yourself for injuries — adrenaline masks pain.\n3. Survey immediate environment — threats: fire, flood, unstable terrain, predators.\n4. Assess weather — is shelter your first need, or water?\n5. Signal for rescue if that option exists.\n\n**Survival Psychology**\nMost survival deaths occur within 24–72 hours, usually from panic-driven decisions. The will to survive is a genuine physiological force: people with clear purpose survive longer than those who give up. Name your reason to survive. Write it down if you have paper.\n\nFear is normal. Panic is optional. Fear sharpens senses; panic disables them. When panic rises: stop all movement, sit down, breathe slowly for 60 seconds, then assess rationally.\n\n**Decision-Making Framework**\nIdentify your Stopwatch (what kills you fastest?), your Resources (what do you have?), your Options (what can you do?), and your Action (do the best option now). Reassess every few hours.\n\n**Leadership in Groups**\nAssign roles immediately. Idle people spiral into panic. One person must lead — not necessarily the strongest, but the most rational. Rotate tasks. Keep children and injured members occupied with simple jobs: gathering dry leaves, sorting supplies. Shared purpose is survival glue."
+            },
+            {
+              "id": "sp2",
+              "title": "Risk Assessment in Survival Situations",
+              "priority": "high",
+              "time": "ongoing",
+              "body": "Every action in a survival situation carries risk. Rational risk assessment is a learnable skill.\n\n**The STOP Method**\nStop — cease movement, conserve energy\nThink — what is the actual situation?\nObserve — what are all available resources and hazards?\nPlan — choose the action with the best risk/reward ratio\n\n**Resource Inventory**\nBefore taking any significant action, inventory: water on your person, food on your person, tools and fire-making capability, shelter materials within sight, signaling capability, medical needs, companion condition.\n\n**Risk vs. Benefit**\nMoving uses 4× more calories than staying still. Moving can lead further from rescuers. But staying is not always right: if shelter is inadequate for tonight's temperature, moving to better shelter is worth the calorie cost.\n\nRisk formula: probability of harm × severity of harm vs. probability of benefit × magnitude of benefit.\n\n**Common Fatal Errors**\n— Abandoning shelter before dawn in cold weather\n— Drinking surface water without purification\n— Overexerting in heat or cold seeking help\n— Eating unknown plants to stave off hunger\n— Underestimating distance to rescue\n— Not signaling rescuers due to embarrassment"
+            }
+          ]
+        },
+        {
+          "id": "water",
+          "label": "Water Procurement",
+          "icon": "💧",
+          "articles": [
+            {
+              "id": "w1",
+              "title": "Finding Water in the Wild",
+              "priority": "critical",
+              "time": "immediate",
+              "body": "Water is your most urgent survival need after shelter in cold weather.\n\n**Reading the Landscape**\nFollow animal tracks downhill — they always lead to water. Watch birds at dawn and dusk; they fly toward water in straight lines. Listen for running water. Dense green vegetation in dry terrain signals groundwater nearby: willows, cattails, and cottonwoods grow only where roots reach water.\n\n**Terrain Signs**\nValleys and ravines collect water. Rocky outcrops collect dew. Dry riverbeds often have water 1–3 feet below the surface — dig at the outer bend where sediment is deepest.\n\n**Collection Methods**\nSolar still: Dig a 1-metre pit, place a container at the bottom, cover with clear plastic, weight the centre with a pebble. Produces 0.5–1 litre per day in full sun.\nDew collection: Tie absorbent cloth around legs before dawn, walk through vegetation, wring into container. Can yield 0.5 litres per hour.\nTranspiration bag: Tie a clear bag over leafy branches in full sun. Condensation collects in 4–6 hours.\n\n**Desert Water**\nCacti contain water in pulp — cut, mash, and squeeze; do not eat the pulp (toxic alkaloids). Follow dry washes to natural tanks in rock depressions. Tamarisk trees indicate water within 5 metres below surface.\n\n**Never Drink**\nSeawater (accelerates dehydration). Urine (concentrates toxins). Unknown liquids. Blood."
+            },
+            {
+              "id": "w2",
+              "title": "Water Purification — All Methods",
+              "priority": "critical",
+              "time": "immediate",
+              "body": "All found water must be treated before drinking unless from a trusted sealed spring.\n\n**Boiling — The Gold Standard**\nBring water to a rolling boil for 1 minute (3 minutes above 2,000m altitude). Kills all biological threats: bacteria, viruses, protozoa, Giardia, Cryptosporidium. Does not remove chemical contamination.\n\n**Chemical Treatment**\nUnscented household bleach (5–8% sodium hypochlorite): 2 drops per litre for clear water, 4 drops for cloudy. Wait 30 minutes before drinking. Does not kill Cryptosporidium — combine with filtration.\n\nIodine tablets: 1 tablet per litre, wait 30 minutes. Pregnancy risk — do not use for extended periods.\n\n**Biosand Filtration**\nBuild a layered filter: fine sand (20cm), coarse sand (20cm), fine gravel (10cm), coarse gravel (10cm). Water passes top to bottom. Biological layer (schmutzdecke) forms on top sand within 2 weeks and provides additional pathogen removal. Filter output still requires boiling or chemical treatment for viruses.\n\n**SODIS (Solar Disinfection)**\nFill clear PET plastic bottles, lay on corrugated metal roof in full sun. 6 hours minimum on sunny days; 2 consecutive days on cloudy days. Effective against bacteria and viruses. Does not kill Cryptosporidium at standard solar levels.\n\n**Distillation**\nBoil water, capture steam in a cloth or curved surface, collect condensate. Only method that removes heavy metals, salt, and chemical contamination. Essential for seawater.\n\n**Priority Order**\nIf you can only do one thing: boil. If you have time: filter first, then boil. If long-term: build a biosand filter, boil all output."
+            },
+            {
+              "id": "w3",
+              "title": "Water Infrastructure — Wells & Pumps",
+              "priority": "high",
+              "time": "days",
+              "body": "Long-term survival requires reliable water infrastructure beyond collection and purification.\n\n**Hand-Dug Wells**\nSite selection: dig at the highest point of local water table, away from latrines and animal areas (minimum 30 metres). Dig in the morning when water table is highest. Dig a shaft 1 metre diameter for worker access. Shore walls with stones, wood, or concrete rings to prevent collapse.\n\nTypical well depth varies by geology: 5–15 metres in valleys, 15–30+ metres on elevated ground. Stop when you reach saturated soil that refills faster than you can bail.\n\n**Well Casing and Protection**\nLine the upper 3 metres with impermeable material (concrete, clay) to prevent surface water contamination. Build a raised curbing wall at least 30cm above ground. Install a cover. Never use the same bucket for drawing water and other tasks.\n\n**Ram Pump (No Electricity Required)**\nA hydraulic ram pump uses the energy of a large volume of falling water to pump a small volume to much greater height. Components: drive pipe (long, feeding water at slope), delivery pipe, waste valve, check valve, air chamber. Once established, runs continuously with no external energy input. Can pump water 10× higher than the source drop.\n\n**Gravity-Fed Systems**\nIf water source is above your settlement, gravity feed through pipes eliminates all pumping. Calculate head pressure: every 10m of height provides ~1 bar pressure. Use flexible pipe or bamboo sealed with clay for distribution."
+            }
+          ]
+        },
+        {
+          "id": "shelter",
+          "label": "Shelter Systems",
+          "icon": "🏠",
+          "articles": [
+            {
+              "id": "sh1",
+              "title": "Emergency Shelter — Immediate Construction",
+              "priority": "critical",
+              "time": "immediate",
+              "body": "Shelter is your first priority in cold, wet, or extreme heat. Hypothermia can kill in hours; heatstroke in less.\n\n**Debris Hut (Cold Weather)**\nThe debris hut is the best emergency shelter with no materials — body heat alone can keep you alive in near-freezing temperatures.\n\nSite: choose a spot sheltered from wind, away from dead trees and flood zones. Collect a pole 3–4 metres long. Prop the thick end 1 metre off the ground against a stump. Collect dead dry leaves, grass, ferns, bracken — enough to fill a minivan. Pile material both sides of the pole, 1 metre deep. Plug the entrance. Crawl in, plug behind you. Insulation must be thick enough that you cannot feel the cold ground.\n\n**Lean-To (General Use)**\nLash a ridgepole horizontally between two trees. Lean branches against it at 45° to form a wall. Cover with bark, leaves, or tarp. Orient the opening away from prevailing wind. Add a fire reflector wall opposite to redirect heat into the shelter.\n\n**Underground Shelter**\nIn extreme cold or heat, underground shelters use earth's stable temperature (~10–15°C year-round at 1m depth). Dig into a hillside for a dugout. Shore the roof with timber or flat stone. Leave a ventilation hole. Works equally well for summer heat.\n\n**Cold Weather Rules**\nKeep your head and neck covered — 40% of heat loss is through the head. Insulate from the ground: ground conducts heat away from the body 25× faster than air. Dry is life: wet clothing loses 90% of its insulating value.\n\n**Desert/Heat Shelter**\nA dark shelter in direct sun becomes an oven. Build a raised sleeping platform 30–60cm off hot ground. Double-roof the structure with an air gap of 30cm — the gap ventilates and the outer roof intercepts direct radiation. Orient openings to catch prevailing wind."
+            },
+            {
+              "id": "sh2",
+              "title": "Long-Term Shelter Construction",
+              "priority": "high",
+              "time": "weeks",
+              "body": "Permanent shelter requires understanding of materials, structure, and thermal performance.\n\n**Timber Frame**\nPost-and-beam construction uses vertical posts and horizontal beams to carry roof loads. Joints are mortise-and-tenon or notch-and-lash. No metal fasteners required — correctly made mortise-and-tenon joints are stronger than the timber itself. Use green (freshly cut) timber for shaping, allow to dry in place. Common mistake: using undersized timbers. Minimum 15cm × 15cm for main posts.\n\n**Stone Masonry**\nDry-stone construction (no mortar) can last centuries. Choose stones that are flat on at least one face. Alternate bond — never let two vertical joints line up. Use a through-stone (spanning the full wall width) every metre. Walls should batter (lean inward) slightly. Maximum stable height for dry-stone without buttressing: ~2 metres.\n\n**Adobe / Mud Brick**\nMix clay soil (50%), sand (35%), and straw or grass (15%). Straw prevents cracking. Form into bricks (standard: 30×15×10cm). Dry in shade 2 weeks, then in sun 2 weeks. Walls 40cm thick provide excellent thermal mass — cool in day, warm at night. Protect from rain with large roof overhangs.\n\n**Passive Heating/Cooling**\nSouth-facing windows (northern hemisphere) maximise winter sun. Thermal mass (stone, adobe, water) absorbs daytime heat and releases at night. A trombe wall — dark thermal mass directly behind glass — passively heats interiors. Cross-ventilation (openings on opposite walls) creates cooling airflow. Stack effect: high openings exhaust hot air, drawing cool air through low openings."
+            }
+          ]
+        },
+        {
+          "id": "fire",
+          "label": "Fire Systems",
+          "icon": "🔥",
+          "articles": [
+            {
+              "id": "fi1",
+              "title": "Friction Fire — Bow Drill",
+              "priority": "critical",
+              "time": "immediate",
+              "body": "Friction fire is the most reliable primitive fire method. Mastering it before you need it is essential.\n\n**Equipment**\nFireboard: dry, soft-medium hardwood (willow, cedar, basswood, cottonwood, mullein). Grain runs straight. No resins, no bark on the notch area. Thickness: 1.5–2cm.\nSpindle: same wood species as board, or slightly harder. Straight, round, 60cm long, 2cm diameter. Smooth rounded tip (top end), blunt pointed tip (bottom).\nBow: curved branch, 60–70cm. Bowstring: shoelace, paracord, rawhide — any cordage that won't stretch.\nHearth board or socket: hard wood or stone for the spindle top.\nCatchboard: bark, leaf, or flat stone to catch the coal.\n\n**Technique**\nCut a shallow depression in the fireboard and drill it open with the spindle. Cut a pie-shaped notch from the edge of the hole to the centre: exactly 1/8 of the circle. Powder accumulates in this notch.\n\nPosition: one knee down, foot on the fireboard holding it steady. Bow in dominant hand, spindle in bow string (one loop around spindle), socket in off hand pressed down on spindle top.\n\nStroke: long, even, full-length bow strokes. Maintain constant downward pressure. Speed must be consistent — not faster, just steadier. A good coal typically takes 15–30 full strokes.\n\nSign of success: thick white smoke, black powder accumulating in notch. Continue 5 more strokes after smoke begins. Carefully tilt the board to roll the coal onto the catchboard. Transfer to tinder bundle, blow gently.\n\n**Common Failures**\nWet wood is the #1 cause of failure. Smoke but no coal: increase downward pressure. Spindle slipping: check bowstring tension. Coal crumbles when moved: too dry; add a tiny drop of moisture to notch."
+            },
+            {
+              "id": "fi2",
+              "title": "Fire Lays, Fuel, and Fire Management",
+              "priority": "high",
+              "time": "immediate",
+              "body": "Starting fire is only half the skill. Managing fire for specific purposes is the other.\n\n**Fire Lay Types**\nTeepee lay: fuel leaned in a cone above the tinder. Burns fast and hot — good for boiling water quickly. Burns down quickly; needs constant feeding.\nLog cabin lay: fuel stacked in a square around the tinder, like a log cabin. Burns slowly, produces a stable bed of coals — ideal for cooking and warmth.\nStar lay: four long logs pointing into a central fire, pushed in as they burn. Extremely fuel-efficient; useful when wood is scarce.\nTrench fire: dig a 20cm trench aligned with prevailing wind. Fire in the trench is wind-sheltered and oxygen-fed from below — most wind-resistant fire lay.\n\n**Fuel Sequence**\nTinder: the finest, driest material — grass, inner bark fibres, down feathers, dry leaves, charred cloth. Must light from a single spark.\nKindling: finger-thickness sticks. Must be bone dry. Graduated sizes from match-stick up to pencil thickness.\nFuel: progressively larger wood. Never add large fuel before small fuel is burning strongly.\n\n**Fire for Specific Purposes**\nCooking: a bed of coals, not flames. Let fire burn down for 45–60 minutes before cooking over it. Flames produce soot and uneven heat.\nWater sterilisation: full rolling boil required — large bubbles continuously breaking the surface.\nSignaling: add green leaves, plastic, or rubber to produce dark smoke visible from aircraft. In snowy landscapes, use black materials; in jungles, white smoke (add water to fire) is more visible.\nWarmth: fire + reflector wall behind you doubles warmth. Sleep 1–1.5 metres from fire — closer means burning sparks, further means cold.\n\n**Fire Safety**\nNever leave fire unattended. Establish a clear perimeter. In dry conditions, spark arrest is critical. Extinguish completely: pour water, stir, pour again — ashes can remain hot for hours."
+            },
+            {
+              "id": "fi3",
+              "title": "Solar and Spark Ignition Methods",
+              "priority": "medium",
+              "time": "immediate",
+              "body": "Alternative ignition methods work when friction fire is impractical due to moisture or physical limitation.\n\n**Magnifying Lens**\nA convex lens — magnifying glass, binocular lens, bottle bottom filled with water and tied off, a clear plastic bag of water — focuses sunlight into a small point capable of igniting tinder. Requires bright direct sunlight. Focus the smallest, brightest dot on the darkest, driest tinder. Hold steady for 15–30 seconds. Works: eyeglasses (convex lenses only), camera lenses, telescopes, broken glass bowls, ice lens ground into convex shape.\n\n**Flint and Steel**\nRequires flint (or quartzite, chert, jasper, obsidian) and high-carbon steel. Strike flint against steel at 45°, directing sparks onto char cloth or amadou tinder. Char cloth: cotton fabric pre-charred in a tin to create an excellent spark catcher. Much easier than friction fire; flint lasts thousands of strikes.\n\n**Battery Spark**\nTouch wire from both terminals of a 9V battery (or two AA batteries in series) to steel wool. Instant ignition. Even partially depleted batteries work. Works in rain if the steel wool is sheltered.\n\n**Fire Starting in Rain**\nSplit wet logs to access dry interior. Shave off thin curls of dry inner wood for tinder. Look for dead branches still attached to trees (they drain rather than absorb rain). Carry dry tinder in a sealed container at all times. Build fire on a platform of thick logs to insulate from wet ground."
+            }
+          ]
+        },
+        {
+          "id": "food",
+          "label": "Food Procurement",
+          "icon": "🌿",
+          "articles": [
+            {
+              "id": "f1",
+              "title": "Universal Edibility Test",
+              "priority": "high",
+              "time": "hours",
+              "body": "Never eat an unknown plant without performing the Universal Edibility Test. A single misidentification can be fatal.\n\n**The Test — 8 Hours per Plant Part**\nTest only one part of a plant at a time (leaves, berries, roots separately). Separate each stage by 8 hours.\n\n1. Smell: crush a small piece. If it smells strongly of almonds (cyanide), rotten meat, or caustic chemicals — discard.\n2. Skin contact: rub the juice on the inside of your wrist. Wait 15 minutes for burning, rash, or hives.\n3. Lip contact: place a small piece on your lips for 3 minutes. Watch for tingling, burning, numbness.\n4. Mouth contact: chew a small piece without swallowing. Hold in mouth 15 minutes. Spit out. Same signs.\n5. Swallow small amount (thumbnail size). Wait 8 hours. Watch for nausea, cramping, dizziness.\n6. Eat a small portion (50g). Wait 8 hours.\n\nIf no reaction at any stage: the plant part is likely safe.\n\n**Automatic Discard Rules**\n— Milky or discoloured sap\n— Spines, fine hairs, or thorns\n— Bitter or soapy taste\n— Umbrella-shaped flower clusters (carrot family — contains hemlock)\n— Beans, bulbs, or seeds inside pods (many toxic)\n— Plants in areas near industrial sites or mining\n\n**High-Value Wild Edibles**\nDandelion (all parts), cattail (young shoots, pollen, rhizomes), nettles (boiled to neutralise sting), plantain (leaves, seeds), purslane (leaves, mucilaginous), wood sorrel (small amounts, very high oxalic acid), pine inner bark (cambium layer — calories in emergency)."
+            },
+            {
+              "id": "f2",
+              "title": "Trapping and Hunting",
+              "priority": "high",
+              "time": "hours",
+              "body": "Hunting and trapping require skill and patience but provide calorie-dense food.\n\n**Snare Construction**\nA simple wire loop snare catches small mammals. Loop diameter: fist-size for rabbits, thumb-and-finger circle for squirrels. Support loop at animal's chin height — use a forked twig to hold it at the right height on the trail. Place on runs — compacted trails through grass visible around burrow entrances and between feeding areas. Check every 4 hours; dead animals decompose quickly. Check local laws (irrelevant in true survival situations but important otherwise).\n\n**Deadfall Trap**\nThe Paiute deadfall uses a toggle-and-cord mechanism to drop a heavy flat stone onto prey. Bait the trigger with food. A correctly set deadfall is hair-trigger sensitive — small animals trigger it easily. Requires a large flat rock (2–5kg for rabbits), trigger sticks, and cordage.\n\n**Hunting Without Weapons**\nUse throwing sticks for small birds and rabbits — practice, but effective at close range. A rabbit stick: a curved stick 60cm long, 4–5cm diameter, weighted end. Thrown low and horizontal, it sweeps a large arc. Construct a simple bow and arrows with fletching — this takes a day to construct properly and many hours of practice.\n\n**Fish**\nSpear fishing at night with a torch — fish are attracted to light and stunned by it. Build a weir: a V-shaped rock or stick barrier across a stream, with a basket at the narrow end. Set overnight. Gorge hooks (straight sharpened stick tied in middle) are simpler than hook-and-line and don't require rod or reel.\n\n**Insect Protein**\nInsects are the most calorie-efficient protein source. Grasshoppers, crickets, mealworms, ants: remove wings and legs, cook (kills parasites). Avoid brightly coloured insects (warning colouration = toxic). 100g crickets = 210 calories, 20g protein."
+            },
+            {
+              "id": "f3",
+              "title": "Food Preservation Without Refrigeration",
+              "priority": "high",
+              "time": "days",
+              "body": "Preserving food prevents waste and builds reserves for lean periods.\n\n**Drying / Dehydration**\nThe oldest and most reliable preservation method. Slice meat or fish thin (5mm). Salt lightly if available (draws out moisture, inhibits bacteria). Hang in full sun and wind, or over a slow fire. Jerky is ready when it bends without breaking but doesn't feel wet. Dried fruits: slice, remove pits, dry in sun on flat rocks 3–5 days. Test: should be leathery, not sticky.\n\n**Salt Curing**\nSalt draws moisture out of cells and creates an environment hostile to bacteria. Pack meat in dry salt (table salt, sea salt, or rock salt — all work). Ratio: 30g salt per 500g meat. Bury in salt in a sealed container. For dry salt cure: leave 1 day per 1cm thickness. Rinse before cooking.\n\n**Smoking**\nHot smoking (70°C+) cooks and preserves simultaneously — good for 2–3 days. Cold smoking (below 30°C) is primarily for flavour and mild preservation — combine with salt cure. Use hardwood sawdust or chips; avoid pine, which deposits toxic tar. Set up a smoker: fire in a pit, duct through soil to a smoking chamber above. The earth cools the smoke.\n\n**Fermentation**\nSalt fermentation (lacto-fermentation): pack vegetables in brine (1–2 tbsp salt per cup water). Submerge completely, seal loosely to allow CO2 to escape. Ready in 3–7 days. Produces beneficial acids that preserve food for months without refrigeration. Works for cabbage (sauerkraut), root vegetables, green beans.\n\n**Root Cellaring**\nRoot vegetables (carrots, turnips, parsnips, potatoes) store for months at 0–5°C and high humidity. Dig a pit 1m deep (below frost line). Layer vegetables in sand or dry leaves. Insulate pit with straw. Stable through winter."
+            }
+          ]
+        },
+        {
+          "id": "navigation",
+          "label": "Navigation",
+          "icon": "🧭",
+          "articles": [
+            {
+              "id": "n1",
+              "title": "Navigation Without Technology",
+              "priority": "high",
+              "time": "immediate",
+              "body": "Never rely solely on GPS or phones. Technology fails; fundamental navigation never does.\n\n**Sun Navigation**\nThe sun rises in the east, sets in the west. At solar noon (highest point in sky), the sun is due south in the northern hemisphere, due north in the southern hemisphere.\n\nShadow stick method: push a straight stick vertically into the ground. Mark the tip of its shadow. Wait 15–20 minutes. Mark the second shadow tip. Draw a line between the two marks: this is an accurate East-West line. The first mark is west, the second is east. Draw a perpendicular line for north-south.\n\n**Star Navigation**\nNorthern hemisphere: Polaris (North Star) is within 1° of true north. Find the Big Dipper (Ursa Major). The two stars forming the outer edge of the cup point directly at Polaris. Polaris is not the brightest star — it's the end of the little Dipper's handle.\n\nSouthern hemisphere: no pole star. The Southern Cross (Crux) points south. Extend the long axis of the cross 4.5 times — that point is due south. Confirm by finding the \"dark cloud\" (Coal Sack Nebula) at the base.\n\n**Map Reading**\nOrient the map by aligning its north arrow with actual north (using compass or sun). Identify your current location by cross-referencing visible landmarks (hills, rivers, roads) with map symbols. Choose a destination. Plan a route following terrain features, not straight lines.\n\nContour lines: close together = steep slope. Far apart = gentle slope. Circles = hilltop or depression (read annotation). V-shapes pointing upstream = valleys. V-shapes pointing downstream = ridges.\n\n**Natural Signs**\nTree growth: trees lean away from prevailing wind, which is usually identifiable from terrain. In northern hemisphere, moss tends to grow more densely on the north (shaded) side of rocks and trees — unreliable but useful as a confirmation. Snow melts first on south-facing slopes in northern hemisphere."
+            },
+            {
+              "id": "n2",
+              "title": "Emergency Signaling",
+              "priority": "critical",
+              "time": "immediate",
+              "body": "Signaling rescuers is often more effective than self-rescue. Understand what works.\n\n**Universal Distress Signal**\nThree of anything: three fires in a triangle, three whistle blasts, three shots, three mirror flashes. International recognition. Repeat every 2 minutes. The rule of three is hardwired into search-and-rescue practice worldwide.\n\n**Mirror / Heliograph**\nA mirror or any reflective surface can signal aircraft over 50km away. Aim: hold mirror near face. Look through the sighting hole (or create a v-sight with two fingers). Angle mirror to reflect sunlight in the direction of the target. A moving glint is unmistakable from aircraft. Works with watch faces, CD, aluminium foil pressed smooth, signal mirror.\n\n**Signal Fires**\nFires must produce visible smoke. In forests: white smoke (add water to fire) contrasts with dark background. In snow/desert: black smoke (add rubber, plastic, petroleum products, green vegetation) contrasts with light background. Three fires in a triangle, 30m apart, is the international distress signal.\n\n**Ground Signals**\nLarge ground-to-air symbols visible from aircraft: X = need medical help. Arrow = travelling in this direction. V = need help. Three Vs = need assistance. Minimum size: 10m per symbol. Use contrasting colours: rocks on snow, disturbed soil on grassland, bright materials.\n\n**Whistle**\nThree short blasts: help needed. One long blast: all clear. A plastic whistle produces sound at 100–110dB, audible over 1km in calm conditions. It requires far less energy than shouting."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "medical",
+      "label": "Emergency Medicine",
+      "icon": "✚",
+      "color": "#ff1744",
+      "tier": 1,
+      "description": "Life-saving procedures for situations where professional medical care is unavailable. These instructions exist because death is the alternative.",
+      "topics": [
+        {
+          "id": "trauma",
+          "label": "Trauma Management",
+          "icon": "🩸",
+          "articles": [
+            {
+              "id": "t1",
+              "title": "Bleeding Control — Hemorrhage Management",
+              "priority": "critical",
+              "time": "immediate",
+              "body": "Uncontrolled bleeding is the most preventable cause of death in trauma. Act immediately.\n\n**The C-ABCDE Protocol**\nC — Catastrophic haemorrhage control FIRST\nA — Airway\nB — Breathing\nC — Circulation\nD — Disability (neurological)\nE — Exposure (full body examination)\n\n**Direct Pressure**\nPack the wound with the cleanest material available. Apply pressure with the palm of your hand. Do not lift the dressing to check — you disrupt clotting. If blood soaks through, add more material on top. Maintain pressure for a minimum of 10 minutes by the clock.\n\n**Tourniquet**\nApply for extremity wounds where direct pressure fails or you cannot maintain it. Apply 5–7cm above the wound. Tighten until bleeding stops. Note the time in marker pen on the patient's skin — written on the forehead or limb. Tourniquet time: remove within 2 hours if possible; beyond 6 hours risks irreversible tissue damage. A properly applied tourniquet is painful — this is expected.\n\nImprovised tourniquet: a strip of material 4–5cm wide. Narrower materials (rope, wire) cause tissue damage without fully occluding the vessel.\n\n**Wound Packing**\nFor junctional wounds (groin, armpit, neck) where tourniquets cannot go, pack the wound cavity firmly with cloth. Push material into the wound with a finger until it is fully packed. Maintain firm pressure. This is the correct technique — superficial pressure alone is insufficient.\n\n**Shock Recognition**\nPale, cold, clammy skin. Rapid, weak pulse. Rapid, shallow breathing. Confusion or altered consciousness. Lay patient flat, elevate legs 30cm (not if spinal injury suspected). Keep warm. Do not give water to unconscious patients."
+            },
+            {
+              "id": "t2",
+              "title": "Airway Management",
+              "priority": "critical",
+              "time": "immediate",
+              "body": "Airway obstruction kills in minutes. These techniques require no equipment.\n\n**Head-Tilt Chin-Lift**\nFor unconscious patient with no suspected spinal injury: place one hand on forehead, two fingers under the chin. Tilt head back, lift chin forward. This moves the tongue away from the airway.\n\n**Jaw Thrust**\nFor patients with suspected spinal injury: crouch behind the head. Place fingers behind the angles of the jaw (the bony corners). Push the jaw forward without tilting the head.\n\n**Recovery Position**\nAn unconscious breathing patient must be placed in the recovery position to prevent aspiration of vomit. Roll onto their side. Bend the top knee to stabilise. Tilt head slightly back to maintain airway. Check breathing every 5 minutes.\n\n**Choking — Adult**\nAsk \"Are you choking?\" A patient who can speak has a partial obstruction — encourage coughing. A patient who cannot speak or breathe has a complete obstruction.\n5 back blows: heel of hand between shoulder blades, forceful.\n5 abdominal thrusts: stand behind, arms under theirs, hands above navel below sternum. Sharply upward and inward.\nAlternate until cleared or patient loses consciousness.\n\n**CPR**\n30 chest compressions to 2 rescue breaths (if trained). Rate: 100–120 per minute. Depth: 5–6cm. Allow full chest recoil. Compressions-only CPR is effective if unwilling/unable to do breaths. Continue until the patient recovers, AED arrives, or you are physically unable to continue.\n\n**Chest Injury**\nSucking chest wound: seal with anything occlusive on 3 sides (flutter valve effect). Tension pneumothorax: patient in rapid decline after sealing chest wound — unseal one edge to release trapped air."
+            },
+            {
+              "id": "t3",
+              "title": "Head, Spine, and Burns",
+              "priority": "critical",
+              "time": "immediate",
+              "body": "These injuries require careful management to prevent secondary damage.\n\n**Head Injury**\nMonitor for 24 hours after any blow to the head. Danger signs: loss of consciousness, confusion, unequal pupils, repeated vomiting, severe headache, seizures. Deteriorating consciousness means the patient needs surgery — transport immediately if possible.\n\nNever give aspirin or ibuprofen (worsen bleeding). Paracetamol is acceptable for pain. Keep head and shoulders slightly elevated (15–30°).\n\n**Spinal Injury**\nSuspect spinal injury after any high-energy mechanism: fall from height, motor vehicle crash, diving, direct blow to spine.\nSigns: neck or back pain, tingling or weakness in extremities, inability to move legs or arms.\nDo not move unless danger is immediate and movement is the only way to prevent death. If moving is necessary: keep the spine in a straight line at all times. Log roll technique: minimum 3 people, one controlling the head. Improvise a collar from rolled clothing.\n\n**Burns**\nCool the burn with cool (not cold) water for 20 minutes. Remove jewellery and loose clothing around burn — not clothing stuck to wound. Do NOT: pop blisters, apply butter, toothpaste, or oil, remove stuck clothing.\n\nBurn severity:\nFirst degree (red, dry, painful): treat with cool water, no dressing needed.\nSecond degree (blisters, very painful): cover with clean, non-fluffy dressing. Do not burst blisters.\nThird degree (white, brown, or black, often painless): cover and seek urgent care. Fluid loss and infection are the main threats.\n\nRule of nines (adult): head = 9%, each arm = 9%, chest = 9%, abdomen = 9%, each thigh = 9%, each lower leg = 9%, back = 18%, genitals = 1%. Burns >15% of body surface area require IV fluid resuscitation."
+            }
+          ]
+        },
+        {
+          "id": "surgery",
+          "label": "Field Surgery",
+          "icon": "⚕",
+          "articles": [
+            {
+              "id": "su1",
+              "title": "Wound Closure and Suturing",
+              "priority": "high",
+              "time": "hours",
+              "body": "⚠ Field surgery carries major infection risk. Only proceed if professional help is unavailable.\n\n**When to Close a Wound**\nClose: within 6 hours of injury, clean wound, no signs of infection.\nDo NOT close: wounds older than 8 hours, animal bites, puncture wounds, contaminated wounds, signs of infection (redness spreading, pus, warmth, smell). Let these heal by secondary intention (open, packed, dressed).\n\n**Wound Cleaning — The Most Important Step**\nIrrigate under pressure: fill a syringe or plastic bag with a pinhole and squeeze. Clean water is adequate. Pressure dislodges bacteria that antiseptics cannot. Irrigate until no visible debris remains. This step matters more than suturing.\n\n**Suturing**\nSterilise needle and thread (or improvise with fishing line): boil for 10 minutes or hold in flame until red, allow to cool. Use a curved needle if available.\n\nSimple interrupted stitch: insert needle 0.5cm from wound edge, exit 0.5cm on the other side, at equal depth. Tie with square knot (right over left, then left over right). Cut tails to 3–4mm. Place stitches 0.5–1cm apart. Approximate, don't overtighten — swelling will occur.\n\n**Improvised Wound Closure**\nButterfly strips: cut strips of tape or clean cloth 1cm wide. Pinch wound edges together. Apply strips perpendicular to the wound. Add horizontal anchor strips above and below.\n\n**Infection Signs — Remove Sutures Immediately If Present**\nIncreased pain (after 24h pain should decrease, not increase). Redness spreading beyond wound edges. Warmth. Pus. Red streaks radiating from wound (lymphangitis — sepsis is developing). Fever."
+            },
+            {
+              "id": "su2",
+              "title": "Drainage, Abscesses, and Field Amputations",
+              "priority": "high",
+              "time": "hours",
+              "body": "⚠ These are last-resort procedures. Only perform if death is the alternative.\n\n**Abscess Drainage**\nAn abscess is a pocket of pus. It will not heal without drainage.\nSigns: firm painful lump that becomes fluctuant (soft, fluid-filled). Surrounding warmth and redness.\nProcedure: clean the skin. Use the sharpest available blade. Make a single incision at the most fluctuant point. Do not make a cross incision — a single cut is sufficient. Allow pus to drain completely. Pack loosely with clean cloth to keep it open and draining. Change daily. Do not suture an abscess closed.\n\n**Wound Debridement**\nDead tissue must be removed or infection will overwhelm the body. Use scissors or scalpel. Remove all grey, brown, or black tissue — healthy tissue is red or pink and bleeds when cut. Dead tissue does not bleed. Irrigate thoroughly after debridement. Pack open, dress, repeat daily.\n\n**Improvised Sterilisation**\nBoiling (10 minutes) kills bacteria and most viruses. Flame (hold until red, cool before use). Alcohol (70% isopropyl or ethanol) — 30-minute soak. Direct sunlight UV kills surface bacteria on clean surfaces in 4–6 hours (not reliable alone).\n\n**Field Amputation — Absolute Last Resort**\nOnly performed when: a limb is irreversibly crushed with no circulation, a tourniquet has been applied beyond 8 hours with no help arriving, gangrene is spreading proximally and death is hours away.\nThis procedure requires: sharp clean blade, tourniquet applied before starting, general or local anaesthetic if any available, sutures and packing. Infection rate is near 100% without antibiotics. Survival is possible if the patient is otherwise healthy and you can pack and manage the wound."
+            }
+          ]
+        },
+        {
+          "id": "infections",
+          "label": "Infection Control",
+          "icon": "🦠",
+          "articles": [
+            {
+              "id": "in1",
+              "title": "Wound Infection Recognition and Treatment",
+              "priority": "high",
+              "time": "days",
+              "body": "Infection is the primary killer after initial trauma in austere environments.\n\n**Infection Stages**\nLocal infection: redness, warmth, swelling, pain, pus at wound site. Treat with drainage, irrigation, dressing.\n\nSpreading infection (cellulitis): redness spreading beyond wound, red streaks up limb (lymphangitis). Patient may have fever. Requires antibiotics if available.\n\nSystemic infection (sepsis): fever >38.5°C or hypothermia, rapid heart rate (>100), confusion, rapid breathing. Life-threatening. Requires aggressive treatment.\n\n**Natural Antimicrobials**\nHoney: raw, unprocessed honey has proven antimicrobial properties. Apply directly to infected wounds. Manuka honey most effective but any raw honey works.\nGarlic: allicin in fresh crushed garlic has broad-spectrum antimicrobial activity. Apply topically or consume raw.\nTurmeric + black pepper: curcumin is anti-inflammatory and has antimicrobial properties.\nMaggot therapy: blowfly maggots applied to wounds eat only dead tissue and excrete antimicrobial compounds. Counterintuitive but clinically validated.\n\n**Antibiotic Use**\nIf antibiotics are available: amoxicillin (wounds, respiratory), metronidazole (anaerobic/abdominal infections), doxycycline (broad-spectrum), ciprofloxacin (urinary, gut). Complete the full course. Never share."
+            },
+            {
+              "id": "in2",
+              "title": "Disease Treatment — Fever, Diarrhoea, Respiratory",
+              "priority": "high",
+              "time": "days",
+              "body": "Infectious diseases become epidemic without infrastructure.\n\n**Fever Management**\nFever is a defensive response — do not suppress unless above 39°C or causing seizures.\nCool with wet cloths to forehead, armpits, groin. Increase fluid intake dramatically. Paracetamol (acetaminophen): adult 500–1000mg every 4–6 hours. Ibuprofen alternated with paracetamol can sustain effect. Keep patient cool but not shivering — shivering raises core temperature.\n\nMalaria signs: cyclical fever every 48–72 hours, chills, sweats, headache, muscle ache. If in malaria region, treat as malaria until proven otherwise.\n\n**Diarrhoea and Dehydration**\nOral Rehydration Solution (ORS): 1 litre clean water, 6 teaspoons sugar, 0.5 teaspoon salt. Sip continuously — do not gulp. For children: 50–100ml after every loose stool.\n\nDehydration signs: dark urine, dry mouth, headache, dizziness on standing. Severe: rapid weak pulse, confusion, inability to urinate.\n\nRice water, coconut water, or dilute fruit juice are acceptable alternatives to formal ORS.\n\n**Respiratory Infections**\nPneumonia: fever, cough with coloured sputum, chest pain, rapid breathing. Sit patient upright. Maintain hydration. Amoxicillin if available. Recovery position if unconscious.\n\n**Parasite Infections**\nGiardia (foul-smelling diarrhoea, bloating): avoid tap water, treat with metronidazole.\nWorms (intestinal): maintain clean food handling, cook all meat thoroughly. Pumpkin seeds have antiparasitic activity — consume 50g raw seeds on empty stomach."
+            }
+          ]
+        },
+        {
+          "id": "maternal",
+          "label": "Maternal & Child Health",
+          "icon": "👶",
+          "articles": [
+            {
+              "id": "mc1",
+              "title": "Emergency Childbirth",
+              "priority": "critical",
+              "time": "hours",
+              "body": "⚠ Emergency procedure — seek medical assistance if at all possible.\n\n**Preparation**\nClean hands thoroughly — this is the most important infection prevention step. Prepare clean towels or cloth. Boil scissors or clean blade for cord cutting. Prepare cord ties (two clean strings or strips of cloth).\n\n**Normal Labour Signs**\nFirst stage: contractions every 5 minutes lasting 60 seconds, lasting hours (average 12h first baby, 6h subsequent).\nSecond stage: urge to push, baby's head visible at opening.\nThird stage: placenta delivery, 5–30 minutes after birth.\n\n**Delivery**\nSupport the baby's head as it emerges — do not pull. Gentle counter-pressure with the palm prevents perineal tearing. If the umbilical cord is around the neck, slip it over the baby's head gently, or clamp and cut before delivery continues.\n\nAfter the head: the baby rotates naturally. Support the head, allow the body to follow without pulling. The baby will come in one or two more pushes.\n\n**Immediate Newborn Care**\nDry immediately and vigorously — this stimulates breathing. Keep warm: wrap in dry cloth, skin-to-skin with mother. Suction mouth then nose if mucus present. Normal for baby to be blue at delivery — should pink up within 60 seconds of breathing.\n\n**Cord Care**\nClamp (or tie tightly in two places) 5cm and 10cm from baby's abdomen. Cut between. Keep stump dry and clean. Do NOT apply anything to the stump except clean dressing.\n\n**Postpartum Haemorrhage**\nMost common cause of maternal death. Causes: uterus not contracting, retained placenta, lacerations. Management: fundal massage (rub the uterus through the abdomen firmly and repeatedly — stimulates contraction), breastfeeding (releases oxytocin), ensure placenta is complete."
+            },
+            {
+              "id": "mc2",
+              "title": "Infant Care and Child Illness",
+              "priority": "high",
+              "time": "days",
+              "body": "Children and infants have different physiology and require specific management.\n\n**Breastfeeding**\nBreast milk is complete infant nutrition for 6 months and remains important to 2 years. It contains antibodies specific to the current disease environment. Colostrum (first milk, yellow) is especially high in antibodies — do not discard it.\n\nIf breastfeeding is impossible: goat's milk or cow's milk diluted 1:1 with water is a short-term alternative. Add a small amount of sugar. Not ideal but better than nothing.\n\n**Dehydration in Children**\nChildren dehydrate faster than adults. Danger signs: no tears when crying, sunken eyes, sunken fontanelle (soft spot on top of head in infants), dry mouth, no urination for 6+ hours, lethargy. ORS is the treatment — persistence and small sips every few minutes.\n\n**Fever in Children**\nAbove 38°C: use paracetamol syrup (check dose by weight — 15mg/kg). Strip down to minimal clothing. Lukewarm sponge bath. Encourage fluids. Danger signs warranting emergency action: seizure, stiff neck, persistent rash, extreme lethargy.\n\n**Malnutrition**\nSigns: failure to grow, hair loss or colour change to red/brown, oedema (swelling) of face and feet (kwashiorkor), extreme wasting. Treatment: frequent small meals of calorie-dense food. Groundnut paste, eggs, animal protein, legumes. F-100 therapeutic food formula: dried skim milk, oil, sugar, mineral mix."
+            }
+          ]
+        },
+        {
+          "id": "diagnostics",
+          "label": "Medical Diagnostics",
+          "icon": "🔍",
+          "articles": [
+            {
+              "id": "dx1",
+              "title": "Symptom-Based Field Diagnosis",
+              "priority": "high",
+              "time": "hours",
+              "body": "Without lab equipment, diagnosis is based on careful history and examination.\n\n**History Taking**\nSOCRATES for pain: Site, Onset, Character, Radiation, Associated symptoms, Timing, Exacerbating/relieving factors, Severity (0–10).\n\nKey questions: How long? Getting better or worse? Fever? Similar in contacts (suggests infection)? Recent travel? Recent trauma?\n\n**Physical Examination**\nPulse: feel at wrist (radial) or neck (carotid). Normal: 60–100 adult, 100–140 infant. Rhythm: regular or irregular?\nRespiration: count breaths for 60 seconds. Normal: 12–20 adult. Laboured breathing? Using neck/shoulder muscles?\nTemperature (improvised): feel forehead and compare to examiner's own — fever = noticeably hotter than normal.\nSkin: colour (pale = anaemia/shock, yellow = jaundice, blue = oxygen lack), moisture (sweaty = fever/shock), texture.\n\n**Abdomen Assessment**\nGently press in four quadrants. Guarding (muscle tensing) indicates inflammation below. Rebound tenderness (pain worse on release than on press) indicates peritonitis — surgical emergency. Rigid abdomen is an emergency.\n\n**Neurological Check (AVPU)**\nA — Alert (normal)\nV — responds to Voice\nP — responds to Pain only\nU — Unresponsive\nAny deterioration on AVPU requires urgent action. Check pupils: equal and reactive to light is normal. Unequal pupils after head injury = intracranial pressure rising."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "food_production",
+      "label": "Food Production",
+      "icon": "🌱",
+      "color": "#00e676",
+      "tier": 2,
+      "description": "Feeding communities long-term. Soil science, crop cultivation, permaculture, aquaculture, and food security.",
+      "topics": [
+        {
+          "id": "soil",
+          "label": "Soil Science",
+          "icon": "🌍",
+          "articles": [
+            {
+              "id": "so1",
+              "title": "Soil Assessment and Rapid Improvement",
+              "priority": "high",
+              "time": "days",
+              "body": "Healthy soil is the foundation of all food production. Without it, crops fail.\n\n**Soil Types**\nSandy soil: drains fast, warms quickly, poor nutrients. Add compost and clay. Squeeze test: doesn't hold shape.\nClay soil: holds nutrients, waterlogged, compacts. Add compost, sand, biochar. Squeeze test: holds shape easily.\nLoam: ideal mix. Holds moisture but drains excess. Squeeze test: holds shape but crumbles when poked.\nSilt: medium drainage, can compact. Needs organic matter.\n\n**Soil Structure Test**\nJar test: fill a jar 1/3 soil, top with water, shake vigorously. Let settle for 48 hours. Sand settles first (bottom), then silt (middle), then clay (top layer). Organic matter floats.\n\n**Nutrient Cycles**\nNitrogen (N): leafy growth, green colour. Depleted by heavy cropping. Replaced by legume cover crops, compost, animal manure. Signs of deficiency: yellowing of older leaves starting at tip.\nPhosphorus (P): root development, flowering, fruiting. Replaced by bone char, rock phosphate, composted manure. Deficiency: purple or reddish leaves.\nPotassium (K): disease resistance, fruit quality, water regulation. Replaced by wood ash, compost, seaweed. Deficiency: brown leaf edges.\n\n**Composting**\nHot compost: alternate layers of brown (carbon) and green (nitrogen) materials in equal volume. Browns: dry leaves, straw, cardboard. Greens: kitchen scraps, fresh grass, animal manure. Keep moist but not wet. Turn every 3 days. Reaches 55–65°C (kills weed seeds and pathogens). Ready in 3–4 weeks. Finished compost smells earthy, not rotten.\n\n**Biochar**\nCharred organic matter (not ash). Microporous structure holds water and nutrients and provides habitat for soil microbes. Apply at 10–20% by volume to sandy or degraded soil. Do not apply fresh — it will absorb nutrients from soil. Charge first by mixing with compost or urine for 2 weeks."
+            },
+            {
+              "id": "so2",
+              "title": "Composting, Biofertilizers, and Soil Regeneration",
+              "priority": "medium",
+              "time": "weeks",
+              "body": "Advanced soil restoration techniques for long-term food security.\n\n**Worm Composting (Vermicomposting)**\nRed wigglers or compost worms process kitchen scraps into premium compost 5× faster than hot composting. Build a wooden box 60cm × 90cm × 30cm. Add bedding (shredded paper, dry leaves). Add worms. Feed kitchen scraps (no meat, dairy, or citrus in large amounts). Worm castings are the highest quality compost available — high in plant-available nutrients and beneficial microbes.\n\n**Liquid Fertilisers**\nCompost tea: steep finished compost in water 24–48h. Apply to roots or spray on leaves. Inoculates soil with microbes.\nWeed tea: pack a bucket with comfrey, nettles, or weeds. Top with water. Cover (smells). After 2–4 weeks, strain and dilute 1:10. High in nitrogen and trace minerals.\nHuman urine: dilute 1:10 with water. Apply to soil (not leaves). Rich in nitrogen, phosphorus, and potassium. Sterile when fresh. Best fertiliser available with zero cost. Apply in morning.\n\n**Biofertilizers**\nRhizobium bacteria: naturally colonise legume roots, fixing atmospheric nitrogen. Inoculate legume seeds with soil from a previously successful legume planting or commercial inoculant. Fixes 100–300kg N/hectare/year — equivalent to expensive synthetic fertiliser.\n\nMycorrhizal fungi: form symbiotic networks with plant roots, extending their reach dramatically. Don't kill them with fungicides. Build up over years of minimal-tillage farming.\n\n**Soil Regeneration Timeline**\nSeverely degraded soil: Year 1 — green manure cover crop (buckwheat, phacelia). Year 2 — legume cover crop + compost. Year 3 — first food crops. Year 5 — increasingly productive soil."
+            }
+          ]
+        },
+        {
+          "id": "crops",
+          "label": "Crop Cultivation",
+          "icon": "🌾",
+          "articles": [
+            {
+              "id": "cr1",
+              "title": "Staple Crops — Calorie Production",
+              "priority": "critical",
+              "time": "weeks",
+              "body": "These crops provide the bulk of human calorie needs and must be prioritised in food production.\n\n**Potatoes**\nHighest calorie yield per unit of land of any crop. Grow in any temperate climate. Plant in spring, harvest in autumn. Set seed potatoes with at least 2 eyes each, 10cm deep, 30cm apart. Earth up stems as they grow. Harvest when plants die back. Store in cool, dark, frost-free conditions. Avoid green potatoes (solanine toxicity). Yield: 20–40 tonnes/hectare.\n\n**Sweet Potatoes**\nTropical equivalent of potato. Extremely drought tolerant. Plant slips (shoots from old sweet potato). Very fast growing, also provides edible leaves. Yield: 15–30 tonnes/hectare.\n\n**Maize (Corn)**\nHigh calorie yield, versatile. Grows in warm climates. Plant in blocks (not rows) for wind pollination. Needs 60–100 days. Harvest when husk dries. Dry thoroughly before storage. Must be nixtamalised for full nutrition (process with lime or wood ash — releases niacin and amino acids not otherwise bioavailable). Yield: 5–10 tonnes/hectare.\n\n**Wheat and Barley**\nThe foundation of most civilisations. Plant in autumn (winter wheat) or early spring. Harvest when stalks dry and golden. Thresh by beating, winnow by wind. Store dry or grind into flour. Both malting (beer) and bread. Barley is hardier in cold climates. Yield: 2–5 tonnes/hectare.\n\n**Rice**\nFeeds more people than any other crop. Requires warm temperatures and water (paddy rice) or well-watered soil (upland rice). Transplant seedlings from nursery at 30-day age. Harvest when 80% of grains are yellow. Dry thoroughly before storage. Process: remove hull (husking), optionally remove bran (milling).\n\n**Legumes — Nitrogen and Protein**\nBeans, lentils, peas, chickpeas: essential complement to cereals. Provide complete protein when combined with grains. Also fix atmospheric nitrogen, improving soil. Yield: 1–3 tonnes/hectare."
+            },
+            {
+              "id": "cr2",
+              "title": "Vegetable and Fruit Cultivation",
+              "priority": "high",
+              "time": "weeks",
+              "body": "Vegetables provide vitamins and minerals absent from calorie-only diets.\n\n**Priority Vegetables for Nutrition**\nDark leafy greens (kale, spinach, amaranth): iron, calcium, vitamins A, C, K. Hardy, fast-growing. Can be grown in partial shade.\nRoot vegetables (carrots, turnips, beets, parsnips): store well, provide energy and vitamins. Long season crops.\nBrassicas (cabbage, broccoli, kohlrabi): cold tolerant, vitamin C. Can be stored for months (cabbage = sauerkraut).\nSquash/pumpkin: high yield, stores for months, seeds are edible protein source.\nTomatoes and peppers: high vitamin C, grows in warm climates.\n\n**Succession Planting**\nStagger plantings every 2–3 weeks. One row of lettuce, then another 2 weeks later. Extends harvest season and prevents glut/shortage cycles.\n\n**Companion Planting**\nThree Sisters (Native American): maize + beans + squash together. Maize provides climbing structure for beans. Beans fix nitrogen. Squash shades ground, retaining moisture and suppressing weeds. All three grown together outyield monocultures.\n\n**Fruit Trees**\nInvestment in perennial production. A fruit tree takes 3–7 years to produce but then yields for decades with minimal input. Apples, pears, plums, cherries for temperate climates. Mangoes, papayas, citrus for tropical. Plant in autumn or early spring while dormant. Mulch generously around base."
+            },
+            {
+              "id": "cr3",
+              "title": "Crop Disease Control and Permaculture",
+              "priority": "medium",
+              "time": "ongoing",
+              "body": "Sustainable crop production requires ecological thinking, not industrial inputs.\n\n**Crop Disease Identification**\nPowdery mildew: white powder on leaves. Treat with dilute baking soda spray (1 tbsp/litre) or milk spray (1 part milk, 9 parts water).\nLate blight (potatoes, tomatoes): brown, water-soaked patches, rapidly spreading. Remove all affected material immediately. Copper sulphate spray (Bordeaux mixture) as preventative.\nRust: orange-brown pustules on leaves. Remove affected leaves. Improve air circulation.\nRoot rot: wilting despite adequate water. Improve drainage. Remove affected plants.\n\n**Integrated Pest Management**\nCompanion planting to repel pests: marigolds repel nematodes, basil repels aphids, nasturtium as a trap crop for aphids.\nPhysical barriers: row covers, copper tape (slugs), sticky bands on tree trunks.\nBeneficial insects: ladybirds, lacewings, parasitic wasps eat pests. Attract by planting flowers in field margins.\nNeem oil: derived from neem tree seeds. Broad-spectrum insecticide that doesn't harm mammals. Apply when pests first appear.\n\n**Permaculture Principles**\nObserve and interact before making major changes. Catch and store energy (water, soil fertility, seeds). Obtain a yield from every element. Apply self-regulation — the system should become self-managing over time. Use edges: the boundary between forest and field is the most productive zone. Value the marginal.\n\n**Food Forest**\nMimic a forest's layered structure with edible plants at each layer: canopy trees (fruit, nut), understory (smaller fruit trees), shrubs (berry, nitrogen-fixing), herbaceous (vegetables, herbs), ground cover (strawberries, herbs), root zone (root vegetables), climbers (grape, kiwi). A mature food forest produces food for decades with minimal maintenance."
+            }
+          ]
+        },
+        {
+          "id": "aquaculture",
+          "label": "Aquaculture",
+          "icon": "🐟",
+          "articles": [
+            {
+              "id": "aq1",
+              "title": "Fish Farming and Integrated Systems",
+              "priority": "medium",
+              "time": "months",
+              "body": "Aquaculture provides protein and can be integrated with crop production.\n\n**Basic Pond Construction**\nSite: flat or gently sloping land with clay-rich soil that holds water. Avoid rock. Build a simple earth embankment (bund). Typical pond: 0.1–0.5 hectares, 1–2m deep. Include an inlet for water entry and a drainage sluice for harvesting and management.\n\n**Fish Species Selection**\nTilapia: most common freshwater aquaculture fish. Fast growing, omnivorous, tolerant of poor water quality. Cannot survive below 12°C.\nCarp: tolerant of low oxygen. Grows in cold water. Multiple species: common, grass, silver carp.\nCatfish: bottom feeder. Very tolerant of overcrowding.\nTrout: requires clean, well-oxygenated water. For cool climates.\n\n**Feeding and Water Management**\nFertilise pond with compost or manure to grow phytoplankton (fish food). Feed with agricultural waste: crop residues, bran, food waste, insects. Natural ponds can produce 500–1000kg/hectare/year without supplemental feed. With feed: 3,000–5,000kg/hectare/year.\n\n**Integrated Rice-Fish Farming**\nStock fish directly in rice paddies. Fish eat insects and weeds, reducing pest pressure. Fish faeces fertilise rice. Rice provides shade, reducing algae. Both yields improve. Stock 500 fish per 0.1 hectare. Choose carp or tilapia.\n\n**Harvesting**\nDrain the pond partially to concentrate fish for harvesting. Use nets or baskets. Leave some fish for breeding stock. Restock with fingerlings annually or allow natural breeding."
+            }
+          ]
+        },
+        {
+          "id": "food_security",
+          "label": "Food Security",
+          "icon": "🏦",
+          "articles": [
+            {
+              "id": "fs1",
+              "title": "Seed Banks and Genetic Diversity",
+              "priority": "critical",
+              "time": "ongoing",
+              "body": "Seeds are the foundation of food production. Preserving seed is preserving civilisation.\n\n**Why Seed Banks Matter**\nModern agriculture depends on a handful of hybrid varieties. In collapse, hybrid seeds cannot be replanted because their offspring revert to unpredictable forms. Preserve open-pollinated (OP) and heirloom varieties — these breed true.\n\n**Seed Saving by Crop Type**\nTomatoes, peppers, squash: allow fruit to fully ripen on plant. Ferment seed (tomatoes) to remove gel coating. Wash, dry thoroughly on paper towels. Store in labelled paper envelopes, not plastic.\nBeans, peas, corn: leave seed pods on plant until completely dry. Thresh, clean, dry further at room temperature (not heat). Test viability: place 10 seeds on damp paper towel in warmth. 8–10 germinating = excellent. Below 5 = discard or plant more densely.\nLeafy greens, roots (brassicas): allow plants to bolt (flower) in second year. Collect seeds from dried seed pods. Prevent cross-pollination between varieties by distance (50–500m depending on species).\n\n**Storage Conditions**\nTemperature × humidity = seed longevity. Ideal: 0–10°C, <40% relative humidity. Each 5°C reduction doubles storage life. Dry seeds to <8% moisture content before storage. Add silica gel packets. Store in sealed containers in the coolest available location.\n\n**Minimum Viable Seed Bank**\nAt minimum: 3–5 varieties of high-calorie staples (potato, bean, squash), 3 vitamin crops (dark leafy green, root vegetable, allium), 1 nitrogen fixer (legume), 1 grain if climate allows. At least 50 seeds per variety, ideally 200."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "water_systems",
+      "label": "Water Infrastructure",
+      "icon": "💧",
+      "color": "#00b0ff",
+      "tier": 2,
+      "description": "Long-term water supply, purification, distribution, and sanitation for communities.",
+      "topics": [
+        {
+          "id": "supply",
+          "label": "Water Discovery & Supply",
+          "icon": "🔍",
+          "articles": [
+            {
+              "id": "ws1",
+              "title": "Groundwater and Terrain Reading",
+              "priority": "high",
+              "time": "days",
+              "body": "Identifying sustainable water sources is critical before establishing any settlement.\n\n**Identifying Groundwater**\nCertain vegetation reliably indicates shallow groundwater: willow, cottonwood, alder, cattail, sedge. These plants require roots near the water table.\n\nConverging valleys concentrate groundwater. The inside of a river meander has the shallowest water table. Rocky outcrops at the base of hills often have springs.\n\n**Divining is Not Reliable**\nWater witching (dowsing) has no scientific support. Use geological and botanical indicators instead.\n\n**Spring Development**\nA natural spring is the best possible water source. Clear the area around the spring. Dig 0.5m into the hill above to expose the water-bearing layer. Create a collection chamber with flat stones. Build a closed concrete or stone box around it. Install an overflow pipe. Fence animals out — 30m minimum. Chlorinate the chamber annually.\n\n**Groundwater Quality**\nUphill land use determines quality. Farms above your water source mean nitrates. Industry means heavy metals. Septic systems mean bacteria. Test water visually (colour, clarity), by smell, and by boiling before drinking. Boiling removes all biological threats but not chemicals."
+            }
+          ]
+        },
+        {
+          "id": "sanitation",
+          "label": "Sanitation",
+          "icon": "🚽",
+          "articles": [
+            {
+              "id": "san1",
+              "title": "Waste Management and Latrine Construction",
+              "priority": "critical",
+              "time": "days",
+              "body": "Sanitation failure is the most common cause of disease epidemic after disaster.\n\n**Why Sanitation is Critical**\nCholera, typhoid, dysentery, hepatitis A, and most diarrhoeal diseases spread via the faecal-oral route: excrement contaminates water or hands, which contaminate food. Simple sanitation breaks this cycle.\n\n**Latrine Construction**\nSite selection: minimum 30m from water sources and wells. Downhill from water sources. At least 3m deep if possible to prevent groundwater contamination.\n\nPit latrine: dig a pit 1m × 1m × 2m minimum. Build a stable superstructure. Install a platform with a squatting hole or toilet seat. Cover hole when not in use (prevents flies). Add ash or dry soil after each use (deodorises and accelerates decomposition). Move latrine when 3/4 full.\n\nVentilated improved pit (VIP) latrine: add a vertical ventilation pipe extending 50cm above the superstructure. Cover the vent with fly screen. Flies enter through the toilet hole, navigate to the light at the vent, cannot exit through the screen, and die. Reduces odour and fly transmission.\n\n**Handwashing**\nMost diseases prevented by this one action. Build a tippy-tap: a plastic bottle on a stick, tilted by foot pedal, delivers water hands-free. Keep soap available at every hand-washing station.\n\n**Sewage Treatment**\nFor larger groups: build a septic tank (underground sealed chamber, waste decomposes anaerobically), with a soakaway trench 3m long per person. Sludge needs pumping every 3–5 years."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "construction",
+      "label": "Construction & Engineering",
+      "icon": "🏗",
+      "color": "#42a5f5",
+      "tier": 2,
+      "description": "Building durable structures and infrastructure from available materials. Timber, stone, adobe, structural principles, roads, and bridges.",
+      "topics": [
+        {
+          "id": "building",
+          "label": "Building Methods",
+          "icon": "🏠",
+          "articles": [
+            {
+              "id": "bu1",
+              "title": "Timber Frame and Stone Construction",
+              "priority": "high",
+              "time": "weeks",
+              "body": "Structural knowledge prevents buildings from killing their occupants.\n\n**Structural Principles**\nA structure must transfer loads from roof to ground without collapsing. Every load path must be continuous. Triangle is the only inherently rigid shape — all structural bracing uses triangles.\n\n**Timber Frame Construction**\nPost-and-beam: vertical posts carry beams which carry rafters which carry roof. All connections transfer load by bearing, not by fasteners.\nWood selection: use straight-grained, knot-free heartwood where possible. Check for cracks along the grain. Avoid sapwood (light-coloured outer layer) for structural members — it decays faster.\nJoint types: mortise-and-tenon (most common structural joint), lap joint, scarf joint (extending length). A tenon should be 1/3 the thickness of the timber.\nRoof pitch: steep roofs shed rain and snow better. Minimum 4:12 pitch (rise:run) for tiled roof, 2:12 for metal sheeting.\n\n**Stone Masonry**\nSelect stones for flatness on at least one face. Larger base stones, smaller as you go up. Alternate the direction of stones layer by layer. Fill gaps with small stones and mortar or dry-packed smaller stones. Throughstones (spanning full wall width) every 0.6–0.9m tie both faces together. Walls must have solid foundations on undisturbed ground or bedrock.\n\n**Load Distribution**\nAn arch distributes load as compression through the arch's curve. Arch and vault construction allows wide spans without timber. Keystone at the arch apex locks the structure. Formwork (temporary timber support) must be built to pour or set the arch, then removed."
+            },
+            {
+              "id": "bu2",
+              "title": "Adobe, Rammed Earth, and Passive Design",
+              "priority": "high",
+              "time": "weeks",
+              "body": "Earth construction is low-cost, local, and thermally excellent when done correctly.\n\n**Adobe (Mud Brick)**\nTest your soil: squeeze moist soil into a ball, drop from 1m. Clay-rich soil holds together; sandy soil crumbles. Ideal mix: 25–50% clay, remainder sand and grit. Straw addition (10% by volume) provides tensile strength, prevents cracking.\n\nMaking bricks: mix soil with water to stiff paste. Form in wooden moulds (standard: 30×15×10cm). Firm in mould, remove immediately. Dry in shade first (2 weeks), then sun. Bricks must ring when tapped — hollow sound indicates insufficient clay.\n\nAdobe mortar: same mix as bricks, slightly wetter. Lay bricks in staggered bond. Wall thickness: minimum 30cm for structural, 40cm+ for good thermal performance. Protect with large roof overhang (60cm minimum) — rain is adobe's enemy.\n\n**Rammed Earth**\nSimilar soil mix to adobe. Pack moist earth into a form in 15cm lifts, compact with a rammer until it rings. Produces very dense, hard walls. No bricks needed — monolithic walls. Stronger than adobe but requires formwork.\n\n**Passive Design Principles**\nThermal mass: massive walls (stone, adobe, concrete) absorb heat during the day and release it at night, moderating temperature extremes. Most effective in climates with large day/night temperature swings.\nOrientation: main windows face the equator (south in northern hemisphere, north in southern). This maximises winter sun exposure.\nVentilation: stack effect — cool intake at low level, warm exhaust at high level — provides ventilation without fans.\nInsulation: different from thermal mass. Insulation resists heat flow; mass stores heat. Cold climates need insulation. Hot climates with mild nights need mass."
+            },
+            {
+              "id": "bu3",
+              "title": "Earthquake and Storm-Resistant Construction",
+              "priority": "high",
+              "time": "weeks",
+              "body": "Building to resist natural forces requires understanding how structures fail.\n\n**Earthquake Principles**\nEarthquakes create horizontal forces. Unreinforced masonry (brick, block, stone) fails catastrophically — it has no tensile strength and collapses suddenly. Timber frame and rammed earth perform better.\n\nReinforcement: add vertical steel rods or bamboo into masonry at corners, openings, and every 1.5m. Connect horizontal bond beams of timber or reinforced concrete at wall top. Connect roof structure to walls — unconnected roofs slide off in earthquakes.\n\nRing beam: a reinforced concrete or timber beam on top of all walls ties them together. This is the most cost-effective earthquake upgrade for masonry buildings.\n\n**Storm-Resistant Construction**\nRoofs fail before walls. Roof failures occur because: the roof is not tied down to the walls, the pitch is too steep (catches wind), the connections between rafters are weak.\n\nTie-down: use metal straps, large bolts, or thorough timber joinery to connect rafters to wall plates and wall plates to walls. In hurricane zones, provide uplift resistance at every rafter.\n\nLow-pitch hip roofs (sloped on all four sides) perform better in wind than gabled roofs (vertical end walls). Avoid large overhangs in high-wind zones.\n\n**Flood-Resistant Construction**\nElevate floor level 0.5–1m above highest known flood level. Use waterproof materials below potential flood height (concrete, stone, treated timber). Design exit routes above flood level. Install gates or barriers for seasonal flooding."
+            }
+          ]
+        },
+        {
+          "id": "infrastructure",
+          "label": "Infrastructure",
+          "icon": "🛣",
+          "articles": [
+            {
+              "id": "inf1",
+              "title": "Roads, Drainage, and Bridges",
+              "priority": "medium",
+              "time": "months",
+              "body": "Infrastructure enables trade, communication, and collective action.\n\n**Road Construction**\nEven a basic road dramatically increases productivity. Remove vegetation and topsoil. Cut or fill to create a level grade (maximum 10% slope for wheeled vehicles). Crown the road surface (slightly higher in the centre) so water drains to ditches on either side. Compact the surface. Gravel roads: apply 15cm of graded aggregate (varied sizes compact better). Maintain drainage ditches clear of vegetation.\n\n**Drainage Systems**\nWater damage destroys roads faster than traffic. Culverts: pipes or stone channels under the road to carry water. Sizing rule: cross-sectional area equals 1 sq cm per 2 sq m of upstream drainage area. Headwalls prevent scour at culvert ends.\n\n**Bridges**\nDetermine the required span. Simple log bridge (under 5m): two parallel logs of sufficient diameter, decking lashed or nailed perpendicular. Timber trestle bridge: a series of A-frames with longitudinal stringers. All joints loaded in bearing (strongest direction of timber). Foundation: piers or abutments on bedrock or well-compacted fill. Calculate dead load (structure weight) + live load (traffic) + dynamic load (movement and bounce) × safety factor 3.\n\n**Flood Control**\nEarthen bunds (levees): compact earth embankments parallel to waterways. Must be higher than 100-year flood level. Slope outer faces at minimum 1:2 (vertical:horizontal). Core of clay for impermeability. Regularly inspect for animal burrows, seepage, and erosion."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "energy",
+      "label": "Energy Production",
+      "icon": "⚡",
+      "color": "#ffd600",
+      "tier": 2,
+      "description": "From wood fire to electrical power. Primitive to modern energy systems using available materials.",
+      "topics": [
+        {
+          "id": "primitive",
+          "label": "Primitive Energy",
+          "icon": "🔥",
+          "articles": [
+            {
+              "id": "pe1",
+              "title": "Wood Energy, Charcoal Kilns, and Biomass",
+              "priority": "high",
+              "time": "days",
+              "body": "Wood is the foundational energy source after civilisational collapse.\n\n**Wood Energy Systems**\nFirewood selection: dense hardwoods (oak, ash, beech, hickory) produce more energy per volume than softwoods (pine, spruce). Dry wood burns hotter and cleaner. Freshly cut wood is 50% water by weight — dry for 6–24 months.\n\nRocket stove: a highly efficient biomass stove. An L-shaped combustion chamber: horizontal fuel feed, vertical chimney. Air enters under the fuel, creating a powerful draught. Uses 75% less wood than an open fire. Build from brick, clay, or stone. Burns sticks, not logs. Produces minimal smoke when burning dry wood.\n\nMass heater (rocket mass heater): a rocket stove connected to a thermal mass bench or floor. The hot gases travel through a long thermal mass before exiting. The mass stores heat and radiates for 12–24 hours after the fire is extinguished. Extremely efficient for space heating.\n\n**Charcoal Production**\nCharcoal stores twice the energy of an equal weight of wood. Burns hotter and cleaner. Required for iron smelting, cooking in enclosed spaces, medical use (activated charcoal).\n\nRetort kiln: stack dry wood in an enclosed metal barrel with a small opening. Heat the barrel from outside. Gases and smoke exit through the opening and can be burned for additional heat. When only clear gas exits, stop heating. Cool completely before opening (risk of spontaneous combustion). Yield: approximately 25% of the dry wood weight.\n\nPit kiln: dig a pit, fill with wood, start fire, cover with earth when fully burning, leave small airhole, seal completely after 2–3 hours. Yield: 15–20% of dry wood weight.\n\n**Biomass Gasification**\nHeat biomass in restricted oxygen, producing combustible gas (syngas: H₂ + CO). This gas can run a modified internal combustion engine. A complete biomass gasifier can convert wood chips or agricultural waste into electricity via a generator. Construction is complex but uses local materials."
+            }
+          ]
+        },
+        {
+          "id": "mechanical",
+          "label": "Mechanical Power",
+          "icon": "⚙",
+          "articles": [
+            {
+              "id": "mp1",
+              "title": "Waterwheels, Windmills, and Treadmills",
+              "priority": "high",
+              "time": "weeks",
+              "body": "Mechanical power from water and wind multiplies human labour enormously.\n\n**Waterwheel Design**\nUndershot wheel: wheel sits in the flow, water pushes the bottom. Simple to build. Efficiency 15–30%. Suitable for slow, wide rivers.\nBreastshot wheel: water enters at mid-height, combination of impulse and weight. Efficiency 50–60%.\nOvershot wheel: water delivered to the top, gravity drives rotation. Most efficient: 70–85%. Requires a sufficient head of water (height difference). Build a millrace (channel) to direct water flow to the top of the wheel.\n\nSizing: a 3m diameter overshot wheel in a 0.5m³/s flow produces approximately 3–5kW of mechanical power — enough to grind grain, pump water, or power a small forge bellows.\n\n**Windmill Design**\nSavonius rotor: two half-cylinders arranged to catch wind in both directions. Very simple to build. Starts in low winds. Efficiency ~15%. Good for pumping water in low-wind areas.\n\nHorizontal axis wind turbine (HAWT): the familiar three-blade design. Efficiency 35–45%. Requires a tower. Blades must track into the wind. A 2m diameter rotor in 6m/s (12mph) average wind produces ~100W continuously — enough for lighting and small electronics.\n\nBlade construction: whittle or steam-bend blades with an airfoil cross-section: rounded leading edge, tapered trailing edge, slightly twisted along the length. Correct pitch: 12–15° at root, 4–5° at tip.\n\n**Human-Powered Machinery**\nTreadle loom, treadle lathe, and treadle-powered workshops were widespread before electrification. A human produces 75–100W continuously (cycling), 300W in short bursts. Flywheel stores energy between power strokes. For heavy machining, build a hand-crank or treadle-powered flywheel lathe — with this one tool, you can make every other precision tool."
+            }
+          ]
+        },
+        {
+          "id": "electrical",
+          "label": "Electrical Systems",
+          "icon": "🔌",
+          "articles": [
+            {
+              "id": "el1",
+              "title": "Basic Electricity and Small Generators",
+              "priority": "high",
+              "time": "weeks",
+              "body": "Understanding electricity allows salvaging and building power systems from components.\n\n**Basic Electricity Theory**\nVoltage (V): electrical pressure. Current (A): flow of electrons. Power (W) = Voltage × Current. Resistance (Ω): opposition to flow.\nOhm's Law: V = I × R (Voltage = Current × Resistance). This one equation describes most DC circuits.\n\nSeries circuits: components in a chain. Total resistance adds up. Current is the same throughout.\nParallel circuits: components in branches. Voltage is the same across all branches. Total current is the sum.\n\n**Car Alternator Generator**\nA salvaged car alternator can generate significant power. Alternators produce AC, internally rectified to DC. Normal output: 12–14V DC, 40–120 amperes. Requires: external regulator, or the internal regulator can be used.\n\nTo use as a wind or water generator: remove the internal regulator (it requires engine-speed RPM to function). Wind the rotor from an external DC source (battery) to create the magnetic field. The rotor must spin at 1,200–1,800 RPM. Use a pulley system to step up the speed from a slower power source.\n\n**Solar Power Basics**\nA 100W solar panel in direct sun produces 5–8 ampere-hours per day depending on latitude and season. Connect panels to a charge controller (prevents overcharging) then to a battery bank. 12V lead-acid batteries are most available from salvage.\n\nSeries wiring increases voltage. Parallel wiring increases capacity. Fuse every circuit at the positive terminal. Minimum cable sizing: 2.5mm² for 10A, 6mm² for 20A, 10mm² for 30A."
+            },
+            {
+              "id": "el2",
+              "title": "Energy Storage — Batteries and Mechanical Systems",
+              "priority": "high",
+              "time": "days",
+              "body": "Energy storage decouples production from consumption — essential for intermittent sources.\n\n**Lead-Acid Battery Chemistry**\nTwo lead plates in sulphuric acid electrolyte. During charge: lead sulphate on both plates converts to lead (negative) and lead dioxide (positive). During discharge: reverses.\n\nCare: keep topped up with distilled or deionised water (not tap water). Specific gravity test with hydrometer: 1.28 = fully charged, 1.18 = discharged. Never fully discharge (damages plates). Store partially charged in cool environment.\n\n**Improvised Batteries**\nDaniell cell: copper sulphate + zinc sulphate + copper and zinc electrodes. Produces 1.1V. Stack cells in series for useful voltage. Not rechargeable.\nEarth battery: zinc and copper rods in moist soil. Produces ~0.5V. Used for telegraph circuits historically. Very low current but continuous.\n\n**Mechanical Energy Storage**\nFlywheel: stores rotational kinetic energy. For brief power bursts (machine tools, stamping). A 50kg steel flywheel at 1,000 RPM stores ~2kJ.\nRaised water: pump water uphill, release through turbine when energy needed. Energy stored = mass × gravity × height. 1,000 litres raised 10m stores 27Wh. Very scalable with large reservoirs.\nCompressed air: pump air into a sealed vessel, release through a motor. Efficiency ~50%. Simple with hand or windmill pump."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "materials",
+      "label": "Materials & Manufacturing",
+      "icon": "⚒",
+      "color": "#ff6d00",
+      "tier": 3,
+      "description": "Metallurgy, woodworking, ceramics, glass, and textiles. The material foundation of civilisation.",
+      "topics": [
+        {
+          "id": "metallurgy",
+          "label": "Metallurgy",
+          "icon": "🔨",
+          "articles": [
+            {
+              "id": "me1",
+              "title": "Smelting and Iron Production",
+              "priority": "high",
+              "time": "weeks",
+              "body": "Iron is the foundation of all industrial technology. Mastering it enables all other manufacturing.\n\n**Ore Identification**\nIron ore: magnetite (black, magnetic), haematite (red-brown), limonite (yellow-brown). Test: a piece of iron ore held near a compass will deflect the needle slightly.\n\nBog iron: commonly found in swamps and boggy areas as reddish-brown nodules. The most accessible iron ore historically. Renewable — bog iron deposits regenerate in 10–20 years as iron precipitates from groundwater.\n\n**Bloomery Smelting**\nThe bloomery was humanity's primary iron-making technology for 3,000 years. A clay or stone shaft furnace, 1–1.5m tall, 30–50cm internal diameter.\n\nProcedure: light a fire at the base, add alternating layers of charcoal and crushed iron ore. Blast air with bellows (manual) or tuyere (clay pipe). Maintain temperature above 1,100°C. After 4–6 hours, break open the furnace and retrieve the bloom — a spongy mass of iron and slag.\n\nBloom processing: reheat to orange-hot. Beat with a heavy hammer to expel slag and consolidate the iron. Repeat many times. This is wrought iron: tough, malleable, relatively soft.\n\n**Carbon Control (Steel)**\nSteel is iron with 0.2–2% carbon. More carbon = harder but more brittle. Add carbon by heating iron in charcoal for extended periods (carburisation). Remove carbon by prolonged heating with air exposure (decarburisation). Correct carbon level by look: high carbon steel forms a very fine grain structure when broken.\n\n**Heat Treatment**\nHardening: heat to non-magnetic temperature (check with magnet), quench in water or oil. Water quench = harder but more brittle. Oil = slightly softer but tougher.\nTempering: reheat hardened steel to 200–300°C (observe colour: pale yellow = 220°C, blue = 300°C). Cool in air. Reduces brittleness while retaining most hardness."
+            },
+            {
+              "id": "me2",
+              "title": "Blacksmithing and Bronze Working",
+              "priority": "high",
+              "time": "weeks",
+              "body": "Basic smithing allows making and repairing every essential tool.\n\n**Blacksmithing Fundamentals**\nForge: a firepot containing fuel (charcoal or coke), air blast from bellows or electric fan. Work metal at bright orange to yellow-white heat (1,000–1,300°C). Metal at red heat is too cold to work efficiently and may crack.\n\nBasic operations:\nDrawing out: hammer on the face of the anvil with glancing blows to lengthen and thin metal.\nUpsetting: push metal into itself to thicken it. Strike end-on.\nPunching: drive a punch through hot metal to create a hole.\nDrifting: enlarge a hole with a tapered tool.\nBending: over the horn of the anvil or around a mandrel.\n\n**Essential Tools You Can Make**\nA hammer, tongs, chisel, punch, and hardy (a chisel set in the anvil's hardy hole) are the minimum set. All can be made from iron bar with a forge, anvil, and hammer. Anvil: a mass of dense iron or steel. A railway track section works. A large stone works for light work.\n\n**Bronze (Copper-Tin Alloy)**\nBronze is 90% copper, 10% tin. Melts at 950°C (much lower than iron's 1,538°C). Can be smelted in a simple pottery kiln.\nMalachite (green copper ore) and cassiterite (tin ore, black, heavy) are the raw materials. Smelt each separately, alloy together in liquid form. Cast into open moulds of stone or clay, or lost-wax casting for complex shapes.\n\nCopper alone (smelted from malachite at 1,085°C) is useful for wire, roofing, and vessels. Bronze is harder and more durable for tools."
+            },
+            {
+              "id": "me3",
+              "title": "Ceramics and Glass Production",
+              "priority": "medium",
+              "time": "weeks",
+              "body": "Ceramics are essential for food storage, cooking, and laboratory equipment. Glass enables optics.\n\n**Ceramics**\nClay identification: plastic clay moults smoothly without cracking. Test by rolling a thin coil and bending — if it doesn't crack, it's suitable.\n\nPrimary methods:\nCoiling: roll clay into ropes, stack in circles, blend joins. Pinching: press and pull a ball of clay between thumb and fingers. Slab building: roll clay flat, cut and join slabs with slurry (liquid clay).\n\nDrying: dry slowly (weeks) in shade to avoid cracking. Fast drying causes uneven shrinkage and cracks.\n\nFiring: pit firing — pack pots in a pit with fuel, burn fast and hot, unearth after cooling. Achieves 600–900°C. Sufficient for functional pottery. Kiln firing: build a kiln from bricks or clay, fuel from below, achieve 1,000–1,300°C for stronger, waterproof stoneware.\n\n**Glass Production**\nBasic glass: silica (sand) 72%, soda ash (sodium carbonate) 15%, lime (calcium oxide) 13%. Melt at 1,400–1,500°C in a crucible (ceramic container) in a hot kiln.\n\nSoda ash from wood ash: dissolve wood ash in water, boil down to concentrate, the residue contains potassium carbonate (potash) and sodium carbonate. Historically called potash. It lowers the melting point of silica.\n\nGlass blowing: gather molten glass on a blowpipe, blow while rotating to form vessels. Window glass (crown method): blow a sphere, cut off ends, reheat and spin to open into a disc.\n\n**Optical Lenses**\nA convex (magnifying) lens can be ground from glass by progressively polishing with abrasive compounds (sand, then finer abrasive, then polishing compound) against a concave mould. A lens provides: reading aid, fire starting, telescope/microscope construction. Telescope enables navigation, astronomy, and long-range observation."
+            }
+          ]
+        },
+        {
+          "id": "woodworking",
+          "label": "Woodworking",
+          "icon": "🪵",
+          "articles": [
+            {
+              "id": "ww1",
+              "title": "Carpentry Tools and Joinery",
+              "priority": "high",
+              "time": "weeks",
+              "body": "Wood is the most versatile building and manufacturing material in temperate zones.\n\n**Essential Hand Tools**\nAxe: tree felling, rough shaping. Adze: hollowing, smoothing flat surfaces. Hand saw: crosscutting and ripping. Drawknife: shaping green wood quickly. Chisel: joinery, carving. Plane: smoothing flat surfaces. Brace and bit: drilling holes.\n\nAll can be made with basic blacksmithing. A complete set of hand tools requires less than 10kg of iron.\n\n**Green vs. Dry Wood**\nGreen (freshly cut) wood is easy to shape but will crack as it dries. Dry wood is dimensionally stable but hard to cut. Strategy: rough-shape green, allow to dry partially, final-cut, allow to finish drying.\n\n**Wood Selection by Use**\nStructural beams: oak, ash, Douglas fir (strong and stiff).\nHandles and tool handles: ash, hickory (springy, absorbs shock).\nFurniture: oak, walnut, cherry (stable, finishes well).\nBowls and kitchen items: cherry, maple, sycamore (food-safe).\nSteam bending: ash, oak, elm (flexible when steamed, hold shape when dried).\nArrow shafts: straight-grained cedar, birch, or any light straight wood.\n\n**Joinery for Structural Work**\nMortise-and-tenon: the foundation of timber frame construction. The tenon (protruding tongue) fits tightly into the mortise (slot). Wedge or peg to lock. No glue or hardware required.\n\nDovetail: angled interlocking pins and tails. Extremely strong against tension. Used in drawer corners, box construction. Cannot pull apart.\n\nScarfjoint: joins two pieces end-to-end, lengthening them. Must be in a low-stress location or reinforced."
+            }
+          ]
+        },
+        {
+          "id": "textiles",
+          "label": "Textiles",
+          "icon": "🧵",
+          "articles": [
+            {
+              "id": "tx1",
+              "title": "Fibre, Spinning, and Weaving",
+              "priority": "medium",
+              "time": "weeks",
+              "body": "Textiles protect against cold and provide trade goods.\n\n**Plant Fibres**\nFlax (linen): strongest plant fibre. Process: ret (soak stems in water 2 weeks), dry, break, scutch (beat to remove woody parts), hackle (comb to align fibres). Spin into yarn.\nNettle: similar to flax. Process the same way. Strong durable fibre historically used across Europe.\nCotton: in warm climates. Seed cotton → gin (remove seeds) → card (fluff and align) → spin.\nHemp: strong, coarse fibre. Similar to flax processing. Excellent rope and canvas.\n\n**Spinning**\nDrop spindle: the simplest spinning tool. A weighted disc on a stick. Draft (pull out and thin) fibres with one hand while the spindle spins on the other end, twisting fibres into yarn. Practice needed but learnable in hours.\n\nSpinning wheel: dramatically faster than drop spindle. Build from wood — requires a flywheel, spindle, and treadle mechanism. Wheel diameter 60cm drives spindle at 10:1 ratio.\n\n**Weaving**\nBackstrap loom: stretched between a tree and the weaver's body. Most portable loom. Used across the developing world. Produces fabric of any width up to ~60cm.\nRigid heddle loom: simple frame loom with a rigid heddle (combined heddle and beater). Faster than backstrap. Good for beginners.\nFloor loom: multiple harnesses allow complex patterns. Fastest production. Build from timber.\n\n**Natural Dyes**\nWeld (yellow), woad/indigo (blue), madder (red), walnut shells (brown/black), onion skins (orange/yellow). Mordant the cloth first (alum, iron, tannin) to fix the dye. Boil cloth in mordant, wring, boil in dye bath."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "communication",
+      "label": "Communication Systems",
+      "icon": "📡",
+      "color": "#ce93d8",
+      "tier": 2,
+      "description": "Information storage, transmission, and preservation. From signal fires to radio networks.",
+      "topics": [
+        {
+          "id": "low_tech",
+          "label": "Low-Tech Communication",
+          "icon": "🔔",
+          "articles": [
+            {
+              "id": "lt1",
+              "title": "Signal Systems and Information Storage",
+              "priority": "high",
+              "time": "days",
+              "body": "Before radio, humans communicated across distances using reliable, low-tech systems.\n\n**Signal Fires**\nThree fires in a triangle: distress (universal). Smoke colour: dark (rubber, oil, wet leaves) or white (dry leaves, water added) to contrast with landscape. Signalling towers on hilltops with line-of-sight can relay messages 10–20km between stations.\n\n**Flag Systems (Semaphore)**\nTwo flags held at different arm positions encode letters. Standard semaphore alphabets allow trained operators to send 25 words per minute. Visible up to 5km with naked eye, 15km with binoculars.\n\n**Drums and Horns**\nTalking drums (African tradition): coded sequences represent syllables and words. Not a universal code — requires community agreement on meanings. Range: 5–10km. Horns (blown): can signal simple pre-agreed messages (assemble, attack, retreat, all-clear). Swiss alpenhorn carries up to 10km.\n\n**Paper Making**\nPaper is the most important information storage substrate. Macerate fibrous plant material (old cotton, linen rags, straw, nettles) in water until pulpy. Spread thin on a screen (mesh frame). Drain water, press, dry.\n\nQuality paper requires beating fibres to shorter lengths. Rice paper from papyrus or rice straw. Quality varies enormously by material and process.\n\n**Printing Press**\nMovable type enormously multiplies information distribution. Carve individual letters in wood or cast in type metal (lead alloy, low melting point). Arrange in a forme (locked type frame). Apply ink (linseed oil + lampblack). Press paper onto forme. A trained press team can produce 300+ pages per hour."
+            }
+          ]
+        },
+        {
+          "id": "electronic",
+          "label": "Electronic Communication",
+          "icon": "📻",
+          "articles": [
+            {
+              "id": "ec1",
+              "title": "Crystal Radio and Basic Radio Construction",
+              "priority": "high",
+              "time": "days",
+              "body": "Radio is the fastest communication system achievable with minimal materials.\n\n**Crystal Radio Receiver**\nA crystal radio requires no power — it runs on the energy of the radio waves themselves. Components: antenna (10–30m wire), coil (100 turns of insulated wire on cardboard tube), tuning capacitor (variable or improvised), crystal detector (galena crystal + whisker wire, or germanium diode), high-impedance earphones.\n\nConstruction: wind the coil, connect antenna to one end and earth (a ground rod) to the other. The capacitor tunes to different frequencies. The detector rectifies the signal. The earphone converts it to sound. Receives AM medium-wave broadcasts from 100+ km.\n\n**Radio Transmitter Basics**\nA spark gap transmitter — the first type historically — produces a burst of radio waves. A coil + capacitor oscillates at a frequency determined by the L×C values. Very simple to build. Illegal to operate in most countries but irrelevant in disaster situations. Range: 1–10km depending on power.\n\n**Morse Code**\nThe most efficient long-distance communication system. Requires minimal bandwidth, works with very weak signals, survives interference. Learning time: 20–30 hours of practice to send/receive 10 words per minute. Essential knowledge.\n\nAlphabet: A=·− B=−··· C=−·−· D=−·· E=· F=··−· G=−−· H=···· I=·· J=·−−− K=−·− L=·−·· M=−− N=−· O=−−− P=·−−· Q=−−·− R=·−· S=··· T=− U=··− V=···− W=·−− X=−··− Y=−·−− Z=−−··\n\nEmergency: SOS = ···−−−··· (no spaces, continuous)"
+            },
+            {
+              "id": "ec2",
+              "title": "Amateur Radio Networks and Long-Range Communication",
+              "priority": "high",
+              "time": "weeks",
+              "body": "Amateur radio operators are the backbone of emergency communications globally.\n\n**Radio Propagation**\nHF (3–30 MHz): bounces off the ionosphere. Long-range (100–20,000km). Best propagation at different times of day/year.\nVHF (30–300 MHz): line of sight primarily. 30–50km range with simple antenna. Good for local community networks.\nUHF (300MHz–3GHz): short range, used for repeaters and modern digital systems.\n\n**Improvised HF Radio**\nWith electronics salvage: construct a superregenerative receiver — one transistor, a coil, a variable capacitor, and a speaker. Receives HF signals adequately. Transmitting HF requires more components but is achievable from salvaged PCBs.\n\n**Antenna Construction**\nHalf-wave dipole: two equal lengths of wire, each λ/4 long, fed at the centre. For 7 MHz (40m band): each arm = 10.3m. For 14 MHz (20m band): each arm = 5.15m. Hang horizontally as high as possible.\n\nVertical quarter-wave antenna: single wire λ/4 long with three or four ground radials. Useful for vehicle-mounted or portable operation.\n\n**Emergency Communication Protocols**\nEstablish a scheduled net: a time and frequency where your group listens and transmits. Keep communications short and clear. Use phonetic alphabet (Alpha, Bravo, Charlie...) to spell uncertain words. Give location as a grid reference or lat/long. End each transmission with your call sign."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "civilization_rebuild",
+      "label": "Civilization Recovery",
+      "icon": "◉",
+      "color": "#80cbc4",
+      "tier": 3,
+      "description": "Governance, education, scientific foundations, and the social architecture required to rebuild complex society.",
+      "topics": [
+        {
+          "id": "governance",
+          "label": "Governance & Organisation",
+          "icon": "⚖",
+          "articles": [
+            {
+              "id": "gv1",
+              "title": "Community Leadership and Governance Systems",
+              "priority": "high",
+              "time": "weeks",
+              "body": "Without governance, communities fragment. The structure of decision-making determines survival.\n\n**Immediate Post-Crisis Leadership**\nIn the immediate aftermath, command-and-control works best — clear authority, fast decisions, no committees. The most competent person in the crisis at hand should lead, not the person with the most status.\n\nEstablish clear roles within 48 hours: security, food, medical, logistics, communication. Give each role-holder authority to make decisions in their domain without approval.\n\n**Transitional Governance**\nAs acute crisis stabilises, governance must become more inclusive to maintain legitimacy. People who have no voice in decisions that affect them will undermine those decisions.\n\nCouncil model: elected or appointed representatives from each working group or family unit. Decisions by consensus where possible, majority vote when consensus fails. Unanimity requirement for founding documents, expulsion, or major resource decisions.\n\n**Resource Management**\nFood distribution: clear rules prevent violence. Ration allocation by need (children, pregnant women, elderly, ill receive priority) not by contribution, at least for survival rations. Surpluses can be allocated by contribution.\n\nLabour organisation: establish a labour exchange — everyone contributes a minimum number of hours per week. Time tracking by simple record book. Specialisation emerges as community grows.\n\n**Conflict Resolution**\nUnresolved conflict within the group is fatal at close quarters. Establish a mediation process immediately. Three-person panel (not involved in dispute) hears both sides, proposes resolution. The process matters more than the outcome — people accept decisions they felt were heard."
+            },
+            {
+              "id": "gv2",
+              "title": "Legal Systems, Property Rights, and Security",
+              "priority": "high",
+              "time": "months",
+              "body": "Rule of law is what distinguishes a community from a gang.\n\n**Property Rights**\nDocument all property claims in writing, witnessed by multiple people. The simplest effective system: first occupancy (whoever develops and uses land owns it), with registration in a community record.\n\nFor equipment and tools: communal ownership of critical infrastructure (water systems, grain stores), private ownership of personal tools and developed land.\n\n**Community Security**\nWatches: rotating duty for all able adults. Two-person watches are safer (neither falls asleep, neither can be silently taken). Regular patrols of perimeter. Clear signals for alarm.\n\nLethal force policy: agree in advance when lethal force is authorised. This is not a comfortable conversation but is essential. Ambiguity leads to either inaction (danger) or vigilantism (injustice).\n\n**Legal Procedure**\nFor serious offences: charge, hearing, evidence, defence, verdict by council, proportional punishment. The minimum due process that distinguishes law from vengeance. Record all proceedings in writing.\n\nPunishment options: community service (most useful), temporary expulsion from privileges, permanent expulsion, restitution. Avoid imprisonment — guarding prisoners consumes resources."
+            }
+          ]
+        },
+        {
+          "id": "education",
+          "label": "Education & Knowledge Preservation",
+          "icon": "📚",
+          "articles": [
+            {
+              "id": "ed1",
+              "title": "Teaching and Literacy Systems",
+              "priority": "high",
+              "time": "months",
+              "body": "Literacy is the technology that allows knowledge to survive beyond individual memory.\n\n**Emergency Literacy Programme**\nPhonics: teach the sounds of each letter, then blending. A literate adult can teach a child to read in 3–6 months with daily sessions of 20 minutes. Priority: all children and every adult who wants to learn.\n\nWriting: start with printing (block letters), move to cursive only after printing is fluent. Practise with charcoal on smooth surfaces, then graduated to paper and ink.\n\nNumeracy: number operations, fractions, percentages, basic geometry. These take 2 years of consistent teaching to fully embed.\n\n**Apprenticeship Systems**\nThe most efficient way to transmit practical skill is master-apprentice pairing. Formal apprenticeship: apprentice works with master for 1–3 years. No pay initially; food and shelter. Clear milestones — apprentice must demonstrate specific competencies before advancement.\n\nThis system transmits tacit knowledge (the knowledge you cannot fully verbalise) that books cannot capture.\n\n**Libraries and Archives**\nA community library is a survival asset. Every book should be catalogued and tracked. The Dewey Decimal system (or any consistent system) enables retrieval. Protect from moisture, fire, and vermin. Prioritise: medical, agricultural, engineering, and science texts.\n\n**Knowledge Indexing**\nCreate a master index of who knows what — a skills registry. In a community of 50 people, there is enormous latent knowledge. Map it. Update regularly as skills are learned. This becomes the community's knowledge directory."
+            },
+            {
+              "id": "ed2",
+              "title": "Scientific Method and Mathematical Foundations",
+              "priority": "high",
+              "time": "months",
+              "body": "Science is the systematic method of building reliable knowledge. It is civilisation's most powerful tool.\n\n**The Scientific Method**\nObserve a phenomenon. Form a hypothesis (testable prediction). Design an experiment to test the prediction. Collect data. Analyse results. Revise hypothesis. Repeat.\n\nThe key: a hypothesis must be falsifiable — there must be a possible result that would prove it wrong. If there is no such result, the hypothesis is not scientific.\n\n**Mathematics — Priority Topics**\nArithmetic: the four operations, fractions, ratios, percentages. Essential for resource management, construction, and medicine.\n\nGeometry: areas, volumes, Pythagorean theorem, basic trigonometry. Essential for construction, navigation, and surveying.\n\nStatistics: mean, median, mode, variance. Essential for understanding crop yields, disease rates, and resource consumption.\n\nLogarithms and exponentials: essential for chemistry, electricity, and understanding growth and decay.\n\n**Physics Foundations**\nMechanics: forces, moments, levers, pressure (Pascal), energy, work, power. Essential for construction and engineering.\nThermodynamics: heat transfer (conduction, convection, radiation), temperature, efficiency of engines. Essential for fire, cooking, and energy systems.\nElectricity: Ohm's Law, power, circuits, electromagnetism. Essential for generator and radio construction.\n\n**Chemistry Foundations**\nAcid-base reactions, oxidation-reduction, combustion, simple organic chemistry. Essential for soap making, tanning, preserving food with salt and acid, and producing basic medicines.\n\n**Biology Foundations**\nCell theory, genetics basics, germ theory. Germ theory (disease caused by microorganisms) is the single most life-saving scientific idea — understanding it directly shapes water, food, and sanitation practices."
+            }
+          ]
+        },
+        {
+          "id": "transportation",
+          "label": "Transportation",
+          "icon": "🚗",
+          "articles": [
+            {
+              "id": "tr1",
+              "title": "Animal Power, Wheeled Vehicles, and Water Transport",
+              "priority": "medium",
+              "time": "months",
+              "body": "Transportation multiplies the range of resource collection, trade, and communication.\n\n**Animal-Powered Transport**\nHorses, donkeys, oxen, and camels multiply human carrying capacity enormously. An ox can haul 600kg; a horse 800kg. A human can carry 25–35kg comfortably.\n\nHarness design: collar harness (horse, ox) transfers pulling force from shoulders, not throat — far more efficient than simple rope around the neck. Yoke: traditional ox harness. Single trees and double trees distribute pulling force to a vehicle or plough.\n\n**Wheeled Vehicles**\nWheel construction: spoked wheel (stronger, lighter than solid) requires a hub, spokes, and a rim. The rim can be bent from steam-heated wood or assembled from curved segments. Tyres: originally iron hoops heated and shrunk onto rim; leather or rope works as an alternative.\n\nSimple cart: two-wheeled cart with wooden body. Axle fixed to the frame, wheels rotating on the axle (pegged to prevent removal). Greased wooden bearings or salvaged metal bearings.\n\nWagon: four-wheeled vehicle. Front axle must pivot (rotating on a kingpin) for steering. This is the mechanical complexity that distinguishes a wagon from a simple cart.\n\n**Bicycle Mechanics**\nA bicycle is the most efficient human transport device ever invented, converting human effort to distance at 3–5× the efficiency of walking. Maintain: keep chain clean and lubricated (any oil works), keep tyre pressure correct, adjust brakes to within 1–2mm of rim, true wheels (minor adjustments to spoke tension).\n\n**Water Transport**\nDugout canoe: the simplest boat. Select a straight log, hollow with adze and fire, shape the hull. Stable, durable. Capable of coastal and river travel.\nClinker-built boat: overlapping planks, each riveted to the next. Skilled carpentry but achievable. 5–10m boat carries 500–1,000kg.\nSail: a triangular lateen sail requires only a pole mast, a boom, and a sheet (controlling rope). Allows sailing within 45° of the wind."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "water_techniques",
+      "label": "Water Techniques",
+      "icon": "💧",
+      "color": "#00b4ff",
+      "tier": 1,
+      "description": "30 water survival techniques from basic source identification to advanced purification infrastructure.",
+      "topics": [
+        {
+          "id": "basic_water",
+          "label": "Basic Water Skills",
+          "icon": "💧",
+          "articles": [
+            {
+              "id": "wsk1",
+              "title": "Identify Natural Water Sources",
+              "priority": "critical",
+              "time": "immediate",
+              "body": "Identifying safe water is your first survival priority. Follow terrain downhill — water flows toward valleys. Listen for running water up to 500m away in quiet conditions.\n\n**Reliable plant indicators:**\nWillows, cottonwood, alder, and cattails only grow where roots reach the water table year-round. A stand of these plants in otherwise dry terrain points to shallow groundwater even in dry season.\n\n**Animal signs:**\n- Animal tracks converging from multiple directions lead to water\n- Birds fly in straight lines toward water at dawn and dusk\n- Insects (midges, mosquitoes) cluster near water sources\n\n**Water types ranked by safety:**\n1. Spring water — filtered naturally through earth; safest\n2. Flowing streams — safer than still water; pathogens diluted\n3. Collected rainwater — safe if container is clean\n4. Still ponds and lakes — highest pathogen load; treat aggressively\n\n**Desert-specific techniques:**\n- Dry riverbeds: dig at the outer bend 30–60cm deep for subsurface flow\n- Rock depressions after rain hold water for 2–3 days\n- Canyon walls: seeps appear at geological layer boundaries (look for green streaks)\n\n**Never drink:** Stagnant water with algae blooms, water with petroleum sheen, or water near industrial or mining sites regardless of appearance."
+            },
+            {
+              "id": "wsk2",
+              "title": "Boiling Water — Complete Guide",
+              "priority": "critical",
+              "time": "immediate",
+              "body": "Boiling destroys all biological threats and requires only fire and a container. It is the most reliable purification method available without equipment.\n\n**Correct procedure:**\n1. Fill container with the clearest available water\n2. If very cloudy, pre-filter through cloth to remove large particles\n3. Bring to a full rolling boil — large bubbles continuously breaking the surface (not just simmering)\n4. Sea level to 2,000m altitude: maintain rolling boil for **1 full minute**\n5. Above 2,000m altitude: maintain rolling boil for **3 full minutes** (water boils cooler at altitude)\n6. Remove from heat, cover immediately to prevent re-contamination\n7. Allow to cool; store in sealed container\n\n**What boiling eliminates:** All bacteria, viruses, protozoa, Giardia, Cryptosporidium — every biological threat.\n**What boiling cannot remove:** Chemical contamination, heavy metals, salt, petroleum products.\n\n**Warning signs — do not drink even after boiling:**\n- Chemical or petroleum smell\n- Unnatural colour (yellow, brown from industrial sources)\n- Oily surface film\n\n**Container improvisation:**\n- Any metal container can be boiled in\n- A plastic bag or bark container filled with water will not burn if kept full while over heat (water absorbs heat below burning point of the container)\n- Heat stones in fire and drop into water in a bark or hide vessel"
+            },
+            {
+              "id": "wsk3",
+              "title": "Cloth Filtration — Step by Step",
+              "priority": "high",
+              "time": "immediate",
+              "body": "Cloth filtration removes visible sediment, silt, and large particles. It does NOT remove pathogens — always follow with boiling or chemical treatment.\n\n**Minimum setup (5 minutes):**\n1. Stretch a piece of fabric over a container and secure it\n2. Pour water through slowly\n3. Repeat with a second, finer fabric layer\n4. The filtered water is clearer but not yet safe to drink\n\n**Improved gravity filter:**\n1. Cut the bottom from a plastic bottle; this is your filter funnel\n2. Layer from bottle neck upward:\n   - Layer 1: coarse cloth or folded bandana (coarsest)\n   - Layer 2: T-shirt material or flannel\n   - Layer 3: tightly-woven fabric (finest available)\n3. Suspend over a collection container\n4. Pour contaminated water into the top\n5. Allow to drip through completely\n6. Rinse filter material between uses when flow slows\n\n**Field upgrade:** Add a layer of dry grass, then fine sand, between the cloth layers — captures finer particles.\n\n**Maintenance:** Replace fabric when water flows slower than dripping pace. Rinse in clean water after each use.\n\nAlways boil or chemically treat after filtering."
+            },
+            {
+              "id": "wsk4",
+              "title": "Sand-Charcoal Filter Construction",
+              "priority": "high",
+              "time": "hours",
+              "body": "A layered sand-charcoal filter significantly improves water quality, removing odours, some chemicals, and fine particles. The charcoal layer is made from your campfire.\n\n**Making the charcoal:**\n1. After your fire has burned down, remove large charred wood pieces before they turn to ash\n2. Allow to cool completely\n3. Crush into pea-sized pieces — do NOT use commercial charcoal (contains chemical additives)\n4. The charcoal must be cold before adding to the filter\n\n**Construction — using any container with a drain hole:**\n\nLayers from bottom to top:\n1. **Small holes in base** — punch several 3–5mm holes in the container bottom\n2. **Gravel (10cm)** — large stones prevent sand from blocking holes\n3. **Coarse sand (15cm)** — removes medium particles\n4. **Crushed charcoal (10cm)** — absorbs odours, some chemicals, improves taste\n5. **Fine sand (20cm)** — finest filtration layer\n6. **Gravel cap (5cm)** — weight layer, prevents floating\n\n**First use:**\n- Pour 2 litres of clean water through to \"season\" the filter — discard this output\n- Production water should run clear\n\n**Maintenance:**\n- Replace charcoal layer every 3–4 weeks\n- Clean sand layers monthly by backwashing\n\nOutput must still be boiled — this filter improves clarity and taste; it does not ensure safety alone."
+            },
+            {
+              "id": "wsk5",
+              "title": "Solar Still — Complete Construction",
+              "priority": "high",
+              "time": "hours",
+              "body": "A solar still extracts moisture from the ground itself through evaporation and condensation. The output is distilled water — safe to drink without treatment.\n\n**Materials needed:**\n- Clear plastic sheet (minimum 1m × 1m)\n- Digging tool\n- Collection container\n- Optional: 1–2m drinking tube\n\n**Step-by-step construction:**\n\n1. **Choose location:** Maximum sun all day. Dry riverbeds and areas with succulent plants or moist-looking soil yield more water.\n\n2. **Dig the pit:** 1m diameter, 60cm deep. Make the bottom as flat as possible. The sides should slope inward toward a central low point.\n\n3. **Improve the yield:** Place any moist plant material (not toxic plants), green vegetation, or wet soil inside the pit around (not blocking) the centre.\n\n4. **Place the container:** Directly in the pit's lowest central point. Run a drinking tube from the container up over the rim of the pit (optional).\n\n5. **Cover the pit:** Stretch clear plastic across the opening. Seal all edges completely with soil or rocks — no gaps allowed.\n\n6. **Create the drip point:** Place a small stone in the centre of the plastic directly above the container. This creates a low point that funnels condensate drops.\n\n**How it works:**\nThe trapped air heats in sunlight, evaporating moisture from the soil and plants. This moisture condenses on the cooler plastic underside and drips from the centre into your container.\n\n**Output:** 0.5–1 litre per day in full sun. Place multiple stills for more volume.\n**Output is distilled** — drink directly without further treatment."
+            },
+            {
+              "id": "wsk6",
+              "title": "Dew Collection Methods",
+              "priority": "medium",
+              "time": "immediate",
+              "body": "Dew collects on surfaces that cool rapidly overnight. In humid climates this yields 0.5–1 litre per hour before sunrise. Collected dew is generally clean and can be drunk directly.\n\n**Walking collection (fastest):**\n1. Wrap absorbent cloth (towel, shirt, bandana) around both legs from knee to ankle\n2. Walk through tall grass and low vegetation before dawn\n3. Wring cloth into container every 5–10 minutes\n4. Rehang cloth immediately and continue\n5. In dense grass: up to 1 litre per 30 minutes of walking\n\n**Surface collection:**\n1. Before dawn, wipe any flat surface — rocks, vehicle metal, tarp, large leaves — with absorbent cloth\n2. Wring into container\n3. Polished metal and clean plastic hold more dew than rough or porous surfaces\n\n**Passive overnight collector:**\n1. Lay a plastic sheet or tarp on grass the night before\n2. Prop one edge 5–10cm higher than the other so it tilts\n3. Place a container at the lower edge to collect runoff\n4. Optional: weigh down corners with rocks and allow centre to sag toward collection point\n\n**Maximise yield:**\n- Start before dawn — dew evaporates within 30 minutes of sunrise in warm climates\n- Nights with high humidity and clear skies produce the most dew\n- Avoid collecting from surfaces with bird droppings, exhaust, or chemical treatments"
+            },
+            {
+              "id": "wsk7",
+              "title": "Rainwater Harvesting System",
+              "priority": "high",
+              "time": "hours",
+              "body": "Rainwater is one of the cleanest natural sources — falling as distilled water, though it picks up contaminants from collection surfaces. Even basic collection provides significant water security.\n\n**Simple tarp system:**\n1. Rig a tarp with a central low point above a collection container\n2. Raise all four corners at different heights — create a funnel to one corner\n3. Place container under the lowest point\n4. **Rule of thumb:** 1mm of rainfall on 1m² of tarp area = 1 litre of water\n\n**First-flush diverter (improves quality):**\nThe first water washing off a roof or surface carries the most contamination (dust, bird droppings, debris).\n\nBuild a first-flush diverter:\n1. Cut your downpipe or drainpipe and insert a T-junction\n2. From the T-junction, run a vertical pipe downward that holds approximately 25 litres (this is your \"flush\" volume)\n3. When rain begins, the first water fills this vertical pipe before flowing to storage\n4. Only after the flush pipe is full does cleaner water flow to your main storage\n\n**Storage:**\n- Cover all storage containers — prevents evaporation, algae growth, and mosquito breeding\n- Dark containers reduce algae growth significantly\n- Covered rainwater stays fresh for weeks to months\n\n**Purification needed if:**\n- Collection surface is metal roofing with peeling paint or rust\n- Rain follows a long dry period (higher atmospheric particulates)\n- Unusual smell or visible contamination"
+            },
+            {
+              "id": "wsk8",
+              "title": "Seep Well Construction",
+              "priority": "high",
+              "time": "days",
+              "body": "A seep well extracts naturally filtered groundwater from beside a surface water source without the contamination risk of the surface water itself.\n\n**Principle:**\nWater from rivers and streams percolates sideways through soil. Digging 2–5m from the bank accesses water filtered through earth, dramatically reducing pathogen load compared to the stream.\n\n**Site selection:**\n- Choose the upstream side of your camp (prevents contamination from camp activities)\n- Select the outer bend of a river meander — sediment is deeper here and water table shallower\n- Avoid sites below agricultural land (nitrate contamination) or near latrines\n\n**Construction:**\n\n1. Mark a location **2–5m from the river bank or stream edge**\n\n2. **Dig:** 60–90cm diameter shaft. Dig downward; you will hit the water table (water begins seeping in) at 0.5–2m depth depending on the river level\n\n3. **Line the base:** Place a layer of large stones (10cm) at the bottom to prevent sediment from entering as you draw water\n\n4. **Line the walls:** Place flat rocks or timber cribbing from just above water level to the top to prevent wall collapse. Leave the bottom open for water inflow.\n\n5. **Seal the upper zone:** Line the top 60cm of the shaft with puddled clay or stone sealed with mortar to prevent surface water (which is more contaminated) from entering\n\n6. **Cap:** Build a raised lip 20cm above ground and a tight-fitting cover\n\n**Use:**\n- Allow 2 hours after first digging before drawing water (sediment settles)\n- Draw water slowly — rapid drawing pulls in fine sediment\n- Always boil before drinking"
+            }
+          ]
+        },
+        {
+          "id": "advanced_water",
+          "label": "Advanced Water Systems",
+          "icon": "🔧",
+          "articles": [
+            {
+              "id": "aws1",
+              "title": "Solar Desalination Unit",
+              "priority": "high",
+              "time": "days",
+              "body": "A solar desalination unit converts seawater or any contaminated water into clean distilled water using only sunlight. The output requires no further treatment.\n\n**Evaporation tray method:**\n\n**Materials:** Black-painted metal tray (0.5m × 0.5m minimum), clear glass or rigid plastic sheet for cover, a collection groove and pipe at one edge, a container.\n\n**Construction:**\n1. Build a wooden frame around the tray perimeter, 10–15cm high\n2. Paint the tray interior matt black — maximises heat absorption\n3. Tilt the tray slightly: one edge (the collection side) 2cm lower than the opposite\n4. Cut a small groove along the lower edge of the tray — condensate runs into this groove\n5. Connect the groove to a pipe or tube that leads outside the frame to your collection container\n6. Lay the clear cover on top of the frame — it should be angled the same direction as the tray tilt\n\n**Operation:**\n1. Fill tray with seawater or brackish water to 2–3cm depth\n2. Place in direct sun facing midday sun (south in N hemisphere, north in S hemisphere)\n3. Sun heats the black surface; water evaporates; condensate forms on the cooler plastic lid\n4. Condensate runs down the tilted cover into the collection groove and out to your container\n\n**Output:** 1–3 litres per day per square metre in full sun. Scale by adding more trays.\n**The output is pure distilled water** — safe to drink without any further treatment."
+            },
+            {
+              "id": "aws2",
+              "title": "Ceramic Water Filter",
+              "priority": "high",
+              "time": "days",
+              "body": "A ceramic pot filter uses fired clay to physically block pathogens. This is a proven technology used by millions worldwide and can be made from locally available clay.\n\n**Test your clay:**\nRoll a coil of moist clay 2cm thick between your palms. Bend it into a U-shape — if it cracks immediately, add more clay or water. If it bends without cracking, the clay is suitable.\n\n**Materials:**\n- 50% clay (plastic, not sandy)\n- 50% combustible material (fine sawdust, rice husks, or dried coffee grounds)\n\n**Construction:**\n\n1. Mix clay and combustible material thoroughly until uniform\n2. Wedge the mixture on a clean surface to remove air pockets (fold and press repeatedly for 10 minutes)\n3. Shape into a pot with:\n   - Walls 8–10mm thick uniformly\n   - Tapered, slightly pointed base\n   - Rim wide enough to rest on a bucket\n\n4. Air-dry slowly: 3 days in shade, then 3 days in indirect sunlight. Never rush-dry — it cracks.\n\n5. Fire the pot at 850–900°C for 4–6 hours. The combustible material burns away, leaving microscopic pores sized to block bacteria and protozoa.\n\n**Testing the finished filter:**\n- Fill with water: it should drip at 1–3 litres per hour, not pour freely\n- Too fast: pores too large — revise mix with more clay\n- Too slow: pores too small — add more combustible material next batch\n\n**Use:**\nPlace the ceramic pot resting on a clean covered plastic bucket. Pour raw water into the pot; filtered water drips into the bucket. Drink from the bucket only.\n\n**Treats:** 99.9% of bacteria and protozoa. Coat with colloidal silver for virus reduction."
+            },
+            {
+              "id": "aws3",
+              "title": "Gravity-Fed Filtration Tower",
+              "priority": "high",
+              "time": "days",
+              "body": "A gravity-fed filtration tower provides continuous clean water using no power — only the weight of water moves it through multiple filtration stages.\n\n**Design concept:**\nThree containers stacked vertically, each feeding the next through a filtered drain. The lowest container collects filtered water.\n\n**Container selection:**\nAny opaque containers that can be stacked: 20-litre buckets, barrels, clay pots, wooden boxes lined with plastic.\n\n**Stage 1 — Coarse filtration (top container):**\n- Punch 6–8 small holes (5mm) in the base\n- Cover the holes with a layer of coarse cloth from inside\n- Fill with 10cm of large gravel, then 10cm of coarse sand\n- This removes leaves, insects, and large particles\n\n**Stage 2 — Fine filtration and purification (middle container):**\n- Punch 4–6 holes (3mm) in the base covered with tightly-woven cloth\n- Fill with layers: 5cm coarse sand, 10cm activated charcoal (from fire), 10cm fine sand\n- This removes fine sediment, many chemicals, and significantly improves taste and odour\n\n**Stage 3 — Collection (bottom container):**\n- Sealed, with a tap or ladle access\n- Keep covered when not in use\n\n**Output:** 10–30 litres per hour depending on sand compaction and container size.\n\n**Critical:** Output still requires boiling before drinking. The tower improves quality dramatically but is not standalone purification.\n\n**Scale up for community use:** Use 200-litre drums; can produce 200+ litres per day for 20–30 people."
+            },
+            {
+              "id": "aws4",
+              "title": "Sand Dam Construction",
+              "priority": "medium",
+              "time": "weeks",
+              "body": "A sand dam is a reinforced concrete wall across a seasonal stream that traps sand during floods. The saturated sand stores millions of litres of clean groundwater year-round, even when the surface stream is completely dry.\n\n**Why it works:**\nSand saturated with water acts like a huge sponge. Unlike open water storage, sand prevents evaporation (losing 90% less water), blocks algae, mosquitoes, and contamination, and naturally filters water as it percolates through.\n\n**Selecting the site:**\n- A narrow rocky valley where both banks are solid rock or hard earth — the dam anchors into these\n- An upstream catchment of 0.5–5km² (enough to deposit sand and fill the reservoir)\n- A seasonal stream that flows during the wet season and dries in the dry season\n\n**Construction steps:**\n\n1. **Survey the cross-section** — measure the stream width and depth at the chosen point\n\n2. **Key the foundation** into bedrock or very hard soil on both banks and below the streambed. Dig until you hit solid material.\n\n3. **Build the concrete wall:**\n   - Mix: 1 part cement, 2 parts sand, 3 parts gravel\n   - Width at base: 50cm minimum\n   - Height: 1–3m above the streambed\n   - Steel reinforcement: 10mm bars at 30cm spacing horizontally and vertically\n\n4. **Spillway:** The top of the dam must be a smooth, slightly curved overflow lip. Floods must pass cleanly over the top — if water goes around the sides, it will erode the banks and destroy the dam.\n\n5. **Cure:** Allow concrete to cure 28 days before the first flood season.\n\n**After construction:** Sand fills automatically over 1–3 wet seasons. Access water via a hand-dug well 1–2m upstream, or install a pipe through the dam wall below sand level."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "fire_energy_tech",
+      "label": "Fire & Energy Techniques",
+      "icon": "🔥",
+      "color": "#ff6b00",
+      "tier": 1,
+      "description": "Detailed construction guides for efficient fire systems, energy generation, and thermal storage.",
+      "topics": [
+        {
+          "id": "fire_systems",
+          "label": "Efficient Fire Systems",
+          "icon": "🔥",
+          "articles": [
+            {
+              "id": "fs1",
+              "title": "Rocket Stove Construction",
+              "priority": "high",
+              "time": "hours",
+              "body": "A rocket stove uses 75% less wood than an open fire by focusing combustion in an insulated L-shaped chamber. It burns small-diameter sticks (finger to wrist thickness) completely, producing almost no smoke.\n\n**The L-shaped combustion chamber principle:**\nFuel enters horizontally. The fire burns only at the elbow where horizontal meets vertical. Fresh air is drawn under the fuel from the horizontal inlet. The insulated vertical chimney creates a powerful draught that super-heats the combustion zone.\n\n**Simple brick version:**\n\nMaterials needed: 16 standard bricks, clay mortar (mud works), flat cooking surface.\n\nStep 1: Build the horizontal fuel feed channel\n- Lay 2 bricks flat, parallel, 15cm apart and 30cm long\n- This forms the sides of the fuel channel\n- Raise the fuel on 2 small stones inside this channel so air flows under the wood\n\nStep 2: Build the vertical combustion chamber\n- Stack 4 bricks in a square directly at the end of the horizontal channel, creating a vertical shaft 25cm tall\n- The junction of horizontal and vertical is where combustion is concentrated\n\nStep 3: Insulate everything\n- Pack clay, wet sand, or ash around all outer surfaces except the fuel inlet and the top\n- Insulation is critical — without it the stove loses heat through the walls and efficiency drops dramatically\n\nStep 4: Cooking surface\n- Raise a pot slightly above the chimney top using small stones or a metal grate\n- The gap allows exhaust gases to escape while heat transfers to the pot\n\n**Fuel management:**\n- Feed 3–4 sticks into the horizontal channel at once\n- Push sticks forward gradually as they burn — only the front end combusts\n- Flames should be entirely inside the vertical chimney with no smoke"
+            },
+            {
+              "id": "fs2",
+              "title": "Charcoal Production Kiln",
+              "priority": "medium",
+              "time": "days",
+              "body": "Charcoal stores twice the energy of equivalent wood, burns hotter and cleaner, and is essential for blacksmithing, metal smelting, and enclosed cooking.\n\n**Why charcoal burns better than wood:**\nWood contains 50% water (even when \"dry\") and volatile compounds that must be driven off before clean combustion occurs. Charcoal is nearly pure carbon — it burns without smoke at very high temperatures.\n\n**Retort method — highest yield (25% of wood weight):**\n\nMaterials: A metal barrel with a lid, or any airtight metal container.\n\nStep 1: Pack the barrel as tightly as possible with dry hardwood pieces (oak, beech, hickory, or fruitwood produce best quality charcoal; avoid pine — it leaves tar residue).\n\nStep 2: Cut a single 2–3cm hole in the lid. This allows gases to escape but restricts oxygen.\n\nStep 3: Build a fire around and beneath the barrel. Heat for 4–6 hours.\n\nStep 4: Monitor the gas escaping through the hole. Initially it is grey smoke (steam and volatiles). Later it becomes a clear blue-yellow flame — this is combustible gas (mostly CO). When only this clear gas burns and no smoke is visible, charcoaling is complete.\n\nStep 5: Seal the hole completely with clay or metal. Seal all other gaps. Allow to cool for a minimum of 24 hours before opening. Opening hot charcoal causes instant combustion.\n\n**Pit method — no equipment needed (15–20% yield):**\n1. Dig a pit and pack tightly with dry wood standing vertically\n2. Light the top and allow to fully ignite\n3. When burning strongly (bright orange throughout), cover with wet grass then earth\n4. Leave only 2–4 small air holes; seal progressively over 3 hours\n5. Seal completely; allow 24–48 hours to cool"
+            },
+            {
+              "id": "fs3",
+              "title": "Biochar Production and Use",
+              "priority": "medium",
+              "time": "days",
+              "body": "Biochar is charcoal incorporated into soil rather than burned as fuel. It dramatically improves soil fertility, water retention, and carbon sequestration for decades.\n\n**How biochar improves soil:**\nCharcoal's microporous structure (like a sponge) provides enormous surface area inside the soil — 1 gram of biochar has up to 300 square metres of internal surface. This surface area:\n- Holds water and nutrients against leaching\n- Provides habitat for beneficial soil bacteria and fungi\n- Increases soil aeration\n- Persists in soil for hundreds to thousands of years\n\n**Production:**\nMake biochar exactly as charcoal (see Charcoal Production Kiln article), using any biomass: wood, crop residues, nut shells, animal bones.\n\n**Critical — charge before applying:**\nFresh biochar is \"empty\" — it will absorb nutrients from your existing soil and actually reduce fertility short-term.\n\nCharging methods:\n1. Mix thoroughly with mature compost (50:50 by volume) and leave for 2 weeks\n2. Or soak in diluted urine (10:1 water:urine) for 1 week — urine charges it with nitrogen, phosphorus, and potassium\n3. Charged biochar smells earthy, not like smoke\n\n**Application:**\n- Incorporate into the top 20–30cm of soil at 10–20% by volume\n- One application lasts for the lifetime of the land — it does not degrade\n- Most beneficial on sandy soils (adds water retention) and acidic soils (raises pH slightly)"
+            }
+          ]
+        },
+        {
+          "id": "energy_generation",
+          "label": "Energy Generation",
+          "icon": "⚡",
+          "articles": [
+            {
+              "id": "eg1",
+              "title": "Micro-Hydroelectric System",
+              "priority": "high",
+              "time": "weeks",
+              "body": "A flowing stream with adequate head (vertical drop) provides continuous, reliable electricity — 24 hours a day, every day, regardless of weather. Even a small stream can power lights and communications.\n\n**Assess your stream:**\n\nHead (H): Vertical drop from intake to turbine. Measure by running a horizontal level (a water-filled hose works perfectly) from the intake point; where the hose reaches ground is your turbine site. Measure the vertical distance.\n\nFlow (Q): Time how long it takes to fill a 20-litre bucket at the stream intake. Flow (litres/second) = 20 ÷ time in seconds.\n\nPower estimate: P (watts) = H × Q × 7\nExample: 4m head × 3 L/s × 7 = 84W continuous\n\n**System components:**\n\n1. Intake weir: A small stone or concrete dam diverting water into your intake pipe. Include a mesh screen to block leaves and debris.\n\n2. Settling pond: A small pool between the weir and the penstock pipe where sediment settles out. This protects the turbine from abrasion.\n\n3. Penstock pipe: The pipe that conveys water from the intake to the turbine under pressure. Use HDPE pipe minimum 5cm diameter; larger is better for flow volume.\n\n4. Pelton wheel (for head above 3m): Steel cups welded or bolted around a central hub. The water jet from the penstock nozzle strikes the cups. Cup size: approximately 30% of jet diameter. Hub to cup tip radius: 150–200mm for small systems.\n\n5. Alternator: A salvaged car alternator (12V, 40–100A) works well. Mount on the same shaft as the turbine wheel.\n\n6. Charge controller: Prevents battery overcharging. Essential.\n\n7. Battery bank: 12V lead-acid batteries in parallel. Calculate required capacity: (daily usage in Wh) ÷ 12 = required Ah."
+            },
+            {
+              "id": "eg2",
+              "title": "Bicycle Generator System",
+              "priority": "high",
+              "time": "days",
+              "body": "A bicycle generator converts human pedalling effort into electricity. One person can produce 50–150W continuously — enough to charge phones, run LED lighting, and power a radio.\n\n**Core concept:**\nThe rear wheel of a bicycle, when raised off the ground, can drive a generator. The bicycle's gearing makes this efficient.\n\n**Materials:**\n- A bicycle (any functional bicycle)\n- A car alternator (12V, salvaged from any vehicle)\n- A V-belt (from any hardware or auto parts source) or direct friction drive\n- A mounting frame to hold the rear wheel off the ground\n- A voltage regulator (from the same vehicle as the alternator)\n- Battery and wiring\n\n**Construction — friction drive method (simplest):**\n\n1. Build a frame that holds the bicycle with its rear wheel elevated and stable. The simplest version: two wooden A-frames, one each side.\n\n2. The rim of the rear tyre must press firmly against the alternator shaft (with a smooth metal disc or pulley on the shaft). Set the alternator at an angle so the tyre edge drives the pulley.\n\n3. Mount the alternator on an adjustable bracket (a slotted board with a wing nut) so you can control the contact pressure between tyre and alternator pulley.\n\n4. Connect the alternator output through a voltage regulator to a 12V battery.\n\n**Output:** At comfortable cycling pace (80 RPM), expect 50–100W continuous (4–8A at 12V).\n\n**Charging time:** A 100Ah battery from fully empty charges in 10–20 hours of pedalling, depending on power output.\n\n**Efficiency tips:**\n- Inflate tyres to maximum recommended pressure — reduces rolling resistance\n- Keep the tyre contact surface clean and dry — slipping wastes energy\n- Gear the bike so the pedalling feels comfortably heavy (not too easy)"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "food_tech_detailed",
+      "label": "Advanced Food Production",
+      "icon": "🌾",
+      "color": "#2ed573",
+      "tier": 2,
+      "description": "Detailed construction and management guides for hydroponic systems, aquaponics, mushroom cultivation, and community agriculture.",
+      "topics": [
+        {
+          "id": "growing_systems",
+          "label": "Growing Systems",
+          "icon": "🌱",
+          "articles": [
+            {
+              "id": "gsy1",
+              "title": "Hydroponic Deep Water Culture",
+              "priority": "high",
+              "time": "days",
+              "body": "Hydroponics grows plants in a nutrient solution without soil. Deep Water Culture (DWC) is the simplest system — plant roots hang in oxygenated nutrient water. Yields 3–5× soil growing in the same space.\n\n**Materials:**\n- Opaque storage tub (minimum 40L per 4 plants; opacity prevents algae)\n- Mesh pots or net cups (8–10cm diameter) — one per plant position\n- Aquarium air pump and airstone (oxygenates the solution)\n- Nutrient solution or improvised nutrients\n\n**Improvised nutrients from available materials:**\n- Nitrogen: wood ash tea (1:10 dilution), or urine diluted 1:20\n- Phosphorus: dissolved bone ash, or rock phosphate dust\n- Potassium: wood ash dissolved in water (also provides potassium)\n- Micronutrients: small amount of garden soil soaked in water and strained (5% of volume)\n\n**Construction:**\n1. Cut holes in the tub lid — sized so mesh pots sit snugly with their bottom third below the lid level\n2. Fill tub with water to just touching the mesh pot bases\n3. Place airstone on the tub floor; connect air tubing to pump through a small hole in the lid\n4. Fill mesh pots with inert growing medium: clean small gravel, perlite, or broken pottery\n\n**Adding plants:**\n1. Germinate seeds in rockwool cubes, damp cloth, or just in the mesh pot\n2. When roots emerge 2–3cm, the plant is ready — roots will grow down into the solution\n3. Run the pump 24 hours a day — roots die rapidly without oxygen\n\n**Management:**\n- Top up with plain water every 2–3 days (plants consume water faster than nutrients)\n- Full nutrient solution change every 2 weeks\n- pH target: 5.5–6.5 (test with pH strips from garden centres or improvised indicators)\n- Temperature: 18–24°C for solution (warmer promotes root rot)\n\n**Best first crops:** Lettuce (harvest in 30–35 days), spinach, kale, basil, pak choi"
+            },
+            {
+              "id": "gsy2",
+              "title": "Aquaponics System Complete Guide",
+              "priority": "high",
+              "time": "weeks",
+              "body": "Aquaponics is a closed-loop system where fish waste fertilises plants and plants clean the water for fish. Once established, it requires only fish food as an external input and produces both fish protein and vegetables.\n\n**System components:**\n\n**Fish tank:** Minimum 500 litres for a functional system. Use an IBC tote (1,000L), concrete tank, or fiberglass. Darker colours prevent algae. A 1,000L tank supports 20–30 tilapia or catfish.\n\n**Grow bed:** Equal volume to the fish tank (1,000L fish tank = 1,000L grow bed). Fill with 30cm of clean gravel or expanded clay pellets. Place directly beside or above the fish tank.\n\n**Water pump:** Sized to turn over the entire fish tank volume once per hour. Solar-powered submersible pumps work well.\n\n**Bell siphon (the mechanical heart of the system):**\nThis device automatically floods and drains the grow bed in cycles without electricity.\n\nHow to build a bell siphon:\n1. Cut a 5cm diameter PVC pipe as a standpipe — height equals your target maximum water level in the grow bed\n2. Drill a 5mm hole in the side 1cm from the bottom of the standpipe\n3. Place this standpipe in the centre of the grow bed drain hole\n4. Construct a bell: a 10cm diameter pipe, sealed at the top, sized to cover the standpipe with 2cm clearance all around\n5. As water rises, air under the bell is compressed; when water reaches the standpipe top, siphon action drains the bed completely\n6. The cycle repeats automatically every 30–45 minutes\n\n**Nitrogen cycle establishment (essential — do not skip):**\nBeneficial bacteria must colonise the grow bed before adding fish. This takes 4–6 weeks.\n1. Add a small amount of ammonia (fish food, urine, or pure ammonia) to start the cycle\n2. Test weekly for ammonia and nitrite — both should rise then fall to near zero\n3. When both are consistently below 0.5ppm, the system is cycled and ready for fish"
+            },
+            {
+              "id": "gsy3",
+              "title": "Edible Mushroom Cultivation",
+              "priority": "medium",
+              "time": "weeks",
+              "body": "Edible mushrooms can be grown on freely available agricultural waste with minimal infrastructure. Oyster mushrooms are the most beginner-friendly; shiitake requires slightly more skill but higher yield.\n\n**Oyster Mushrooms on Straw — Step by Step:**\n\n**Substrate preparation:**\nThe goal is to pasteurise straw (kill competing organisms) without fully sterilising (which destroys beneficial bacteria that protect the substrate).\n\nMethod A — Hot water pasteurisation:\n1. Cut straw into 5–10cm lengths; pack loosely into a container\n2. Pour water heated to 80°C over the straw until fully submerged\n3. Hold at 70–80°C for 60 minutes (place lid on top and wrap in blankets for heat retention)\n4. Drain and cool to below 30°C before inoculating\n\nMethod B — Lime pasteurisation (no heat needed):\n1. Dissolve 2 tablespoons of hydrated lime (calcium hydroxide) per litre of water\n2. Submerge chopped straw in lime water for 12–18 hours\n3. Drain; rinse briefly with clean water; squeeze to remove excess moisture\n\n**Inoculation:**\n1. Place a thin layer of straw in a clean plastic bag\n2. Scatter a thin layer of mushroom spawn (mycelium) over the straw\n3. Add another straw layer, then spawn — repeat until the bag is full\n4. Fold the bag top closed or seal\n5. Poke 20–30 small holes (3mm) through the bag with a fork\n\n**Colonisation (10–21 days):**\nKeep bags at 20–25°C in darkness. White threads (mycelium) grow through the substrate. When the entire substrate is white and firm, colonisation is complete.\n\n**Fruiting:**\nMove bags to a humid area with indirect light and airflow (fresh air exchange is critical).\nCut X-shaped slits where you want mushrooms to grow.\nMist the bags 3–4 times per day to maintain high humidity.\nMushrooms emerge within 5–10 days of fruiting conditions.\n\n**Harvest:**\nPick when caps are slightly curled upward (not fully flat). Twist and pull at the base. The substrate produces 2–3 additional flushes over 6–8 weeks."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "community_gov_tech",
+      "label": "Community & Governance",
+      "icon": "🏛",
+      "color": "#b464ff",
+      "tier": 2,
+      "description": "Detailed guides for establishing governance, perimeter security, resource management, and long-term settlement planning.",
+      "topics": [
+        {
+          "id": "community_systems",
+          "label": "Community Systems",
+          "icon": "👥",
+          "articles": [
+            {
+              "id": "cs1",
+              "title": "Establish Community Governance",
+              "priority": "high",
+              "time": "weeks",
+              "body": "Effective governance is survival-critical. Communities without clear decision-making structures fragment into conflict within weeks. This system works for 10–500 people with no prior experience.\n\n**Phase 1: Emergency leadership (first 48 hours)**\nIn the acute emergency, speed matters more than democracy. Designate a single leader using this priority order:\n1. Medical professional (if available) — disease will kill more than violence in most crises\n2. Military, police, or emergency services background\n3. Person with the most relevant technical skills for the immediate threat\n4. Person who volunteers and is accepted by group consensus\n\nMake the leader's authority explicit, temporary, and task-specific from the start. \"You are in charge until we have a stable camp, then we reassemble.\"\n\n**Phase 2: Role assignment (days 2–7)**\nEvery person needs a defined role — idle people spiral into anxiety and conflict.\n\nEssential roles:\n- **Water Officer:** Sources, purifies, and distributes; maintains sanitation systems\n- **Food Officer:** Procurement, preparation, rationing, storage\n- **Medical Officer:** Highest-trained available; manages all medical supplies and decisions\n- **Security Officer:** Watches, entry control, threat assessment, response coordination\n- **Logistics Officer:** Inventory, tools, resource allocation, trade\n\n**Phase 3: Council governance (after week 1)**\nOnce acute crisis is stable, form a governing council:\n- Each role officer is automatically a council member\n- Add 2 community representatives selected by group vote\n- Major decisions (rationing changes, punishment, new members) require council majority\n- Leader retains executive authority only in declared security emergencies\n\n**Written constitution:**\nEven a single page agreed by all members creates legitimacy and reduces later conflict:\n- Rights: what every person is guaranteed\n- Duties: what every person owes the community\n- Resource rules: how food, water, and supplies are distributed\n- Decision process: how disputes are resolved and major decisions made"
+            },
+            {
+              "id": "cs2",
+              "title": "Perimeter Security System",
+              "priority": "high",
+              "time": "days",
+              "body": "A layered security system gives maximum protection with minimum personnel. Each layer provides advance warning and buys time for response.\n\n**Design principle — defence in depth:**\nRather than one strong barrier, create multiple layers that each add detection time. An attacker who defeats one layer still faces more.\n\n**Layer 1: Detection perimeter (50–100m from camp)**\n\nTripwire alarm system:\n1. String thin cordage (fishing line is ideal — nearly invisible) at ankle height between trees across all approach paths\n2. Attach the line at one end to a can containing 4–5 pebbles\n3. Any person or large animal walking through pulls the can off its shelf — audible alarm\n4. Space wires 2–3m apart vertically to catch different-height animals vs people\n5. Mark wire locations with inconspicuous small flags visible from the camp side only\n\nNight version: Attach small bells or aluminium foil strips to the cord — movement creates sound in any direction.\n\n**Layer 2: Observation zone (20–30m from camp)**\nClear this zone of all vegetation above knee height. Anyone approaching is visible and silhouetted against the sky at dawn and dusk. This is your most valuable security investment — it cannot be countered.\n\n**Layer 3: Challenge point (single entry)**\nFunnel all access to one controlled entry point:\n1. Two-person watch at all times — one watches the entry; one watches the approaches\n2. Challenge-response code changed at every watch changeover\n3. Anyone arriving between dusk and dawn is stopped at distance and identified before entering\n4. Arrivals procedure: state your name and business from 10m; one watcher covers while the other approaches\n\n**Watch schedules:**\n- 4-hour maximum rotations before fatigue degrades alertness\n- Two persons per watch — they keep each other awake and cannot both be silently surprised\n- Change times: stagger so two pairs overlap for 10 minutes at changeover\n- Log: every watch records any activity, observations, or incidents"
+            },
+            {
+              "id": "cs3",
+              "title": "Resource Distribution System",
+              "priority": "high",
+              "time": "days",
+              "body": "Transparent resource distribution is the single biggest factor in community cohesion. Perceived unfairness in food or water distribution causes communities to collapse faster than external threats.\n\n**Core principle: rules established before scarcity, not during it.**\nOnce resources are scarce, any distribution system will be contested. Agree on the system when you have enough.\n\n**The two main distribution models:**\n\n**Equal shares (most legitimate):**\nEvery person receives the same ration regardless of contribution. Children and pregnant women receive 120% of adult basic ration; the ill and injured receive full ration even if not working.\n\nWhy it works: maximum buy-in; no one can claim unfairness; simplest to administer.\nLimitation: reduces motivation to contribute more than required minimum.\n\n**Contribution-proportional (most motivating):**\nBase ration for all (survival minimum guaranteed). Additional ration based on hours of labour recorded.\n\nWhy it works: rewards effort; encourages volunteering for unpleasant tasks (night watch, latrine maintenance).\nLimitation: more complex to administer; creates incentive for sabotage or false recording.\n\n**Recommended hybrid:**\nGuaranteed survival ration for all (set at 80% of daily needs — protects everyone).\nContribution bonus ration distributed proportionally to labour recorded.\nSpecial allocations (children, pregnant, ill) pre-agreed and publicly posted.\n\n**Administration:**\n- Post daily ration amounts publicly — visible to everyone\n- Record all distributions in a written log\n- Assign distribution to 2 people who cross-check each other (one hands out, one records)\n- Hold weekly community meetings where the ledger is read aloud\n- Anyone may inspect the records at any time"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "civ_rebuild_detailed",
+      "label": "Civilisation Rebuilding",
+      "icon": "⚙",
+      "color": "#64a0ff",
+      "tier": 3,
+      "description": "Detailed step-by-step technical guides for rebuilding critical civilisation infrastructure from first principles.",
+      "topics": [
+        {
+          "id": "rebuild_systems",
+          "label": "Critical Systems Rebuild",
+          "icon": "⚙",
+          "articles": [
+            {
+              "id": "rb1",
+              "title": "Rebuild Basic Electrical Grid",
+              "priority": "high",
+              "time": "months",
+              "body": "Rebuilding an electrical grid starts with one reliable generator and one priority load. Then expand systematically. The key is prioritising critical loads — medical equipment and communication — before convenience.\n\n**Stage 1 — Single generator, single building:**\n\nAssess available generators: any running engine with an accessible shaft can drive a generator. Salvaged car alternator: 12–14V DC, 40–120A (480–1,680W).\n\n1. Test the generator: connect directly to a 12V light bulb. If it lights, the generator works.\n2. Install a fused disconnect at the generator output (automotive circuit breaker rated at max generator output)\n3. Run heavy-gauge cable (minimum 6mm² wire) to your priority building\n4. Install a small fuse board at the building — one fused circuit per major load\n\n**Stage 2 — Battery bank (storage + continuous supply):**\n\n1. Collect 12V lead-acid batteries (car batteries work; check specific gravity with hydrometer — values above 1.20 are usable)\n2. Wire in parallel: positive to positive, negative to negative — this increases capacity without changing voltage\n3. Install between generator and loads with a charge controller protecting the batteries from overcharging\n4. Now you can run the generator 4–6 hours and use power 24 hours\n\n**Stage 3 — Multi-building distribution:**\n\n12V distribution is inefficient over distances above 50m (voltage drops, wires overheat).\nFor longer runs: add an inverter to convert 12V battery power to 240V AC.\nRun a single 240V distribution cable to each building.\nEach building has its own fuse board.\n\n**Non-negotiable safety rules:**\nNever work on live (energised) circuits.\nAll metal housings connected to ground rods.\nWaterproof all outdoor connections with self-amalgamating tape or heat shrink.\nLabel every circuit and its fuse rating."
+            },
+            {
+              "id": "rb2",
+              "title": "Rebuild Radio Communication Network",
+              "priority": "high",
+              "time": "weeks",
+              "body": "Radio is the only long-distance communication technology achievable with minimal materials and no infrastructure. A crystal radio requires zero power. A simple transmitter can reach 100km.\n\n**Stage 1 — Crystal radio receiver (no power):**\nThis receives AM broadcast signals using only the energy of the radio waves.\n\nConstruction:\n1. Find a cardboard tube 10cm diameter, 20cm long (or wrap cardboard into this shape)\n2. Wind 100 turns of insulated wire (any thin insulated wire — salvaged from any electronic device) around the tube in a single layer\n3. Scrape or burn the insulation off a 5cm patch along the length of the coil — this is your tuning track\n4. Create a sliding contact: a wire clip with a small bolt that can slide along the bare track\n5. Connect the sliding contact to one terminal of a germanium diode (salvaged from old radios, diode marked with a stripe)\n6. Connect the other diode terminal to high-impedance earphones (salvaged from any old headphones or telephone handset)\n7. Connect one end of the coil to a 10–30m wire stretched as high as possible (antenna)\n8. Connect the other coil end to a metal rod driven 50cm into earth (ground)\n9. Slide the contact along the coil to tune to different AM stations\n\n**Stage 2 — Simple transmitter (1–10km range):**\nA spark gap transmitter creates wide-spectrum bursts of radio energy.\n1. Two steel balls or bolts separated by a 3–5mm gap\n2. A coil (50 turns on a 5cm former) and capacitor (salvaged from any radio) form the resonant circuit\n3. Power: a hand-crank ignition coil (or car ignition coil) creates high voltage from a battery\n4. Each spark generates a detectable burst of radio energy\n5. Modulate by making and breaking the spark in Morse code patterns\n\n**Essential: Morse code**\n- Learn 10 most common letters: E, T, A, O, I, N, S, H, R, D (covers most common words)\n- SOS = ···−−−··· (three dots, three dashes, three dots, sent continuously)\n- Establish scheduled listening times with anyone you are trying to reach"
+            },
+            {
+              "id": "rb3",
+              "title": "Soap Production from Ash and Fat",
+              "priority": "medium",
+              "time": "days",
+              "body": "Soap is one of the most important civilisation-enabling substances. Handwashing with soap prevents more disease than almost any other intervention.\n\n**The chemistry:**\nSoap is made by reacting a strong alkali (lye) with animal fat or plant oil. The reaction is called saponification.\n\n**Making lye from wood ash:**\n1. Collect hardwood ash (oak, beech, hickory produce stronger lye than softwoods)\n2. Build a leaching bucket: punch several small holes in the base of a wooden barrel or large can\n3. Fill with ash, tamping gently\n4. Pour water slowly through the ash; collect the liquid that drains out\n5. This liquid is potassium carbonate solution (lye)\n6. Test strength: drop a fresh egg into the lye solution. If it floats with a coin-sized area exposed above the surface, the lye is strong enough. Too weak: run it through more ash. Too strong: dilute with water.\n7. Boil the lye solution until it reduces by half for stronger concentration\n\n**Making soft soap:**\n1. Measure roughly: 1 litre of strong lye solution to 1 kg of rendered animal fat (or 700ml plant oil)\n2. Heat the fat gently until liquid; pour into a pot\n3. Add lye slowly, stirring constantly — never the reverse (adding fat to lye causes splashing)\n\n⚠ WARNING: Lye (potassium hydroxide solution) is highly caustic. Even small splashes cause severe chemical burns and can cause permanent blindness if it contacts eyes. Improvise eye protection from any clear material before handling — goggles, glasses, a face shield cut from a plastic bottle. Keep clean water nearby to rinse immediately.\n4. Stir continuously for 30–60 minutes over low heat\n5. The mixture thickens and traces (leaves a trail when you drip it from a spoon)\n6. At trace, pour into moulds (wooden boxes lined with cloth work well)\n7. Allow to cool and harden for 24–48 hours\n8. Soft soap (from wood ash lye) stays soft and gel-like — scoop into containers for use"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -11,7 +11,7 @@
 <meta name="keywords" content="offline AI, survival guide, apocalypse AI, emergency medicine, civilization recovery, offline knowledge base">
 <meta name="author" content="Aditya Shaswat">
 <meta name="robots" content="index, follow">
-<meta name="theme-color" content="#0a0a0f">
+<meta name="theme-color" content="#000000">
 
 <!-- Open Graph -->
 <meta property="og:type" content="website">
@@ -37,26 +37,26 @@
 <style>@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap');
 
 /* ═══════════════════════════════════════════════
-   AEGIS v3 — Red Phosphor Theme
-   Clean rebuild for browser + Colab compatibility
+   AEGIS v3 — True AMOLED Red Phosphor Theme
+   Pitch-black (#000000) default for OLED battery conservation
    ═══════════════════════════════════════════════ */
 :root {
-  /* Deep space — not pitch black, has character */
-  --bg0:  #0a0a0f;
-  --bg1:  #0f0f18;
-  --bg2:  #141420;
-  --bg3:  #1a1a28;
-  --br1:  #1e1e30;
-  --br2:  #2a2a45;
-  --br3:  #363658;
-  --br4:  #484870;
+  /* True AMOLED pitch black canvas to shut off OLED subpixels */
+  --bg0:  #000000;
+  --bg1:  #08080c;
+  --bg2:  #101018;
+  --bg3:  #161622;
+  --br1:  #1a1a28;
+  --br2:  #222234;
+  --br3:  #2e2e46;
+  --br4:  #3e3e5c;
 
-  /* Crimson-to-coral — bright and highly readable */
+  /* Crimson-to-coral — high contrast on true black */
   --t0:   #ff6b6b;   /* primary — bright coral red */
-  --t1:   #e8e8f0;   /* body text — near white, readable */
-  --t2:   #a0a0c0;   /* secondary text — soft lavender-grey */
-  --t3:   #9090a8;   /* muted text */
-  --t4:   #303050;   /* very dim */
+  --t1:   #eaeaf2;   /* body text — high contrast off-white */
+  --t2:   #9a9ab4;   /* secondary text */
+  --t3:   #7c7c98;   /* muted text */
+  --t4:   #303048;   /* very dim */
   --acc:  #ff4757;   /* accent — pure crimson */
   --glow: #ff6b6b;
 
@@ -78,28 +78,23 @@
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html,body{height:100%;overflow:hidden;background:var(--bg0);color:var(--t1);font-family:var(--body);font-size:15px;line-height:1.7;-webkit-font-smoothing:antialiased}
 ::-webkit-scrollbar{width:3px;height:3px}
-::-webkit-scrollbar-track{background:var(--bg1)}
+::-webkit-scrollbar-track{background:var(--bg0)}
 ::-webkit-scrollbar-thumb{background:var(--br3)}
 button{background:none;border:none;cursor:pointer;color:inherit;font:inherit}
 input,textarea,select{background:none;border:none;outline:none;color:var(--t0);font:inherit}
 textarea{resize:none}
 
-/* scanlines */
-body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:-1;
-  background:repeating-linear-gradient(0deg,transparent 0,transparent 3px,rgba(0,0,0,.05) 3px,rgba(0,0,0,.05) 4px)}
-
 /* ── LAYOUT ─────────────────────────────────── */
-#app{display:grid;grid-template-rows:var(--top) 1fr;grid-template-columns:var(--side) 1fr var(--info-w);height:100vh}
-#topbar{grid-column:1/-1;grid-row:1;display:flex;align-items:stretch;background:var(--bg1);border-bottom:1px solid var(--br2);z-index:100}
-#sidebar{grid-column:1;grid-row:2;background:var(--bg1);border-right:1px solid var(--br2);overflow-y:auto;display:flex;flex-direction:column}
+#app{display:grid;grid-template-rows:var(--top) 1fr;grid-template-columns:var(--side) 1fr var(--info-w);height:100vh;background:var(--bg0)}
+#topbar{grid-column:1/-1;grid-row:1;display:flex;align-items:stretch;background:var(--bg0);border-bottom:1px solid var(--br2);z-index:100}
+#sidebar{grid-column:1;grid-row:2;background:var(--bg0);border-right:1px solid var(--br2);overflow-y:auto;display:flex;flex-direction:column}
 #main{grid-column:2;grid-row:2;overflow:hidden;display:flex;flex-direction:column;background:var(--bg0);position:relative}
-#panel{grid-column:3;grid-row:2;background:var(--bg1);border-left:1px solid var(--br2);overflow-y:auto;display:flex;flex-direction:column}
+#panel{grid-column:3;grid-row:2;background:var(--bg0);border-left:1px solid var(--br2);overflow-y:auto;display:flex;flex-direction:column}
 
 /* ── TOPBAR ──────────────────────────────────── */
 .tb-logo{display:flex;align-items:center;gap:10px;padding:0 16px;width:var(--side);border-right:1px solid var(--br2);flex-shrink:0}
-.logo-glyph{font-size:22px;color:var(--t0);animation:glow 4s ease-in-out infinite}
-@keyframes glow{0%,100%{text-shadow:0 0 8px rgba(255,112,112,.4)}50%{text-shadow:0 0 22px rgba(255,112,112,.9),0 0 50px rgba(255,30,60,.2)}}
-.logo-name{font-family:var(--head);font-weight:700;font-size:15px;letter-spacing:.12em;color:var(--t0);text-shadow:0 0 14px rgba(255,107,107,.5)}
+.logo-glyph{font-size:22px;color:var(--t0)}
+.logo-name{font-family:var(--head);font-weight:700;font-size:15px;letter-spacing:.12em;color:var(--t0)}
 .logo-sub{font-family:var(--mono);font-size:6px;letter-spacing:.2em;color:var(--t3);text-transform:uppercase;margin-top:1px}
 .logo-creator{font-family:var(--body);font-size:8px;color:var(--acc);letter-spacing:.12em;opacity:.75;margin-top:1px;font-style:italic}
 
@@ -3146,13 +3141,8 @@ body.battery-mode .jm-label { color: #aaa !important; }
 
   <!-- CHAT -->
   <div id="v-chat" class="view on">
-    <!-- API key banner — shown when no key set -->
-    <div id="key-banner">
-      <div class="kb-text">⚿ No Claude API key — using embedded KB. <span class="kb-link" onclick="window.open('https://console.anthropic.com/','_blank')">Get a free key →</span></div>
-      <input id="key-input" type="password" aria-label="Anthropic API key" placeholder="sk-ant-api03-…  paste your Anthropic API key here">
-      <button class="kb-btn" onclick="saveKey()">Save Key</button>
-      <button class="kb-btn" style="border-color:var(--br2);color:var(--t3)" onclick="dismissBanner()">✕</button>
-    </div>
+    <!-- Server-managed AI mode (no client API key input) -->
+    <div id="key-banner" class="hidden"></div>
 
     <div id="alert-bar"><span class="alert-icon" id="alert-icon">◈</span><span class="alert-text" id="alert-text"></span><span class="alert-close" onclick="closeAlert()">✕</span></div>
     <div id="msgs"></div>
@@ -3245,19 +3235,12 @@ body.battery-mode .jm-label { color: #aaa !important; }
       </div>
     </div>
 
-    <!-- API key -->
+    <!-- Server AI Proxy Status -->
     <div class="scard3">
-      <div class="s3-title">Claude API Key <span style="color:var(--t4);font-size:9px;letter-spacing:0;text-transform:none;font-family:var(--body);font-weight:400">optional</span></div>
+      <div class="s3-title">Online AI Proxy <span style="color:var(--t4);font-size:9px;letter-spacing:0;text-transform:none;font-family:var(--body);font-weight:400">server-managed</span></div>
       <div class="sys-key-wrap">
         <div class="sys-key-hint">
-          Enables real AI answers. Free key at
-          <span class="s3-link" onclick="window.open('https://console.anthropic.com/','_blank')">console.anthropic.com</span>
-        </div>
-        <div class="key-input-row">
-          <input id="sys-key-input" type="password" placeholder="sk-ant-api03-&hellip;"
-            class="key-input" aria-label="API key" autocomplete="off">
-          <button onclick="saveKeyFromSystem()" class="key-btn save">Save</button>
-          <button onclick="clearKey()" class="key-btn clear">Clear</button>
+          Online AI requests are routed securely through the server proxy (<code>/api/ai/chat</code>) when configured on the host, and automatically fall back to the 100% offline 81-article knowledge base.
         </div>
       </div>
     </div>
@@ -5975,72 +5958,61 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // ════════════════════════════════════════════════════════════
-// API KEY MANAGEMENT
+// SERVER AI PROXY STATUS (No client-side API keys)
 // ════════════════════════════════════════════════════════════
-function saveKey() {
-  const v = document.getElementById('key-input').value.trim();
-  if (!v.startsWith('sk-ant')) { alert('That does not look like an Anthropic API key (should start with sk-ant-)'); return; }
-  S.apiKey = v;
-  try { localStorage.setItem('aegis_api_key', v); } catch(e) {}
-  updateKeyUI();
-  dismissBanner();
-  document.getElementById('key-input').value = '';
-  addSystemMsg('✓ Claude API key saved. AI mode active — your questions will now be answered by Claude.');
-}
+S.proxyReady = false;
+S.proxyProvider = 'offline-only';
 
-function saveKeyFromSystem() {
-  const v = document.getElementById('sys-key-input').value.trim();
-  if (!v.startsWith('sk-ant')) { alert('That does not look like an Anthropic API key (should start with sk-ant-)'); return; }
-  S.apiKey = v;
-  try { localStorage.setItem('aegis_api_key', v); } catch(e) {}
+async function checkServerProxy() {
+  try {
+    const res = await fetch('/api/health', { cache: 'no-store' });
+    if (res.ok) {
+      const data = await res.json();
+      S.proxyReady = !!data.aiProxyConfigured;
+      S.proxyProvider = data.provider || 'offline-only';
+    }
+  } catch (e) {
+    S.proxyReady = false;
+    S.proxyProvider = 'offline-only';
+  }
   updateKeyUI();
-  document.getElementById('sys-key-input').value = '';
-  addSystemMsg('✓ Claude API key saved. AI mode active.');
 }
+checkServerProxy();
 
-function clearKey() {
-  S.apiKey = null;
-  try { localStorage.removeItem('aegis_api_key'); } catch(e) {}
-  updateKeyUI();
-  document.getElementById('sys-key-input').value = '';
-  addSystemMsg('API key cleared. Switched to embedded KB mode.');
-}
+function saveKey() {}
+function saveKeyFromSystem() {}
+function clearKey() {}
 
 function dismissBanner() {
-  document.getElementById('key-banner').classList.add('hidden');
+  const b = document.getElementById('key-banner');
+  if (b) b.classList.add('hidden');
 }
 
 function updateKeyUI() {
-  const haKey = !!S.apiKey;
-  // Update welcome side panel AI indicator
+  const haKey = !!S.proxyReady;
+  const label = haKey ? (S.proxyProvider === 'gemini' ? 'SERVER AI' : 'ONLINE AI') : 'OFFLINE KB';
   const acpMode = document.getElementById('acp-mode');
   const acpAi   = document.getElementById('acp-ai');
   const acpCore  = document.getElementById('ai-core-status');
-  if (acpMode) acpMode.textContent = haKey ? 'CLAUDE AI' : 'OFFLINE';
-  if (acpAi)   acpAi.textContent   = haKey ? 'Claude API' : 'KB Mode';
+  if (acpMode) acpMode.textContent = haKey ? label : 'OFFLINE';
+  if (acpAi)   acpAi.textContent   = haKey ? 'Server Proxy' : 'KB Mode';
   if (acpCore)  acpCore.textContent = 'ONLINE';
-  // Top bar dots
   const da = document.getElementById('d-api');
   if (da) { da.className = 'dot ' + (haKey ? 'on' : 'off'); }
-  setText('mode-badge', haKey ? 'CLAUDE API' : 'OFFLINE KB');
-  setText('s-mode', haKey ? 'claude api' : 'offline kb');
-  // System view
+  setText('mode-badge', label);
+  setText('s-mode', haKey ? 'server proxy' : 'offline kb');
   const svApi = document.getElementById('sv-api');
-  if (svApi) { svApi.textContent = haKey ? 'Connected ✓' : 'No key'; svApi.className = 'sv ' + (haKey ? 'ok' : 'off'); }
+  if (svApi) { svApi.textContent = haKey ? 'Proxy Ready ✓' : 'Offline KB'; svApi.className = 'sv ' + (haKey ? 'ok' : 'off'); }
   const svKey = document.getElementById('sv-key');
-  if (svKey) { svKey.textContent = haKey ? '●●●●…'+S.apiKey.slice(-4) : 'Not set'; svKey.className = 'sv ' + (haKey ? 'ok' : 'off'); }
+  if (svKey) { svKey.textContent = haKey ? 'Server-managed' : 'Offline only'; svKey.className = 'sv ' + (haKey ? 'ok' : 'off'); }
   const svMode = document.getElementById('sv-mode');
-  if (svMode) { svMode.textContent = haKey ? 'Claude API' : 'offline KB'; }
-  // Waterfall dot
+  if (svMode) { svMode.textContent = haKey ? 'Server AI Proxy' : 'offline KB'; }
   const wfApi = document.getElementById('wf-api');
   if (wfApi) { wfApi.className = 'wf-dot ' + (haKey ? 'on' : 'off'); }
   const wfApiS = document.getElementById('wf-api-s');
-  if (wfApiS) { wfApiS.textContent = haKey ? 'READY' : 'NO KEY'; wfApiS.style.color = haKey ? 'var(--ok)' : 'var(--t3)'; }
-  // Banner
+  if (wfApiS) { wfApiS.textContent = haKey ? 'READY' : 'OFFLINE'; wfApiS.style.color = haKey ? 'var(--ok)' : 'var(--t3)'; }
   const banner = document.getElementById('key-banner');
-  if (banner && haKey) banner.classList.add('hidden');
-  if (banner && !haKey) banner.classList.remove('hidden');
-  // Welcome screen API dot
+  if (banner) banner.classList.add('hidden');
   const apiDot = document.getElementById('jwl-api-dot');
   if (apiDot) apiDot.style.background = haKey ? 'var(--ok)' : 'var(--br3)';
 }
@@ -6650,59 +6622,32 @@ async function send(override) {
   const t0 = performance.now();
   let text = '', src = 'embedded-kb';
 
-  // ── Claude API ──────────────────────────────────────────────────
-  if (S.apiKey) {
+  // ── Optional Server-Side AI Proxy ───────────────────────────────
+  if (S.proxyReady && navigator.onLine) {
     try {
-      const systemPrompt = S.em
-        ? 'You are AEGIS, an emergency survival AI. Give TERSE, numbered, immediately actionable steps. Lead with the most critical action. No preamble. Use ⚠ for critical warnings.'
-        : 'You are AEGIS, a Civilization Intelligence System — expert in survival, emergency medicine, agriculture, engineering, and civilization recovery. Answer accurately and thoroughly. Use **Heading** for sections, numbered lists for steps, - for bullets. Add ⚠ WARNING: prefix for genuinely dangerous procedures.';
-
-      const messages = [
-        ...S.history.slice(-10),
-        { role: 'user', content: q + (S.domain !== 'all' ? ` [Focus on domain: ${S.domain}]` : '') }
-      ];
-
-      setThinkText(rid, 'Querying Claude API…');
-
-      const res = await fetch('https://api.anthropic.com/v1/messages', {
+      setThinkText(rid, 'Querying server AI proxy…');
+      const res = await fetch('/api/ai/chat', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'x-api-key': S.apiKey,
-          'anthropic-version': '2023-06-01',
-          'anthropic-dangerous-client-side-request-broker': 'claude-ai',
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          model: 'claude-sonnet-4-20250514',
-          max_tokens: 1500,
-          system: systemPrompt,
-          messages,
-          stream: false,
+          message: q,
+          emergency: !!S.em,
+          domain: S.domain || 'all',
+          history: S.history.slice(-8),
         }),
       });
 
       if (res.ok) {
         const data = await res.json();
-        text = data.content?.[0]?.text || '';
-        src = 'claude-api';
+        text = data.reply || '';
+        src = data.source || 'server-proxy';
         setThink(rid, false);
         updateBody(rid, text, false);
       } else {
-        const err = await res.json().catch(() => ({}));
-        const msg = err?.error?.message || `HTTP ${res.status}`;
         setThink(rid, false);
-        if (res.status === 401) {
-          S.apiKey = null;
-          try { localStorage.removeItem('aegis_api_key'); } catch(e) {}
-          updateKeyUI();
-          addSystemMsg('⚠ API key rejected (401). Key cleared — switched to offline KB.');
-        } else {
-          addSystemMsg(`⚠ Claude API error: ${msg}. Falling back to embedded KB.`);
-        }
       }
     } catch(e) {
       setThink(rid, false);
-      addRetryMsg(q, rid);
     }
   }
 
