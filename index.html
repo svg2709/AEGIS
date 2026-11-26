@@ -33,8 +33,24 @@
 <meta name="apple-mobile-web-app-title" content="AEGIS">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Inter:wght@300;400;500;600&display=swap">
-<style>@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap');
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap">
+<script>
+// Tier 1 Google Maps Platform quota defense (global entrypoint)
+window.gm_authFailure = function() {
+  window.dispatchEvent(new CustomEvent('gmp-quota-exceeded'));
+};
+(function() {
+  var origError = console.error;
+  console.error = function() {
+    origError.apply(console, arguments);
+    var msg = Array.prototype.map.call(arguments, function(a) { return String(a); }).join(' ');
+    if (msg.indexOf('OverQuotaMapError') !== -1 || msg.indexOf('QuotaExceededError') !== -1) {
+      window.dispatchEvent(new CustomEvent('gmp-quota-exceeded'));
+    }
+  };
+})();
+</script>
+<style>@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap');
 
 /* ═══════════════════════════════════════════════
    AEGIS v3 — True AMOLED Red Phosphor Theme
@@ -45,38 +61,50 @@
   --bg0:  #000000;
   --bg1:  #08080c;
   --bg2:  #101018;
-  --bg3:  #161622;
-  --br1:  #1a1a28;
-  --br2:  #222234;
-  --br3:  #2e2e46;
-  --br4:  #3e3e5c;
+  --bg3:  #171724;
+  --br1:  #1b1b29;
+  --br2:  #242436;
+  --br3:  #30304a;
+  --br4:  #424264;
 
-  /* Crimson-to-coral — high contrast on true black */
-  --t0:   #ff6b6b;   /* primary — bright coral red */
-  --t1:   #eaeaf2;   /* body text — high contrast off-white */
-  --t2:   #9a9ab4;   /* secondary text */
+  /* Crimson-to-coral — high legibility on true black */
+  --t0:   #ff7582;   /* primary — crisp coral red */
+  --t1:   #f2f2f7;   /* body text — WCAG AAA off-white */
+  --t2:   #a8a8c2;   /* secondary text */
   --t3:   #7c7c98;   /* muted text */
-  --t4:   #303048;   /* very dim */
+  --t4:   #34344e;   /* very dim */
   --acc:  #ff4757;   /* accent — pure crimson */
-  --glow: #ff6b6b;
+  --glow: #ff7582;
 
   --ok:   #2ed573;
-  --warn: #ffa502;
+  --warn: #ffb142;
   --err:  #ff4757;
-  --info: #1e90ff;
+  --info: #38a1ff;
 
-  /* Upgraded readable fonts */
+  /* High-legibility fonts */
   --mono: "JetBrains Mono", "Courier New", monospace;
-  --cond: "Inter", sans-serif;
-  --body: "Inter", sans-serif;
+  --cond: "Plus Jakarta Sans", sans-serif;
+  --body: "Plus Jakarta Sans", sans-serif;
   --head: "Orbitron", sans-serif;
 
   --top:  52px;
-  --side: clamp(180px, 18vw, 240px);
-  --info-w: clamp(200px, 20vw, 270px);
+  --side: clamp(190px, 18vw, 248px);
+  --info-w: clamp(210px, 20vw, 276px);
+}
+body.amoled-battery-saver {
+  --bg0: #000000 !important;
+  --bg1: #000000 !important;
+  --bg2: #060609 !important;
+  --bg3: #0c0c12 !important;
+  --br1: #14141e !important;
+  --br2: #1d1d2b !important;
+}
+body.amoled-battery-saver *, body.amoled-battery-saver *::before, body.amoled-battery-saver *::after {
+  animation: none !important;
+  transition: none !important;
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html,body{height:100%;overflow:hidden;background:var(--bg0);color:var(--t1);font-family:var(--body);font-size:15px;line-height:1.7;-webkit-font-smoothing:antialiased}
+html,body{height:100%;overflow:hidden;background:var(--bg0);color:var(--t1);font-family:var(--body);font-size:15.5px;line-height:1.75;-webkit-font-smoothing:antialiased}
 ::-webkit-scrollbar{width:3px;height:3px}
 ::-webkit-scrollbar-track{background:var(--bg0)}
 ::-webkit-scrollbar-thumb{background:var(--br3)}
@@ -236,6 +264,62 @@ textarea{resize:none}
 .ec-desc{font-size:10.5px;color:var(--t3);line-height:1.4}
 .ec-lv{font-family:var(--mono);font-size:7px;letter-spacing:.12em;text-transform:uppercase;display:inline-block;padding:1px 6px;border:1px solid}
 .ec-lv.critical{color:var(--err);border-color:rgba(255,23,68,.4)}.ec-lv.high{color:var(--warn);border-color:rgba(255,214,0,.4)}
+
+/* ── QUOTA BANNER (Non-intrusive sticky top bar) ── */
+#gmp-quota-banner{display:none;position:fixed;top:0;left:0;right:0;z-index:5000;background:#fffbeb;border-bottom:1px solid #fde68a;color:#78350f;padding:10px 16px;font-size:13px;line-height:1.45;text-align:center;box-shadow:0 2px 10px rgba(0,0,0,.35)}
+#gmp-quota-banner.show{display:flex;align-items:center;justify-content:center;gap:12px}
+#gmp-quota-banner a{color:#451a03;font-weight:700;text-decoration:underline}
+#gmp-quota-banner button{margin-left:8px;padding:2px 8px;border:1px solid #d97706;border-radius:4px;font-size:11px;color:#78350f}
+
+/* ── GROUNDING CITATIONS & CHAT MODES ── */
+.chip.gmode.on{color:var(--t0);border-color:var(--t0);background:rgba(255,117,130,.1)}
+.chip.gmode-search.on{color:var(--info);border-color:var(--info);background:rgba(56,161,255,.1)}
+.chip.gmode-maps.on{color:var(--ok);border-color:var(--ok);background:rgba(46,213,115,.1)}
+.chip.gmode-fast.on{color:var(--warn);border-color:var(--warn);background:rgba(255,177,66,.1)}
+.grounding-box{margin-top:12px;padding:10px 12px;background:var(--bg1);border:1px solid var(--br2);border-radius:10px}
+.grounding-hdr{font-family:var(--mono);font-size:8px;letter-spacing:.14em;text-transform:uppercase;color:var(--t3);margin-bottom:7px;display:flex;align-items:center;gap:6px}
+.grounding-list{display:flex;flex-wrap:wrap;gap:6px}
+.grounding-link{display:inline-flex;align-items:center;gap:5px;padding:4px 9px;border:1px solid var(--br3);border-radius:6px;background:var(--bg2);color:var(--t1);font-size:11.5px;text-decoration:none;transition:border-color .15s,color .15s;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.grounding-link:hover{border-color:var(--t0);color:var(--t0)}
+.grounding-link.maps-link{border-color:rgba(46,213,115,.35);color:#b9f6ca}
+.grounding-link.maps-link:hover{border-color:var(--ok);color:var(--ok)}
+
+/* ── FIELD MAP VIEW (Preparedness Resource Finder) ── */
+#v-map{display:none;flex-direction:column;height:100%;overflow:hidden;background:var(--bg0)}
+#v-map.on{display:flex}
+.map-toolbar{flex-shrink:0;padding:12px 16px;border-bottom:1px solid var(--br2);background:var(--bg0);display:flex;flex-direction:column;gap:9px}
+.map-top-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.map-title{font-family:var(--head);font-size:13px;letter-spacing:.1em;color:var(--t0);margin-right:auto}
+.map-search-form{display:flex;gap:6px;flex:1;min-width:220px;max-width:460px}
+.map-search-input{flex:1;background:var(--bg2);border:1px solid var(--br2);border-radius:8px;padding:7px 11px;font-size:12.5px;color:var(--t1)}
+.map-search-input::placeholder{color:var(--t3)}
+.map-btn{padding:7px 12px;border:1px solid var(--br3);border-radius:8px;background:var(--bg2);color:var(--t1);font-family:var(--mono);font-size:9px;letter-spacing:.08em;text-transform:uppercase;white-space:nowrap;cursor:pointer}
+.map-btn:hover{border-color:var(--t0);color:var(--t0)}
+.map-btn.primary{background:var(--acc);border-color:var(--acc);color:#fff}
+.map-btn.active{border-color:var(--ok);color:var(--ok);background:rgba(46,213,115,.08)}
+.map-cats{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.map-cat{padding:4px 10px;border:1px solid var(--br2);border-radius:999px;font-family:var(--mono);font-size:8.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--t2);cursor:pointer;background:var(--bg1)}
+.map-cat:hover{border-color:var(--br4);color:var(--t1)}
+.map-cat.on{border-color:var(--t0);color:var(--t0);background:rgba(255,117,130,.1)}
+.map-workspace{flex:1;min-height:0;display:flex;overflow:hidden;position:relative}
+.map-stage{flex:1;min-width:0;min-height:300px;height:100%;position:relative;background:#050508}
+#aegis-map-canvas{width:100%;height:100%;min-height:300px}
+.map-overlay-msg{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:24px;text-align:center;background:rgba(0,0,0,.86);z-index:10;color:var(--t2);font-size:13px}
+.map-overlay-msg.hidden{display:none}
+.map-results{width:280px;flex-shrink:0;border-left:1px solid var(--br2);background:var(--bg0);overflow-y:auto;display:flex;flex-direction:column}
+.map-results-hdr{padding:10px 12px;border-bottom:1px solid var(--br1);font-family:var(--mono);font-size:8.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--t3);display:flex;justify-content:space-between;align-items:center}
+.map-place-card{padding:11px 12px;border-bottom:1px solid var(--br1);cursor:pointer;transition:background .12s}
+.map-place-card:hover{background:var(--bg2)}
+.map-place-name{font-weight:600;font-size:13px;color:var(--t1);margin-bottom:3px}
+.map-place-addr{font-size:11.5px;color:var(--t2);line-height:1.4;margin-bottom:6px}
+.map-place-meta{display:flex;align-items:center;justify-content:space-between;gap:8px;font-family:var(--mono);font-size:8.5px;color:var(--t3)}
+.map-place-meta a{color:var(--ok);text-decoration:none}
+.map-place-meta a:hover{text-decoration:underline}
+.map-disclaimer{flex-shrink:0;padding:6px 16px;border-top:1px solid var(--br1);background:var(--bg0);font-family:var(--mono);font-size:8.5px;color:var(--t3);display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+@media (max-width: 900px) {
+  .map-workspace{flex-direction:column}
+  .map-results{width:100%;max-height:200px;border-left:none;border-top:1px solid var(--br2)}
+}
 
 /* ── SYSTEM VIEW ─────────────────────────────── */
 #v-system{overflow-y:auto;overflow-x:hidden;padding:0;height:100%}
@@ -3090,6 +3174,15 @@ body.battery-mode .jm-label { color: #aaa !important; }
   <button class="boot-skip" onclick="skipBoot()">SKIP &#8250;</button>
 </div>
 
+<div id="gmp-quota-banner" role="alert">
+  <span>
+    Google Maps Platform quota reached. If you are the app owner, visit
+    <a href="https://developers.google.com/maps/ai/ai-studio?utm_campaign=gmp_mcp_codeassist_v1_aistudio#quota_exceeded_errors" target="_blank" rel="noopener noreferrer">maps developer site</a>
+    for instructions to update your account.
+  </span>
+  <button type="button" onclick="document.getElementById('gmp-quota-banner').classList.remove('show')">Dismiss</button>
+</div>
+
 <div id="app">
 
 <!-- TOPBAR -->
@@ -3104,6 +3197,7 @@ body.battery-mode .jm-label { color: #aaa !important; }
   </div>
   <nav class="tb-nav">
     <div class="nb on" data-v="chat" role="tab" aria-label="Chat interface" onclick="nav('chat')">◇ Chat</div>
+    <div class="nb"    data-v="map" role="tab" aria-label="Interactive preparedness field map" onclick="nav('map')">⌖ Field Map</div>
     <div class="nb"    data-v="browse" role="tab" aria-label="Browse knowledge base" onclick="nav('browse')">☰ Knowledge</div>
     <div class="nb"    data-v="domains" role="tab" aria-label="Select knowledge domain" onclick="nav('domains')">⬡ Domains</div>
     <div class="nb"    data-v="emergency" role="tab" aria-label="Emergency quick reference" onclick="nav('emergency')">⚠ Emergency</div>
@@ -3115,7 +3209,8 @@ body.battery-mode .jm-label { color: #aaa !important; }
       <div class="tb-dot"><span class="dot" id="d-api"></span>API</div>
       <div class="tb-dot"><span class="dot on" id="d-kb"></span>KB</div>
       <div class="tb-dot" id="mode-badge" style="color:var(--t2);flex:1">OFFLINE</div>
-      <div class="tb-uptime"><span class="tb-uptime-dot"></span><span id="uptime-display">00:00:00</span></div>
+      <button id="battery-saver-pill" onclick="toggleManualBatterySaver()" aria-label="Toggle AMOLED Battery Saver"
+         style="display:flex;align-items:center;gap:5px;padding:0 10px;font-family:var(--mono);font-size:7.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ok);border-left:1px solid var(--br1);white-space:nowrap;cursor:pointer">⚡ AMOLED</button>
       <a href="https://github.com/Aditya-Shaswat/AEGIS" target="_blank" rel="noopener"
          aria-label="View AEGIS on GitHub"
          style="display:flex;align-items:center;padding:0 10px;font-family:var(--mono);font-size:7px;letter-spacing:.12em;text-transform:uppercase;color:var(--t3);text-decoration:none;border-left:1px solid var(--br1);transition:color .15s;white-space:nowrap"
@@ -3130,7 +3225,7 @@ body.battery-mode .jm-label { color: #aaa !important; }
   <div id="dom-nav"></div>
   <div style="margin-top:auto;border-top:1px solid var(--br2)">
     <div class="sb-stat"><span class="sb-sk">Articles</span><span class="sb-sv" id="s-arts">81</span></div>
-    <div class="sb-stat"><span class="sb-sk">Domains</span><span class="sb-sv">6</span></div>
+    <div class="sb-stat"><span class="sb-sk">Domains</span><span class="sb-sv">14</span></div>
     <div class="sb-stat"><span class="sb-sk">Mode</span><span class="sb-sv" id="s-mode">offline</span></div>
 
   </div>
@@ -3153,10 +3248,63 @@ body.battery-mode .jm-label { color: #aaa !important; }
         <button id="sendbtn" onclick="send()" aria-label="Send message">›</button>
       </div>
       <div id="ai-wave" class="ai-wave"><div class="ai-wave-bar"></div><div class="ai-wave-bar"></div><div class="ai-wave-bar"></div><div class="ai-wave-bar"></div><div class="ai-wave-bar"></div></div><div class="chips">
-        <span class="chip-label">Mode:</span>
+        <span class="chip-label">AI:</span>
+        <span class="chip gmode on" id="chip-mode-general" onclick="setChatMode('general')" title="Multi-turn Gemini 4 Hydrogen chat">✦ Gemini</span>
+        <span class="chip gmode-fast" id="chip-mode-fast" onclick="setChatMode('fast')" title="Low-latency Gemini 3.1 Flash Lite">⚡ Fast</span>
+        <span class="chip gmode-search" id="chip-mode-search" onclick="setChatMode('search')" title="Live Google Search Grounding">🌐 Web Search</span>
+        <span class="chip gmode-maps" id="chip-mode-maps" onclick="setChatMode('maps')" title="Live Google Maps Grounding">📍 Maps AI</span>
         <span class="chip em" id="chip-em" onclick="toggleEM()">⚠ Emergency</span>
+        <span class="chip" id="chip-new-chat" onclick="resetChatHistory()" title="Clear conversation history">↺ New Chat</span>
         <span class="chip-domain-indicator">Domain: <span id="active-domain-label" style="color:var(--t0)">All</span></span>
       </div>
+    </div>
+  </div>
+
+  <!-- FIELD MAP (Google Maps Platform Preparedness Resource Finder) -->
+  <div id="v-map" class="view">
+    <div class="map-toolbar">
+      <div class="map-top-row">
+        <div class="map-title">⌖ FIELD RESOURCE MAP</div>
+        <form class="map-search-form" onsubmit="event.preventDefault(); searchFieldMapByText();">
+          <input type="text" id="map-query-input" class="map-search-input" placeholder="Search supply stores, water, pharmacies, parks, campgrounds…" autocomplete="off">
+          <button type="submit" class="map-btn primary">Search</button>
+        </form>
+        <button type="button" id="map-loc-btn" class="map-btn" onclick="toggleUserLocationForMap()">◎ Use My Location</button>
+        <button type="button" class="map-btn" onclick="askMapsAiAboutArea()">📍 Ask Maps AI</button>
+      </div>
+      <div class="map-cats">
+        <span style="font-family:var(--mono);font-size:8px;letter-spacing:.12em;color:var(--t3);text-transform:uppercase">Nearby:</span>
+        <button type="button" class="map-cat on" data-type="hardware_store" onclick="selectFieldMapCategory('hardware_store', this)">Supply &amp; Hardware</button>
+        <button type="button" class="map-cat" data-type="supermarket" onclick="selectFieldMapCategory('supermarket', this)">Food &amp; Water</button>
+        <button type="button" class="map-cat" data-type="pharmacy" onclick="selectFieldMapCategory('pharmacy', this)">Pharmacy</button>
+        <button type="button" class="map-cat" data-type="park" onclick="selectFieldMapCategory('park', this)">Parks</button>
+        <button type="button" class="map-cat" data-type="campground" onclick="selectFieldMapCategory('campground', this)">Campgrounds</button>
+        <button type="button" class="map-cat" data-type="community_center" onclick="selectFieldMapCategory('community_center', this)">Community Hubs</button>
+      </div>
+    </div>
+    <div class="map-workspace">
+      <div class="map-stage">
+        <div id="aegis-map-canvas" aria-label="Interactive preparedness field map"></div>
+        <div id="map-overlay-msg" class="map-overlay-msg">
+          <div style="font-family:var(--head);color:var(--t0);font-size:14px">Loading Interactive Field Map…</div>
+          <div id="map-overlay-sub" style="max-width:420px;line-height:1.55">Connecting to Google Maps Platform (Maps JS API &amp; Places API New). All offline protocols remain available in Knowledge and Emergency tabs.</div>
+        </div>
+      </div>
+      <aside class="map-results">
+        <div class="map-results-hdr">
+          <span id="map-results-title">Nearby Resources</span>
+          <span id="map-results-count">0</span>
+        </div>
+        <div id="map-results-list" style="flex:1">
+          <div style="padding:16px 12px;font-size:12px;color:var(--t3);line-height:1.55">
+            Select a category or search above to locate nearby preparedness resources. Click any pin or result card to inspect details and open directions in Google Maps.
+          </div>
+        </div>
+      </aside>
+    </div>
+    <div class="map-disclaimer">
+      <span>Preparedness &amp; informational planning only — not a substitute for official emergency services (911/112).</span>
+      <span>Powered by Google Maps Platform · Location sharing is opt-in &amp; revocable</span>
     </div>
   </div>
 
@@ -3200,15 +3348,16 @@ body.battery-mode .jm-label { color: #aaa !important; }
     <!-- AI status + KB info -->
     <div class="sys-2col">
       <div class="scard2">
-        <div class="s2-title">AI Backend</div>
-        <div class="s2-row"><span class="s2-k">Claude API</span><span class="s2-v" id="sv-api">No key</span></div>
+        <div class="s2-title">AI &amp; Maps Backend</div>
+        <div class="s2-row"><span class="s2-k">Gemini AI</span><span class="s2-v" id="sv-api">Checking…</span></div>
         <div class="s2-row"><span class="s2-k">Mode</span><span class="s2-v ok" id="sv-mode">offline KB</span></div>
-        <div class="s2-row"><span class="s2-k">Key stored</span><span class="s2-v" id="sv-key">&#8212;</span></div>
+        <div class="s2-row"><span class="s2-k">Google Maps</span><span class="s2-v" id="sv-maps">Checking…</span></div>
+        <div class="s2-row"><span class="s2-k">Key Storage</span><span class="s2-v" id="sv-key">Server-managed</span></div>
       </div>
       <div class="scard2">
         <div class="s2-title">Knowledge Base</div>
         <div class="s2-row"><span class="s2-k">Articles</span><span class="s2-v ok">81</span></div>
-        <div class="s2-row"><span class="s2-k">Domains</span><span class="s2-v ok">11</span></div>
+        <div class="s2-row"><span class="s2-k">Domains</span><span class="s2-v ok">14</span></div>
         <div class="s2-row"><span class="s2-k">Offline</span><span class="s2-v ok">100%</span></div>
       </div>
     </div>
@@ -3219,17 +3368,17 @@ body.battery-mode .jm-label { color: #aaa !important; }
       <div class="wf2-item">
         <span class="wf2-dot" id="wf-api"></span>
         <span class="wf2-text">
-          <span class="wf2-name">Claude AI (claude-sonnet-4)</span>
-          <span class="wf2-sub">Requires API key &middot; <span id="wf-api-s" style="color:var(--t3)">NO KEY</span></span>
+          <span class="wf2-name">Gemini 4 Hydrogen &amp; 3.1 Flash Lite</span>
+          <span class="wf2-sub">Multi-turn chat + Google Search &amp; Maps grounding &middot; <span id="wf-api-s" style="color:var(--t3)">OFFLINE</span></span>
         </span>
         <span class="wf2-tier">TIER 1</span>
       </div>
-      <div class="wf2-arrow">&#8595; fallback</div>
+      <div class="wf2-arrow">&#8595; automatic offline fallback</div>
       <div class="wf2-item">
         <span class="wf2-dot on"></span>
         <span class="wf2-text">
           <span class="wf2-name">Embedded Knowledge Base</span>
-          <span class="wf2-sub">81 articles &middot; Always available offline</span>
+          <span class="wf2-sub">81 articles &middot; 14 domains &middot; Always available offline</span>
         </span>
         <span class="wf2-tier" style="color:var(--ok)">READY</span>
       </div>
@@ -3237,10 +3386,10 @@ body.battery-mode .jm-label { color: #aaa !important; }
 
     <!-- Server AI Proxy Status -->
     <div class="scard3">
-      <div class="s3-title">Online AI Proxy <span style="color:var(--t4);font-size:9px;letter-spacing:0;text-transform:none;font-family:var(--body);font-weight:400">server-managed</span></div>
+      <div class="s3-title">Online AI &amp; Maps Services <span style="color:var(--t4);font-size:9px;letter-spacing:0;text-transform:none;font-family:var(--body);font-weight:400">server-managed</span></div>
       <div class="sys-key-wrap">
         <div class="sys-key-hint">
-          Online AI requests are routed securely through the server proxy (<code>/api/ai/chat</code>) when configured on the host, and automatically fall back to the 100% offline 81-article knowledge base.
+          Multi-turn Gemini chat, live Google Search grounding, and Google Maps grounding are routed through <code>/api/ai/chat</code> on the server. When offline, AEGIS automatically serves verified guidance from the embedded 81-article knowledge base.
         </div>
       </div>
     </div>
@@ -3280,7 +3429,22 @@ body.battery-mode .jm-label { color: #aaa !important; }
           <span class="tp-check" id="tp-battery"></span>
         </button>
       </div>
-      <div class="theme-active-note" id="theme-note">&#9670; Red Phosphor active</div>
+      <div class="theme-active-note" id="theme-note">&#9670; True AMOLED #000000 active</div>
+    </div>
+
+    <!-- ── APP UPDATES & BATTERY SAVER ── -->
+    <div class="scard3">
+      <div class="s3-title">App Updates &amp; Battery Saver</div>
+      <div class="sys-key-wrap">
+        <div class="sys-key-hint" id="web-battery-status" style="color:var(--t2)">
+          Auto-AMOLED Battery Saver monitoring active.
+        </div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px">
+          <button class="key-btn save" onclick="checkWebForAppUpdate(true)">Check for App Update</button>
+          <button class="key-btn clear" onclick="toggleManualBatterySaver()">Toggle Ultra AMOLED Saver</button>
+        </div>
+        <div class="sys-key-hint" id="web-update-status" style="color:var(--t0);margin-top:6px"></div>
+      </div>
     </div>
 
     <!-- ── SOVEREIGN WIPE ── -->
@@ -3288,7 +3452,7 @@ body.battery-mode .jm-label { color: #aaa !important; }
       <div class="s3-title">Security</div>
       <div class="sys-key-wrap">
         <div class="sys-key-hint" style="color:var(--t2)">
-          Removes all stored data from this device — API key, theme preference, and settings.
+          Removes all stored data from this device — theme preference and local settings.
           Use on shared or borrowed devices.
         </div>
         <button class="sovereign-wipe-btn" onclick="sovereignWipe()">
@@ -5962,6 +6126,9 @@ document.addEventListener('DOMContentLoaded', () => {
 // ════════════════════════════════════════════════════════════
 S.proxyReady = false;
 S.proxyProvider = 'offline-only';
+S.mapsConfigured = false;
+S.chatMode = 'general';
+S.userLocation = null;
 
 async function checkServerProxy() {
   try {
@@ -5970,10 +6137,12 @@ async function checkServerProxy() {
       const data = await res.json();
       S.proxyReady = !!data.aiProxyConfigured;
       S.proxyProvider = data.provider || 'offline-only';
+      S.mapsConfigured = !!data.mapsConfigured;
     }
   } catch (e) {
     S.proxyReady = false;
     S.proxyProvider = 'offline-only';
+    S.mapsConfigured = false;
   }
   updateKeyUI();
 }
@@ -5988,25 +6157,54 @@ function dismissBanner() {
   if (b) b.classList.add('hidden');
 }
 
+function setChatMode(mode) {
+  S.chatMode = mode || 'general';
+  ['general', 'fast', 'search', 'maps'].forEach(function(m) {
+    const el = document.getElementById('chip-mode-' + m);
+    if (el) el.classList.toggle('on', m === S.chatMode);
+  });
+  const inp = document.getElementById('qin');
+  if (inp) {
+    const placeholders = {
+      general: 'Ask AEGIS anything — survival, medicine, water, agriculture, engineering…',
+      fast: 'Fast Gemini 3.1 Flash Lite — ask a quick preparedness question…',
+      search: 'Live Google Search Grounding — ask about current advisories, recalls, weather…',
+      maps: 'Live Google Maps Grounding — ask about nearby supply stores, parks, pharmacies…',
+    };
+    inp.placeholder = placeholders[S.chatMode] || placeholders.general;
+  }
+}
+
+function resetChatHistory() {
+  S.history = [];
+  const msgs = document.getElementById('msgs');
+  if (msgs) msgs.innerHTML = '';
+  addSystemMsg('Started a fresh multi-turn conversation. Ask a question or choose Web Search / Maps AI grounding below.');
+  const qc = document.getElementById('acp-queries');
+  if (qc) qc.textContent = '0';
+}
+
 function updateKeyUI() {
   const haKey = !!S.proxyReady;
-  const label = haKey ? (S.proxyProvider === 'gemini' ? 'SERVER AI' : 'ONLINE AI') : 'OFFLINE KB';
+  const label = haKey ? (S.proxyProvider === 'gemini' ? 'GEMINI AI' : 'ONLINE AI') : 'OFFLINE KB';
   const acpMode = document.getElementById('acp-mode');
   const acpAi   = document.getElementById('acp-ai');
   const acpCore  = document.getElementById('ai-core-status');
   if (acpMode) acpMode.textContent = haKey ? label : 'OFFLINE';
-  if (acpAi)   acpAi.textContent   = haKey ? 'Server Proxy' : 'KB Mode';
+  if (acpAi)   acpAi.textContent   = haKey ? 'Gemini Proxy' : 'KB Mode';
   if (acpCore)  acpCore.textContent = 'ONLINE';
   const da = document.getElementById('d-api');
   if (da) { da.className = 'dot ' + (haKey ? 'on' : 'off'); }
   setText('mode-badge', label);
-  setText('s-mode', haKey ? 'server proxy' : 'offline kb');
+  setText('s-mode', haKey ? 'gemini proxy' : 'offline kb');
   const svApi = document.getElementById('sv-api');
-  if (svApi) { svApi.textContent = haKey ? 'Proxy Ready ✓' : 'Offline KB'; svApi.className = 'sv ' + (haKey ? 'ok' : 'off'); }
+  if (svApi) { svApi.textContent = haKey ? 'Gemini Ready ✓' : 'Offline KB'; svApi.className = 'sv ' + (haKey ? 'ok' : 'off'); }
+  const svMaps = document.getElementById('sv-maps');
+  if (svMaps) { svMaps.textContent = S.mapsConfigured ? 'Active ✓' : 'Offline Fallback'; svMaps.className = 'sv ' + (S.mapsConfigured ? 'ok' : 'off'); }
   const svKey = document.getElementById('sv-key');
   if (svKey) { svKey.textContent = haKey ? 'Server-managed' : 'Offline only'; svKey.className = 'sv ' + (haKey ? 'ok' : 'off'); }
   const svMode = document.getElementById('sv-mode');
-  if (svMode) { svMode.textContent = haKey ? 'Server AI Proxy' : 'offline KB'; }
+  if (svMode) { svMode.textContent = haKey ? 'Gemini + Grounding' : 'offline KB'; }
   const wfApi = document.getElementById('wf-api');
   if (wfApi) { wfApi.className = 'wf-dot ' + (haKey ? 'on' : 'off'); }
   const wfApiS = document.getElementById('wf-api-s');
@@ -6028,8 +6226,8 @@ function nav(v) {
   if (vEl) vEl.classList.add('on');
   const bEl = document.querySelector(`[data-v="${v}"]`);
   if (bEl) bEl.classList.add('on');
-  // Lazy-load visitor counter when Mission tab opened
   if (v === 'about') { try { loadVisitorCount(); } catch(e){} }
+  if (v === 'map') { try { initFieldMapOnce(); } catch(e){} }
 }
 
 function setDomain(d) {
@@ -6471,12 +6669,63 @@ function finalise(msgId, text, citations, src, safety, ms) {
   if (body) {
     setThink(msgId, false);
     body.innerHTML = md(text || '');
+
+    // Render clickable Grounding Sources (Google Search & Google Maps URIs) via safe DOM APIs
+    if (Array.isArray(citations) && citations.length > 0) {
+      const box = document.createElement('div');
+      box.className = 'grounding-box';
+
+      const hdr = document.createElement('div');
+      hdr.className = 'grounding-hdr';
+      hdr.textContent = src === 'gemini-maps' ? '📍 Verified Google Maps Sources' : '🌐 Verified Web Sources';
+      box.appendChild(hdr);
+
+      const list = document.createElement('div');
+      list.className = 'grounding-list';
+
+      citations.forEach(function(item) {
+        if (!item || typeof item.uri !== 'string' || !/^https?:\/\//i.test(item.uri)) return;
+        const link = document.createElement('a');
+        link.className = 'grounding-link' + (item.type === 'maps' || item.type === 'maps-review' ? ' maps-link' : '');
+        link.href = item.uri;
+        link.target = '_blank';
+        link.rel = 'noopener noreferrer';
+        const prefix = item.type === 'maps' ? '📍 ' : item.type === 'maps-review' ? '★ ' : '↗ ';
+        link.textContent = prefix + (item.title || item.uri);
+        list.appendChild(link);
+      });
+
+      if (list.childNodes.length > 0) {
+        box.appendChild(list);
+        body.appendChild(box);
+      }
+    }
   }
   // Source badge
   const srcEl = document.getElementById(msgId + '-src');
   if (srcEl) {
-    srcEl.textContent = src === 'claude-api' ? 'Claude AI' : 'KB';
-    srcEl.style.borderColor = src === 'claude-api' ? 'rgba(30,144,255,.4)' : '';
+    const badgeMap = {
+      'gemini-chat': 'Gemini 4',
+      'gemini-fast': 'Gemini Fast',
+      'gemini-search': 'Gemini + Search',
+      'gemini-maps': 'Gemini + Maps',
+      'anthropic-proxy': 'Online AI',
+      'embedded-kb': 'Offline KB',
+    };
+    srcEl.textContent = badgeMap[src] || 'Offline KB';
+    if (src === 'gemini-maps') {
+      srcEl.style.borderColor = 'rgba(46,213,115,.45)';
+      srcEl.style.color = 'var(--ok)';
+    } else if (src === 'gemini-search') {
+      srcEl.style.borderColor = 'rgba(56,161,255,.45)';
+      srcEl.style.color = 'var(--info)';
+    } else if (src && src.indexOf('gemini') === 0) {
+      srcEl.style.borderColor = 'rgba(255,117,130,.45)';
+      srcEl.style.color = 'var(--t0)';
+    } else {
+      srcEl.style.borderColor = '';
+      srcEl.style.color = '';
+    }
   }
   // Safety badges on the message footer
   const msgEl = document.getElementById(msgId);
@@ -6620,12 +6869,18 @@ async function send(override) {
   scrollMsgs();
 
   const t0 = performance.now();
-  let text = '', src = 'embedded-kb';
+  let text = '', src = 'embedded-kb', citations = [], proxyNotice = '';
 
-  // ── Optional Server-Side AI Proxy ───────────────────────────────
+  // ── Multi-turn Gemini Chat & Grounding Proxy ────────────────────
   if (S.proxyReady && navigator.onLine) {
     try {
-      setThinkText(rid, 'Querying server AI proxy…');
+      const thinkLabels = {
+        general: 'Thinking with Gemini 4 Hydrogen…',
+        fast: 'Querying Gemini 3.1 Flash Lite…',
+        search: 'Searching live web via Google Search grounding…',
+        maps: 'Grounding response with Google Maps data…',
+      };
+      setThinkText(rid, thinkLabels[S.chatMode] || 'Querying Gemini AI…');
       const res = await fetch('/api/ai/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -6633,18 +6888,26 @@ async function send(override) {
           message: q,
           emergency: !!S.em,
           domain: S.domain || 'all',
-          history: S.history.slice(-8),
+          mode: S.chatMode || 'general',
+          userLocation: S.userLocation,
+          history: S.history.slice(-12),
         }),
       });
 
-      if (res.ok) {
-        const data = await res.json();
-        text = data.reply || '';
-        src = data.source || 'server-proxy';
+      const data = await res.json().catch(function() { return {}; });
+      if (res.ok && data.reply) {
+        text = data.reply;
+        src = data.source || 'gemini-chat';
+        citations = Array.isArray(data.groundingSources) ? data.groundingSources : [];
         setThink(rid, false);
         updateBody(rid, text, false);
       } else {
         setThink(rid, false);
+        if (res.status === 429 || data.status === 'RESOURCE_EXHAUSTED') {
+          proxyNotice = data.error || 'Online AI quota reached — serving offline knowledge base.';
+        } else if (data.error) {
+          proxyNotice = data.error;
+        }
       }
     } catch(e) {
       setThink(rid, false);
@@ -6653,20 +6916,21 @@ async function send(override) {
 
   // ── Embedded KB fallback ────────────────────────────────────────
   if (!text) {
-    text = kbSearch(q);
+    const kbAnswer = kbSearch(q);
+    text = proxyNotice ? ('CAUTION: ' + proxyNotice + '\n\n' + kbAnswer) : kbAnswer;
     src = 'embedded-kb';
     await simStream(rid, text);
   }
 
   const ms = Math.round(performance.now() - t0);
-  const safety = analyseSafety(q, text, [], S.domain, S.em);
-  finalise(rid, text, [], src, safety, ms);
-  updateInfoPanel(safety, []);
+  const safety = analyseSafety(q, text, citations, S.domain, S.em);
+  finalise(rid, text, citations, src, safety, ms);
+  updateInfoPanel(safety, citations);
   scrollMsgs();
 
   S.history.push({ role: 'user', content: q });
   S.history.push({ role: 'assistant', content: text });
-  if (S.history.length > 20) S.history = S.history.slice(-20);
+  if (S.history.length > 24) S.history = S.history.slice(-24);
 
   } catch(sendErr) {
     console.error('AEGIS send error:', sendErr);
@@ -6919,10 +7183,562 @@ function askAboutArt(title){nav('chat');setTimeout(function(){var inp=document.g
 function dispToggle(key){var map={crt:'no-crt',hud:'no-hud',anim:'no-anim',beam:'no-beam',hc:'hi-contrast'};var defOn={crt:1,hud:1,anim:1,beam:1,hc:0};document.body.classList.toggle(map[key]);var isOn=defOn[key]?!document.body.classList.contains(map[key]):document.body.classList.contains(map[key]);var btn=document.getElementById('tog-'+key);if(btn){btn.textContent=isOn?'ON':'OFF';btn.className='dtog '+(isOn?'on':'off');}try{localStorage.setItem('aegis_disp_'+key,isOn?'1':'0');}catch(e){}}
 document.addEventListener('DOMContentLoaded',function(){var defOn={crt:1,hud:1,anim:1,beam:1,hc:0};Object.keys(defOn).forEach(function(key){try{var v=localStorage.getItem('aegis_disp_'+key);if(v===null)return;if((v==='1')!==!!defOn[key])dispToggle(key);}catch(e){}});});
 function sovereignWipe() {
-  if (!confirm('This will erase your API key and all settings from this device. Continue?')) return;
+  if (!confirm('This will erase your local settings from this device. Continue?')) return;
   try { localStorage.clear(); } catch(e) {}
   try { sessionStorage.clear(); } catch(e) {}
   location.reload();
+}
+
+// ── AUTO BATTERY SAVER & AMOLED DETECTION (WEB PREVIEW) ────
+let manualBatterySaver = false;
+let autoBatterySaver = false;
+
+function applyBatterySaverUI(levelPct, charging) {
+  const active = manualBatterySaver || autoBatterySaver;
+  document.body.classList.toggle('amoled-battery-saver', active);
+  const pill = document.getElementById('battery-saver-pill');
+  const statusEl = document.getElementById('web-battery-status');
+  if (pill) {
+    pill.textContent = active ? '⚡ SAVER ON' : '⚡ AMOLED';
+    pill.style.color = active ? 'var(--ok)' : 'var(--t2)';
+  }
+  if (statusEl) {
+    const batTxt = typeof levelPct === 'number'
+      ? `Battery ${levelPct}%${charging ? ' (charging)' : ''}`
+      : 'AMOLED default active';
+    statusEl.textContent = active
+      ? `${batTxt} — Ultra AMOLED #000000 Battery Saver active.`
+      : `${batTxt} — True AMOLED #000000 active (auto-enforces Saver at <=20% battery).`;
+  }
+}
+
+function toggleManualBatterySaver() {
+  manualBatterySaver = !manualBatterySaver;
+  applyBatterySaverUI();
+}
+
+if (navigator.getBattery) {
+  navigator.getBattery().then(function(bat) {
+    function syncBattery() {
+      const pct = Math.round(bat.level * 100);
+      autoBatterySaver = (!bat.charging && pct <= 20);
+      applyBatterySaverUI(pct, bat.charging);
+    }
+    syncBattery();
+    bat.addEventListener('levelchange', syncBattery);
+    bat.addEventListener('chargingchange', syncBattery);
+  }).catch(function() { applyBatterySaverUI(); });
+} else {
+  applyBatterySaverUI();
+}
+
+// ── USER-CONFIRMED GITHUB RELEASE UPDATE CHECKER ───────────
+const AEGIS_WEB_VERSION = '1.0.0';
+function showUpdateConfirmModal(release) {
+  const existing = document.getElementById('aegis-update-modal');
+  if (existing) existing.remove();
+
+  const overlay = document.createElement('div');
+  overlay.id = 'aegis-update-modal';
+  overlay.style.cssText = 'position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,0.82);display:flex;align-items:center;justify-content:center;padding:16px';
+
+  const card = document.createElement('div');
+  card.style.cssText = 'background:#0b0b10;border:1px solid #2a2a3e;border-radius:16px;max-width:440px;width:100%;padding:20px;color:#f2f2f7;font-family:var(--body)';
+
+  const title = document.createElement('div');
+  title.style.cssText = 'font-size:17px;font-weight:700;margin-bottom:4px';
+  title.textContent = 'Update AEGIS to ' + release.tag + '?';
+
+  const sub = document.createElement('div');
+  sub.style.cssText = 'font-family:var(--mono);font-size:11px;color:#ff7582;margin-bottom:12px';
+  sub.textContent = 'Current v' + AEGIS_WEB_VERSION + ' -> Latest ' + release.tag;
+
+  const notes = document.createElement('pre');
+  notes.style.cssText = 'background:#000;border:1px solid #1e1e2e;border-radius:10px;padding:12px;max-height:170px;overflow:auto;white-space:pre-wrap;font-size:12.5px;color:#c8c8dc;line-height:1.5;margin-bottom:16px;font-family:var(--body)';
+  notes.textContent = release.body || 'New survival protocols and improvements.';
+
+  const actions = document.createElement('div');
+  actions.style.cssText = 'display:flex;gap:10px;justify-content:flex-end';
+
+  const laterBtn = document.createElement('button');
+  laterBtn.textContent = 'Later';
+  laterBtn.style.cssText = 'padding:10px 16px;border-radius:10px;border:1px solid #2a2a3e;color:#f2f2f7;font-size:13px;cursor:pointer';
+  laterBtn.onclick = function() { overlay.remove(); };
+
+  const updateBtn = document.createElement('a');
+  updateBtn.textContent = release.apkUrl ? 'Download APK Update' : 'View Release';
+  updateBtn.href = release.apkUrl || release.htmlUrl;
+  updateBtn.target = '_blank';
+  updateBtn.rel = 'noopener noreferrer';
+  updateBtn.style.cssText = 'padding:10px 16px;border-radius:10px;background:#ff4757;color:#fff;font-size:13px;font-weight:600;text-decoration:none;cursor:pointer';
+  updateBtn.onclick = function() { overlay.remove(); };
+
+  actions.appendChild(laterBtn);
+  actions.appendChild(updateBtn);
+  card.appendChild(title);
+  card.appendChild(sub);
+  card.appendChild(notes);
+  card.appendChild(actions);
+  overlay.appendChild(card);
+  document.body.appendChild(overlay);
+}
+
+async function checkWebForAppUpdate(userInitiated) {
+  const statusEl = document.getElementById('web-update-status');
+  if (userInitiated && statusEl) statusEl.textContent = 'Checking GitHub Releases…';
+  try {
+    const res = await fetch('https://api.github.com/repos/Aditya-Shaswat/AEGIS/releases/latest', {
+      headers: { Accept: 'application/vnd.github+json' }
+    });
+    if (!res.ok) {
+      if (userInitiated && statusEl) statusEl.textContent = 'No published GitHub Release found yet.';
+      return;
+    }
+    const data = await res.json();
+    const tag = data.tag_name || '';
+    const apk = (data.assets || []).find(function(a) {
+      return a.name && a.name.endsWith('.apk') && !a.name.includes('-debug');
+    });
+    if (tag) {
+      if (statusEl) statusEl.textContent = 'Latest release: ' + tag;
+      if (userInitiated) {
+        showUpdateConfirmModal({
+          tag: tag,
+          body: (data.body || '').slice(0, 1200),
+          apkUrl: apk ? apk.browser_download_url : null,
+          htmlUrl: data.html_url || 'https://github.com/Aditya-Shaswat/AEGIS/releases'
+        });
+      }
+    }
+  } catch (e) {
+    if (userInitiated && statusEl) statusEl.textContent = 'Offline — connect to internet to check for releases.';
+  }
+}
+
+// ══════════════════════════════════════════════════════════════
+// GOOGLE MAPS PLATFORM — PREPAREDNESS FIELD RESOURCE MAP
+// Uses Maps JS API dynamic loader, AdvancedMarkerElement, PinElement,
+// and Places API (New) searchNearby / searchByText.
+// Attribution ID: gmp_mcp_codeassist_v1_aistudio
+// ══════════════════════════════════════════════════════════════
+window.addEventListener('gmp-quota-exceeded', function() {
+  var banner = document.getElementById('gmp-quota-banner');
+  if (banner) banner.classList.add('show');
+});
+
+var FIELD_MAP = {
+  bootstrapped: false,
+  initialized: false,
+  map: null,
+  infoWindow: null,
+  markers: [],
+  userMarker: null,
+  center: { lat: 37.7749, lng: -122.4194 },
+  selectedType: 'hardware_store',
+  locationOptIn: false,
+};
+
+function bootstrapGoogleMapsLoader(apiKey) {
+  if (FIELD_MAP.bootstrapped) return;
+  FIELD_MAP.bootstrapped = true;
+  (function(g){
+    var h,a,k,p='The Google Maps JavaScript API',c='google',l='importLibrary',q='__ib__',m=document,b=window;
+    b=b[c]||(b[c]={});
+    var d=b.maps||(b.maps={}),r=new Set(),e=new URLSearchParams(),
+    u=function(){return h||(h=new Promise(async function(f,n){
+      a=m.createElement('script');
+      e.set('libraries',[].concat(Array.from(r)).join(','));
+      for(k in g) e.set(k.replace(/[A-Z]/g,function(t){return '_'+t[0].toLowerCase();}),g[k]);
+      e.set('callback',c+'.maps.'+q);
+      a.src='https://maps.'+c+'apis.com/maps/api/js?'+e.toString();
+      d[q]=f;
+      a.onerror=function(){h=n(new Error(p+' could not load.'));};
+      m.head.appendChild(a);
+    }));};
+    if(!d[l]){
+      d[l]=function(f){
+        var args=Array.prototype.slice.call(arguments);
+        r.add(f);
+        return u().then(function(){return d[l].apply(d,args);});
+      };
+    }
+  })({
+    key: apiKey,
+    v: 'weekly',
+  });
+}
+
+function setMapOverlay(visible, title, subtitle) {
+  var el = document.getElementById('map-overlay-msg');
+  if (!el) return;
+  el.classList.toggle('hidden', !visible);
+  if (title && el.firstElementChild) el.firstElementChild.textContent = title;
+  var sub = document.getElementById('map-overlay-sub');
+  if (subtitle && sub) sub.textContent = subtitle;
+}
+
+function clearFieldMapMarkers() {
+  FIELD_MAP.markers.forEach(function(m) {
+    if (m) m.map = null;
+  });
+  FIELD_MAP.markers = [];
+}
+
+function isMapsQuotaError(err) {
+  var msg = String((err && (err.message || err.code || err.status)) || err || '');
+  return (
+    msg.indexOf('RESOURCE_EXHAUSTED') !== -1 ||
+    msg.indexOf('OVER_QUERY_LIMIT') !== -1 ||
+    msg.indexOf('OverQuotaMapError') !== -1 ||
+    msg.indexOf('429') !== -1
+  );
+}
+
+async function initFieldMapOnce() {
+  if (FIELD_MAP.initialized) {
+    return;
+  }
+  if (!navigator.onLine) {
+    setMapOverlay(true, 'Offline Mode Active', 'Interactive Google Maps requires an internet connection. Your 81-article survival knowledge base and Emergency protocols remain 100% available offline.');
+    return;
+  }
+
+  try {
+    setMapOverlay(true, 'Initializing Google Maps…', 'Loading Maps JavaScript API and Places API (New).');
+    var cfgRes = await fetch('/api/maps/config', { cache: 'no-store' });
+    var cfg = await cfgRes.json();
+    if (!cfg || !cfg.configured || !cfg.apiKey) {
+      setMapOverlay(true, 'Google Maps API Key Not Configured', 'Configure GOOGLE_MAPS_API_KEY on the server environment to enable the interactive Preparedness Field Map.');
+      return;
+    }
+
+    bootstrapGoogleMapsLoader(cfg.apiKey);
+
+    var libs = await Promise.all([
+      google.maps.importLibrary('maps'),
+      google.maps.importLibrary('marker'),
+      google.maps.importLibrary('places'),
+      google.maps.importLibrary('core'),
+    ]);
+    var MapClass = libs[0].Map;
+    var InfoWindowClass = libs[0].InfoWindow;
+
+    var canvas = document.getElementById('aegis-map-canvas');
+    if (!canvas) return;
+
+    FIELD_MAP.map = new MapClass(canvas, {
+      center: FIELD_MAP.center,
+      zoom: 13,
+      mapId: 'DEMO_MAP_ID',
+      colorScheme: 'DARK',
+      mapTypeControl: false,
+      streetViewControl: false,
+      fullscreenControl: true,
+      internalUsageAttributionIds: ['gmp_mcp_codeassist_v1_aistudio'],
+    });
+    FIELD_MAP.infoWindow = new InfoWindowClass();
+    FIELD_MAP.initialized = true;
+    setMapOverlay(false);
+
+    await runNearbyFieldSearch(FIELD_MAP.selectedType);
+  } catch (err) {
+    console.error('[AEGIS Field Map] Init failed:', err);
+    if (isMapsQuotaError(err)) {
+      window.dispatchEvent(new CustomEvent('gmp-quota-exceeded'));
+    }
+    setMapOverlay(true, 'Unable to Load Interactive Map', 'Check your network connection or Google Maps API configuration. Offline Knowledge and Emergency tabs remain available.');
+  }
+}
+
+async function renderPlacesOnFieldMap(places, headingLabel) {
+  clearFieldMapMarkers();
+  var listEl = document.getElementById('map-results-list');
+  var countEl = document.getElementById('map-results-count');
+  var titleEl = document.getElementById('map-results-title');
+  if (titleEl) titleEl.textContent = headingLabel || 'Nearby Resources';
+  if (listEl) listEl.innerHTML = '';
+
+  var safePlaces = Array.isArray(places) ? places : [];
+  if (countEl) countEl.textContent = String(safePlaces.length);
+
+  if (safePlaces.length === 0) {
+    if (listEl) {
+      var empty = document.createElement('div');
+      empty.style.cssText = 'padding:16px 12px;font-size:12px;color:var(--t3);line-height:1.5';
+      empty.textContent = 'No matching places found in this area. Try panning the map or searching another resource type.';
+      listEl.appendChild(empty);
+    }
+    return;
+  }
+
+  var markerLib = await google.maps.importLibrary('marker');
+  var coreLib = await google.maps.importLibrary('core');
+  var AdvancedMarkerElement = markerLib.AdvancedMarkerElement;
+  var PinElement = markerLib.PinElement;
+  var bounds = new coreLib.LatLngBounds();
+
+  safePlaces.forEach(function(place, idx) {
+    if (!place || !place.location) return;
+    bounds.extend(place.location);
+
+    var pin = new PinElement({
+      background: '#ff4757',
+      borderColor: '#000000',
+      glyphColor: '#ffffff',
+      glyphText: String(idx + 1),
+    });
+
+    var marker = new AdvancedMarkerElement({
+      map: FIELD_MAP.map,
+      position: place.location,
+      title: place.displayName || 'Resource',
+      content: pin,
+    });
+
+    function openPlaceInfo() {
+      var wrap = document.createElement('div');
+      wrap.style.cssText = 'color:#111;font-family:Plus Jakarta Sans,sans-serif;max-width:240px;padding:2px';
+      var h = document.createElement('div');
+      h.style.cssText = 'font-weight:700;font-size:13px;margin-bottom:4px';
+      h.textContent = place.displayName || 'Preparedness Resource';
+      wrap.appendChild(h);
+
+      if (place.formattedAddress) {
+        var addr = document.createElement('div');
+        addr.style.cssText = 'font-size:11.5px;color:#333;margin-bottom:6px;line-height:1.4';
+        addr.textContent = place.formattedAddress;
+        wrap.appendChild(addr);
+      }
+
+      if (place.googleMapsURI && /^https?:\/\//i.test(place.googleMapsURI)) {
+        var link = document.createElement('a');
+        link.href = place.googleMapsURI;
+        link.target = '_blank';
+        link.rel = 'noopener noreferrer';
+        link.style.cssText = 'font-size:11.5px;font-weight:600;color:#0a52cc;text-decoration:underline';
+        link.textContent = 'Open in Google Maps ↗';
+        wrap.appendChild(link);
+      }
+
+      FIELD_MAP.infoWindow.setContent(wrap);
+      FIELD_MAP.infoWindow.open({ anchor: marker, map: FIELD_MAP.map });
+    }
+
+    // Standard 'click' event (compatible with weekly channel)
+    marker.addListener('click', openPlaceInfo);
+    FIELD_MAP.markers.push(marker);
+
+    if (listEl) {
+      var card = document.createElement('div');
+      card.className = 'map-place-card';
+      card.onclick = function() {
+        FIELD_MAP.map.panTo(place.location);
+        FIELD_MAP.map.setZoom(15);
+        openPlaceInfo();
+      };
+
+      var nameEl = document.createElement('div');
+      nameEl.className = 'map-place-name';
+      nameEl.textContent = (idx + 1) + '. ' + (place.displayName || 'Resource');
+      card.appendChild(nameEl);
+
+      if (place.formattedAddress) {
+        var addrEl = document.createElement('div');
+        addrEl.className = 'map-place-addr';
+        addrEl.textContent = place.formattedAddress;
+        card.appendChild(addrEl);
+      }
+
+      var meta = document.createElement('div');
+      meta.className = 'map-place-meta';
+      var st = document.createElement('span');
+      st.textContent = place.businessStatus === 'OPERATIONAL' ? '● Operational' : (place.businessStatus || 'Listed');
+      meta.appendChild(st);
+
+      if (place.googleMapsURI && /^https?:\/\//i.test(place.googleMapsURI)) {
+        var ext = document.createElement('a');
+        ext.href = place.googleMapsURI;
+        ext.target = '_blank';
+        ext.rel = 'noopener noreferrer';
+        ext.textContent = 'Google Maps ↗';
+        ext.onclick = function(ev) { ev.stopPropagation(); };
+        meta.appendChild(ext);
+      }
+
+      card.appendChild(meta);
+      listEl.appendChild(card);
+    }
+  });
+
+  if (!bounds.isEmpty()) {
+    FIELD_MAP.map.fitBounds(bounds, 48);
+  }
+}
+
+async function runNearbyFieldSearch(primaryType) {
+  if (!FIELD_MAP.initialized || !FIELD_MAP.map) return;
+  try {
+    var placesLib = await google.maps.importLibrary('places');
+    var Place = placesLib.Place;
+    var SearchNearbyRankPreference = placesLib.SearchNearbyRankPreference;
+
+    var currentCenter = FIELD_MAP.map.getCenter();
+    var centerLiteral = currentCenter
+      ? { lat: currentCenter.lat(), lng: currentCenter.lng() }
+      : FIELD_MAP.center;
+
+    var res = await Place.searchNearby({
+      fields: ['displayName', 'location', 'formattedAddress', 'businessStatus', 'googleMapsURI'],
+      locationRestriction: {
+        center: centerLiteral,
+        radius: 6000,
+      },
+      includedPrimaryTypes: [primaryType],
+      maxResultCount: 10,
+      rankPreference: SearchNearbyRankPreference.DISTANCE,
+      language: 'en-US',
+      internalUsageAttributionIds: ['gmp_mcp_codeassist_v1_aistudio'],
+    });
+
+    await renderPlacesOnFieldMap(res && res.places ? res.places : [], primaryType.replace(/_/g, ' '));
+  } catch (err) {
+    console.error('[AEGIS Field Map] Nearby search error:', err);
+    if (isMapsQuotaError(err)) {
+      window.dispatchEvent(new CustomEvent('gmp-quota-exceeded'));
+    }
+  }
+}
+
+function selectFieldMapCategory(type, btn) {
+  FIELD_MAP.selectedType = type;
+  document.querySelectorAll('.map-cat').forEach(function(b) { b.classList.remove('on'); });
+  if (btn) btn.classList.add('on');
+  if (!FIELD_MAP.initialized) {
+    initFieldMapOnce();
+  } else {
+    runNearbyFieldSearch(type);
+  }
+}
+
+async function searchFieldMapByText() {
+  var inp = document.getElementById('map-query-input');
+  var query = inp ? inp.value.trim() : '';
+  if (!query) return;
+  if (!FIELD_MAP.initialized) {
+    await initFieldMapOnce();
+  }
+  if (!FIELD_MAP.initialized || !FIELD_MAP.map) return;
+  try {
+    var placesLib = await google.maps.importLibrary('places');
+    var Place = placesLib.Place;
+    var currentCenter = FIELD_MAP.map.getCenter();
+    var centerLiteral = currentCenter
+      ? { lat: currentCenter.lat(), lng: currentCenter.lng() }
+      : FIELD_MAP.center;
+
+    var res = await Place.searchByText({
+      textQuery: query,
+      fields: ['displayName', 'location', 'formattedAddress', 'businessStatus', 'googleMapsURI'],
+      locationBias: {
+        center: centerLiteral,
+        radius: 15000,
+      },
+      maxResultCount: 10,
+      language: 'en-US',
+      internalUsageAttributionIds: ['gmp_mcp_codeassist_v1_aistudio'],
+    });
+
+    await renderPlacesOnFieldMap(res && res.places ? res.places : [], 'Results: ' + query);
+  } catch (err) {
+    console.error('[AEGIS Field Map] Text search error:', err);
+    if (isMapsQuotaError(err)) {
+      window.dispatchEvent(new CustomEvent('gmp-quota-exceeded'));
+    }
+  }
+}
+
+function toggleUserLocationForMap() {
+  var btn = document.getElementById('map-loc-btn');
+  if (FIELD_MAP.locationOptIn) {
+    FIELD_MAP.locationOptIn = false;
+    S.userLocation = null;
+    if (FIELD_MAP.userMarker) {
+      FIELD_MAP.userMarker.map = null;
+      FIELD_MAP.userMarker = null;
+    }
+    if (btn) {
+      btn.classList.remove('active');
+      btn.textContent = '◎ Use My Location';
+    }
+    return;
+  }
+
+  if (!navigator.geolocation) {
+    if (btn) btn.textContent = 'Location Unavailable';
+    return;
+  }
+
+  if (btn) btn.textContent = 'Locating…';
+  navigator.geolocation.getCurrentPosition(
+    async function(pos) {
+      var lat = pos.coords.latitude;
+      var lng = pos.coords.longitude;
+      FIELD_MAP.locationOptIn = true;
+      FIELD_MAP.center = { lat: lat, lng: lng };
+      S.userLocation = { latitude: lat, longitude: lng };
+      if (btn) {
+        btn.classList.add('active');
+        btn.textContent = '● Location Shared (Tap to Revoke)';
+      }
+      if (FIELD_MAP.initialized && FIELD_MAP.map) {
+        FIELD_MAP.map.setCenter(FIELD_MAP.center);
+        FIELD_MAP.map.setZoom(13);
+        try {
+          var markerLib = await google.maps.importLibrary('marker');
+          if (FIELD_MAP.userMarker) FIELD_MAP.userMarker.map = null;
+          var pin = new markerLib.PinElement({
+            background: '#2ed573',
+            borderColor: '#000000',
+            glyphColor: '#000000',
+            glyphText: '★',
+          });
+          FIELD_MAP.userMarker = new markerLib.AdvancedMarkerElement({
+            map: FIELD_MAP.map,
+            position: FIELD_MAP.center,
+            title: 'Your Current Location',
+            content: pin,
+          });
+        } catch (e) {}
+        await runNearbyFieldSearch(FIELD_MAP.selectedType);
+      }
+    },
+    function() {
+      if (btn) btn.textContent = '◎ Use My Location';
+    },
+    { enableHighAccuracy: false, timeout: 8000, maximumAge: 60000 }
+  );
+}
+
+function askMapsAiAboutArea() {
+  var topic = (FIELD_MAP.selectedType || 'hardware_store').replace(/_/g, ' ');
+  var lat = FIELD_MAP.center.lat;
+  var lng = FIELD_MAP.center.lng;
+  if (FIELD_MAP.map && FIELD_MAP.map.getCenter) {
+    var c = FIELD_MAP.map.getCenter();
+    if (c) {
+      lat = c.lat();
+      lng = c.lng();
+    }
+  }
+  S.userLocation = { latitude: lat, longitude: lng };
+  setChatMode('maps');
+  nav('chat');
+  var inp = document.getElementById('qin');
+  if (inp) {
+    inp.value = 'What are the best nearby ' + topic + ' locations and preparedness supply options around this area?';
+    inp.focus();
+  }
+  setTimeout(function() { send(); }, 120);
 }
 </script>
 </html>

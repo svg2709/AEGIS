@@ -213,6 +213,7 @@ jobs:
       - name: Compile Android APKs
         working-directory: android
         env:
+          GITHUB_REPOSITORY: ${{ github.repository }}
           AEGIS_VERSION_NAME: ${{ needs.detect-app-changes.outputs.version_name }}
           AEGIS_VERSION_CODE: ${{ needs.detect-app-changes.outputs.version_code }}
           ANDROID_KEYSTORE_PATH: ${{ steps.signing.outputs.keystore_path }}

@@ -23,6 +23,7 @@ private data class ProxyChatRequest(
     val message: String,
     val emergency: Boolean,
     val domain: String,
+    val mode: String = "general",
     val history: List<ProxyHistoryItem>,
 )
 
@@ -30,6 +31,7 @@ private data class ProxyChatRequest(
 data class ProxyChatResponse(
     val reply: String = "",
     val source: String = "server-proxy",
+    val groundingSources: List<GroundingSource> = emptyList(),
     val error: String? = null,
 )
 
@@ -56,6 +58,7 @@ class OnlineProxyClient {
         message: String,
         emergency: Boolean,
         domain: String,
+        mode: String = "general",
         recentMessages: List<ChatMessage>,
     ): Result<ProxyChatResponse> = withContext(Dispatchers.IO) {
         if (!isValidHttpsBaseUrl(baseUrl)) {
@@ -69,7 +72,7 @@ class OnlineProxyClient {
             connection = (url.openConnection() as HttpURLConnection).apply {
                 requestMethod = "POST"
                 connectTimeout = 8_000
-                readTimeout = 15_000
+                readTimeout = 20_000
                 doOutput = true
                 setRequestProperty("Content-Type", "application/json; charset=utf-8")
                 setRequestProperty("Accept", "application/json")
@@ -77,11 +80,11 @@ class OnlineProxyClient {
 
             val history = recentMessages
                 .filter { it.role == ChatRole.USER || it.role == ChatRole.ASSISTANT || it.role == ChatRole.EMERGENCY }
-                .takeLast(6)
+                .takeLast(10)
                 .map {
                     ProxyHistoryItem(
                         role = if (it.role == ChatRole.USER) "user" else "assistant",
-                        content = it.text.take(1000),
+                        content = it.text.take(1200),
                     )
                 }
 
@@ -90,6 +93,7 @@ class OnlineProxyClient {
                     message = message.trim().take(2000),
                     emergency = emergency,
                     domain = domain.ifBlank { "all" },
+                    mode = mode,
                     history = history,
                 )
             )

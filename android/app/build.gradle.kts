@@ -7,6 +7,7 @@ plugins {
 
 val appVersionName = System.getenv("AEGIS_VERSION_NAME")?.takeIf { it.isNotBlank() } ?: "1.0.0"
 val appVersionCode = System.getenv("AEGIS_VERSION_CODE")?.toIntOrNull() ?: 1
+val githubRepo = System.getenv("GITHUB_REPOSITORY")?.takeIf { it.isNotBlank() } ?: "Aditya-Shaswat/AEGIS"
 
 android {
     namespace = "com.aegis.survival"
@@ -18,6 +19,7 @@ android {
         targetSdk = 35
         versionCode = appVersionCode
         versionName = appVersionName
+        buildConfigField("String", "GITHUB_REPO", "\"$githubRepo\"")
 
         vectorDrawables {
             useSupportLibrary = true

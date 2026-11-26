@@ -19,6 +19,8 @@ import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Bookmark
+import androidx.compose.material.icons.outlined.BookmarkBorder
 import androidx.compose.material.icons.outlined.ChevronRight
 import androidx.compose.material.icons.outlined.Close
 import androidx.compose.material.icons.outlined.Search
@@ -40,35 +42,27 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.aegis.survival.AegisUiState
 import com.aegis.survival.data.IndexedArticle
-import com.aegis.survival.ui.theme.AmoledBlack
-import com.aegis.survival.ui.theme.CoralPrimary
-import com.aegis.survival.ui.theme.CrimsonAccent
-import com.aegis.survival.ui.theme.HairlineBorder
-import com.aegis.survival.ui.theme.StatusDanger
-import com.aegis.survival.ui.theme.StatusOk
-import com.aegis.survival.ui.theme.StatusWarn
-import com.aegis.survival.ui.theme.SurfaceElevated
-import com.aegis.survival.ui.theme.SurfaceInteractive
-import com.aegis.survival.ui.theme.TextMuted
-import com.aegis.survival.ui.theme.TextPrimary
-import com.aegis.survival.ui.theme.TextSecondary
+import com.aegis.survival.ui.theme.LocalAegisPalette
 
 @Composable
 fun LibraryScreen(
     state: AegisUiState,
     onSearchChange: (String) -> Unit,
+    onToggleSavedOnly: () -> Unit,
     onSelectTier: (Int?) -> Unit,
     onSelectPriority: (String?) -> Unit,
     onSelectDomain: (String?) -> Unit,
+    onToggleBookmark: (String) -> Unit,
     onOpenArticle: (IndexedArticle) -> Unit,
     onAskFallback: (String) -> Unit,
 ) {
+    val palette = LocalAegisPalette.current
+
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(AmoledBlack),
+            .background(palette.canvas),
     ) {
-        // Search box
         OutlinedTextField(
             value = state.searchQuery,
             onValueChange = onSearchChange,
@@ -76,7 +70,7 @@ fun LibraryScreen(
                 Icon(
                     imageVector = Icons.Outlined.Search,
                     contentDescription = "Search",
-                    tint = TextSecondary,
+                    tint = palette.textSecondary,
                 )
             },
             trailingIcon = {
@@ -85,7 +79,7 @@ fun LibraryScreen(
                         Icon(
                             imageVector = Icons.Outlined.Close,
                             contentDescription = "Clear search",
-                            tint = TextSecondary,
+                            tint = palette.textSecondary,
                         )
                     }
                 }
@@ -94,26 +88,26 @@ fun LibraryScreen(
                 Text(
                     text = "Search ${state.allArticlesCount} offline protocols...",
                     style = MaterialTheme.typography.bodyMedium,
-                    color = TextMuted,
+                    color = palette.textMuted,
                 )
             },
             singleLine = true,
             colors = OutlinedTextFieldDefaults.colors(
-                focusedContainerColor = SurfaceInteractive,
-                unfocusedContainerColor = SurfaceElevated,
-                focusedBorderColor = CrimsonAccent,
-                unfocusedBorderColor = HairlineBorder,
-                focusedTextColor = TextPrimary,
-                unfocusedTextColor = TextPrimary,
-                cursorColor = CoralPrimary,
+                focusedContainerColor = palette.surfaceElevated,
+                unfocusedContainerColor = palette.surface,
+                focusedBorderColor = palette.accent,
+                unfocusedBorderColor = palette.border,
+                focusedTextColor = palette.textPrimary,
+                unfocusedTextColor = palette.textPrimary,
+                cursorColor = palette.accentSoft,
             ),
-            shape = RoundedCornerShape(14.dp),
+            shape = RoundedCornerShape(16.dp),
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 16.dp, vertical = 10.dp),
         )
 
-        // Tier & Priority filter bar (functional segmented buttons)
+        // Saved + Tier + Priority filters
         LazyRow(
             contentPadding = PaddingValues(horizontal = 16.dp),
             horizontalArrangement = Arrangement.spacedBy(8.dp),
@@ -121,8 +115,15 @@ fun LibraryScreen(
         ) {
             item {
                 FilterToggleButton(
+                    label = "Saved (${state.settings.bookmarkedArticleIds.size})",
+                    selected = state.showSavedOnly,
+                    onClick = onToggleSavedOnly,
+                )
+            }
+            item {
+                FilterToggleButton(
                     label = "All Tiers",
-                    selected = state.selectedTierFilter == null,
+                    selected = state.selectedTierFilter == null && !state.showSavedOnly,
                     onClick = { onSelectTier(null) },
                 )
             }
@@ -148,7 +149,7 @@ fun LibraryScreen(
 
         Spacer(modifier = Modifier.height(8.dp))
 
-        // Domain filter bar
+        // Domain filters
         LazyRow(
             contentPadding = PaddingValues(horizontal = 16.dp),
             horizontalArrangement = Arrangement.spacedBy(8.dp),
@@ -172,15 +173,14 @@ fun LibraryScreen(
 
         Spacer(modifier = Modifier.height(10.dp))
 
-        // Unboxed result summary line
         Text(
             text = "${state.filteredArticles.size} of ${state.allArticlesCount} offline protocols",
             style = MaterialTheme.typography.labelSmall,
-            color = TextMuted,
+            color = palette.textMuted,
             modifier = Modifier.padding(horizontal = 16.dp, vertical = 4.dp),
         )
 
-        HorizontalDivider(color = HairlineBorder, thickness = 1.dp)
+        HorizontalDivider(color = palette.border, thickness = 1.dp)
 
         if (state.filteredArticles.isEmpty()) {
             Column(
@@ -191,21 +191,26 @@ fun LibraryScreen(
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
                 Text(
-                    text = "No matching offline protocols",
+                    text = if (state.showSavedOnly) "No saved protocols yet" else "No matching offline protocols",
                     style = MaterialTheme.typography.titleMedium,
-                    color = TextPrimary,
+                    color = palette.textPrimary,
                 )
                 Spacer(modifier = Modifier.height(8.dp))
                 Text(
-                    text = "Clear filters or ask the AEGIS assistant directly.",
+                    text = if (state.showSavedOnly) {
+                        "Tap the bookmark icon on any protocol to pin it for instant emergency access."
+                    } else {
+                        "Clear filters or ask the AEGIS assistant directly."
+                    },
                     style = MaterialTheme.typography.bodyMedium,
-                    color = TextSecondary,
+                    color = palette.textSecondary,
                 )
                 if (state.searchQuery.isNotBlank()) {
                     Spacer(modifier = Modifier.height(16.dp))
                     Button(
                         onClick = { onAskFallback(state.searchQuery) },
-                        colors = ButtonDefaults.buttonColors(containerColor = CrimsonAccent),
+                        colors = ButtonDefaults.buttonColors(containerColor = palette.accent),
+                        shape = RoundedCornerShape(12.dp),
                         modifier = Modifier.heightIn(min = 48.dp),
                     ) {
                         Text(text = "Ask AEGIS Assistant", color = Color.White)
@@ -216,15 +221,18 @@ fun LibraryScreen(
             LazyColumn(
                 modifier = Modifier
                     .fillMaxSize()
-                    .background(AmoledBlack),
+                    .background(palette.canvas),
                 contentPadding = PaddingValues(bottom = 16.dp),
             ) {
                 items(state.filteredArticles, key = { "${it.domainId}_${it.article.id}" }) { item ->
+                    val isSaved = item.article.id in state.settings.bookmarkedArticleIds
                     ArticleListRow(
                         item = item,
+                        isBookmarked = isSaved,
+                        onToggleBookmark = { onToggleBookmark(item.article.id) },
                         onClick = { onOpenArticle(item) },
                     )
-                    HorizontalDivider(color = Color(0xFF151520), thickness = 1.dp)
+                    HorizontalDivider(color = palette.borderSubtle, thickness = 1.dp)
                 }
             }
         }
@@ -237,10 +245,11 @@ private fun FilterToggleButton(
     selected: Boolean,
     onClick: () -> Unit,
 ) {
+    val palette = LocalAegisPalette.current
     Surface(
-        color = if (selected) CrimsonAccent.copy(alpha = 0.18f) else SurfaceElevated,
-        border = BorderStroke(1.dp, if (selected) CrimsonAccent else HairlineBorder),
-        shape = RoundedCornerShape(10.dp),
+        color = if (selected) palette.surfaceTinted else palette.surface,
+        border = BorderStroke(1.dp, if (selected) palette.accent else palette.border),
+        shape = RoundedCornerShape(11.dp),
         modifier = Modifier
             .heightIn(min = 40.dp)
             .clickable { onClick() },
@@ -252,7 +261,7 @@ private fun FilterToggleButton(
             Text(
                 text = label,
                 style = MaterialTheme.typography.labelMedium,
-                color = if (selected) CoralPrimary else TextSecondary,
+                color = if (selected) palette.accentSoft else palette.textSecondary,
                 maxLines = 1,
             )
         }
@@ -262,32 +271,35 @@ private fun FilterToggleButton(
 @Composable
 fun ArticleListRow(
     item: IndexedArticle,
+    isBookmarked: Boolean = false,
+    onToggleBookmark: (() -> Unit)? = null,
     onClick: () -> Unit,
 ) {
+    val palette = LocalAegisPalette.current
     val priorityColor = when (item.article.priority.lowercase()) {
-        "critical" -> StatusDanger
-        "high" -> StatusWarn
-        else -> StatusOk
+        "critical" -> palette.danger
+        "high" -> palette.warn
+        else -> palette.ok
     }
 
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .background(AmoledBlack)
+            .background(palette.canvas)
             .clickable { onClick() }
-            .heightIn(min = 64.dp)
-            .padding(horizontal = 16.dp, vertical = 12.dp),
+            .heightIn(min = 68.dp)
+            .padding(start = 16.dp, end = 8.dp, top = 12.dp, bottom = 12.dp),
         verticalAlignment = Alignment.CenterVertically,
     ) {
         Column(modifier = Modifier.weight(1f)) {
             Text(
                 text = item.article.title,
                 style = MaterialTheme.typography.titleSmall,
-                color = TextPrimary,
+                color = palette.textPrimary,
                 maxLines = 2,
                 overflow = TextOverflow.Ellipsis,
             )
-            Spacer(modifier = Modifier.height(4.dp))
+            Spacer(modifier = Modifier.height(5.dp))
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Text(
                     text = item.article.priority.uppercase(),
@@ -297,17 +309,32 @@ fun ArticleListRow(
                 Text(
                     text = " · ${item.article.time} · ${item.domainLabel} · Tier ${item.tier}",
                     style = MaterialTheme.typography.labelSmall,
-                    color = TextMuted,
+                    color = palette.textMuted,
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis,
+                )
+            }
+        }
+        if (onToggleBookmark != null) {
+            IconButton(
+                onClick = onToggleBookmark,
+                modifier = Modifier.size(44.dp),
+            ) {
+                Icon(
+                    imageVector = if (isBookmarked) Icons.Filled.Bookmark else Icons.Outlined.BookmarkBorder,
+                    contentDescription = if (isBookmarked) "Remove bookmark" else "Save protocol",
+                    tint = if (isBookmarked) palette.accentSoft else palette.textMuted,
+                    modifier = Modifier.size(20.dp),
                 )
             }
         }
         Icon(
             imageVector = Icons.Outlined.ChevronRight,
             contentDescription = "Read protocol",
-            tint = TextMuted,
-            modifier = Modifier.size(20.dp),
+            tint = palette.textMuted,
+            modifier = Modifier
+                .padding(end = 6.dp)
+                .size(20.dp),
         )
     }
 }

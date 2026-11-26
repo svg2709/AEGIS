@@ -1,5 +1,7 @@
 package com.aegis.survival.hardware
 
+import android.content.ClipData
+import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
 import android.hardware.camera2.CameraCharacteristics
@@ -30,6 +32,9 @@ class AegisHardwareController(private val context: Context) {
 
     private val _beaconLit = MutableStateFlow(false)
     val beaconLit: StateFlow<Boolean> = _beaconLit.asStateFlow()
+
+    private val _morseStepIndex = MutableStateFlow(-1)
+    val morseStepIndex: StateFlow<Int> = _morseStepIndex.asStateFlow()
 
     private val _usingScreenFallback = MutableStateFlow(false)
     val usingScreenFallback: StateFlow<Boolean> = _usingScreenFallback.asStateFlow()
@@ -76,6 +81,15 @@ class AegisHardwareController(private val context: Context) {
         }
     }
 
+    fun copyToClipboard(label: String, text: String) {
+        try {
+            val cm = context.getSystemService(Context.CLIPBOARD_SERVICE) as? ClipboardManager ?: return
+            cm.setPrimaryClip(ClipData.newPlainText(label, text))
+        } catch (_: Exception) {
+            // Ignore clipboard failure
+        }
+    }
+
     fun toggleSosBeacon(
         scope: CoroutineScope,
         screenOnly: Boolean = false,
@@ -103,14 +117,14 @@ class AegisHardwareController(private val context: Context) {
         sosJob = scope.launch(Dispatchers.Default) {
             try {
                 while (isActive) {
-                    // International Morse SOS: ... --- ...
                     val sequence = listOf(
                         200L to 200L, 200L to 200L, 200L to 450L,
                         600L to 200L, 600L to 200L, 600L to 450L,
                         200L to 200L, 200L to 200L, 200L to 1400L,
                     )
-                    for ((onMs, offMs) in sequence) {
-                        if (!isActive) break
+                    sequence.forEachIndexed { idx, (onMs, offMs) ->
+                        if (!isActive) return@forEachIndexed
+                        _morseStepIndex.value = idx
                         setBeaconState(true, canUseTorch)
                         delay(onMs)
                         setBeaconState(false, canUseTorch)
@@ -118,6 +132,7 @@ class AegisHardwareController(private val context: Context) {
                     }
                 }
             } finally {
+                _morseStepIndex.value = -1
                 setBeaconState(false, canUseTorch)
             }
         }
@@ -127,6 +142,7 @@ class AegisHardwareController(private val context: Context) {
         sosJob?.cancel()
         sosJob = null
         setTorchSafe(false)
+        _morseStepIndex.value = -1
         _beaconLit.value = false
         _sosActive.value = false
         _usingScreenFallback.value = false

@@ -15,3 +15,10 @@
 -keepclasseswithmembers class com.aegis.survival.data.** {
     kotlinx.serialization.KSerializer serializer(...);
 }
+-keep,includedescriptorclasses class com.aegis.survival.update.**$$serializer { *; }
+-keepclassmembers class com.aegis.survival.update.** {
+    *** Companion;
+}
+-keepclasseswithmembers class com.aegis.survival.update.** {
+    kotlinx.serialization.KSerializer serializer(...);
+}

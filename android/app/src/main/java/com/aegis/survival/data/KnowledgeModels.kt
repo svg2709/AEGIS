@@ -59,6 +59,20 @@ enum class ChatRole {
     SYSTEM,
 }
 
+@Serializable
+data class GroundingSource(
+    val type: String = "web",
+    val title: String = "",
+    val uri: String = "",
+)
+
+enum class OnlineChatMode(val apiValue: String, val label: String) {
+    GENERAL("general", "Gemini"),
+    FAST("fast", "Fast"),
+    SEARCH("search", "Web Search"),
+    MAPS("maps", "Maps AI"),
+}
+
 data class ChatMessage(
     val id: String,
     val role: ChatRole,
@@ -66,6 +80,7 @@ data class ChatMessage(
     val sourceLabel: String = "",
     val confidencePercent: Int? = null,
     val citedArticles: List<IndexedArticle> = emptyList(),
+    val groundingSources: List<GroundingSource> = emptyList(),
     val timestampLabel: String = "",
 )
 
@@ -75,9 +90,20 @@ data class OfflineAnswer(
     val matchedArticles: List<IndexedArticle>,
 )
 
+enum class DisplayThemeMode(val label: String) {
+    AMOLED("AMOLED Pitch Black"),
+    OBSIDIAN("Obsidian Dark"),
+}
+
 data class AppSettings(
     val emergencyMode: Boolean = false,
     val onlineProxyEnabled: Boolean = false,
     val proxyBaseUrl: String = "",
     val hapticsEnabled: Boolean = true,
+    val displayThemeMode: DisplayThemeMode = DisplayThemeMode.AMOLED,
+    val autoBatterySaverAmoled: Boolean = true,
+    val manualBatterySaver: Boolean = false,
+    val autoCheckUpdates: Boolean = true,
+    val readingFontScale: Float = 1.0f,
+    val bookmarkedArticleIds: Set<String> = emptySet(),
 )
