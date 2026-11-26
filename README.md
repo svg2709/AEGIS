@@ -29,7 +29,7 @@ Open `http://localhost:3000` for the web app or `http://localhost:3000/landing` 
 2. Run **Build > Make Project** or `./gradlew assembleRelease`.
 
 ### Automated GitHub Releases & Optional Release Signing
-Every push to `main` or version tag (`git tag v1.1.0 && git push origin v1.1.0`) automatically builds the APK, generates a release changelog, and publishes a GitHub Release with attached APKs and `SHA256SUMS.txt`.
+Automatic version bumping and GitHub Release publishing only run when **application files** change (`android/`, `index.html`, `aegis-landing.html`, `server.js`, `package.json`, `metadata.json`) or when you push an explicit version tag (`git tag v1.1.0 && git push origin v1.1.0`). Commits that only touch git, documentation, or CI files (`.gitignore`, `.github/`, `README.md`, `CHANGELOG.md`, `.env.example`) do not increment the version or cut a new release.
 
 To sign release APKs with your own Android release keystore in GitHub Actions, add these repository secrets under **Settings > Secrets and variables > Actions**:
 - `ANDROID_KEYSTORE_BASE64` — Base64-encoded `.jks` keystore file

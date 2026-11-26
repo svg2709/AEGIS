@@ -10,13 +10,149 @@ on:
     branches:
       - main
   workflow_dispatch:
+    inputs:
+      force_release:
+        description: "Force a new release even if only non-app/git files changed"
+        type: boolean
+        required: false
+        default: false
 
 permissions:
   contents: write
 
 jobs:
+  detect-app-changes:
+    name: Detect App Changes & Resolve Version
+    runs-on: ubuntu-latest
+    outputs:
+      app_changed: ${{ steps.version.outputs.app_changed }}
+      should_build_android: ${{ steps.version.outputs.should_build_android }}
+      should_release: ${{ steps.version.outputs.should_release }}
+      tag: ${{ steps.version.outputs.tag }}
+      version_name: ${{ steps.version.outputs.version_name }}
+      version_code: ${{ steps.version.outputs.version_code }}
+      prev_tag: ${{ steps.version.outputs.prev_tag }}
+    steps:
+      - name: Checkout repository with full history
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Check for real app changes and compute version
+        id: version
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          # Only changes to actual application paths bump versions or trigger releases.
+          # Git/docs/CI-only files (.github/, .gitignore, README.md, CHANGELOG.md, .env.example, etc.) are excluded.
+          APP_PATHS=(
+            "android/"
+            "index.html"
+            "aegis-landing.html"
+            "server.js"
+            "package.json"
+            "metadata.json"
+          )
+
+          LAST_TAG=$(git tag --sort=-v:refname | grep -E '^v[0-9]+\.[0-9]+\.[0-9]+$' | head -n 1 || true)
+
+          if [[ "${GITHUB_REF}" == refs/tags/v* ]]; then
+            TAG="${GITHUB_REF#refs/tags/}"
+            VERSION_NAME="${TAG#v}"
+            PREV_TAG=$(git tag --sort=-v:refname | grep -E '^v[0-9]+\.[0-9]+\.[0-9]+$' | grep -v "^${TAG}$" | head -n 1 || true)
+            APP_CHANGED="true"
+            SHOULD_BUILD="true"
+            SHOULD_RELEASE="true"
+          elif [[ "${GITHUB_EVENT_NAME}" == "pull_request" ]]; then
+            BASE_SHA="${{ github.event.pull_request.base.sha }}"
+            CHANGED_FILES=$(git diff --name-only "${BASE_SHA}...HEAD" -- "${APP_PATHS[@]}" || true)
+            PREV_TAG="${LAST_TAG}"
+            if [[ -n "${LAST_TAG}" ]]; then
+              VERSION_NAME="${LAST_TAG#v}"
+            else
+              VERSION_NAME="1.0.0"
+            fi
+            TAG="v${VERSION_NAME}"
+            if [[ -n "${CHANGED_FILES}" ]]; then
+              APP_CHANGED="true"
+              SHOULD_BUILD="true"
+            else
+              APP_CHANGED="false"
+              SHOULD_BUILD="false"
+            fi
+            SHOULD_RELEASE="false"
+          else
+            PREV_TAG="${LAST_TAG}"
+            if [[ -z "${LAST_TAG}" ]]; then
+              # First-ever release: check if this push touched app files (or manual force)
+              if git rev-parse HEAD~1 >/dev/null 2>&1; then
+                CHANGED_FILES=$(git diff --name-only HEAD~1..HEAD -- "${APP_PATHS[@]}" || true)
+              else
+                CHANGED_FILES="initial"
+              fi
+              VERSION_NAME="1.0.0"
+              TAG="v${VERSION_NAME}"
+              if [[ -n "${CHANGED_FILES}" || "${{ inputs.force_release }}" == "true" ]]; then
+                APP_CHANGED="true"
+                SHOULD_BUILD="true"
+                SHOULD_RELEASE="true"
+              else
+                APP_CHANGED="false"
+                SHOULD_BUILD="false"
+                SHOULD_RELEASE="false"
+              fi
+            else
+              CHANGED_FILES=$(git diff --name-only "${LAST_TAG}..HEAD" -- "${APP_PATHS[@]}" || true)
+              BASE_VERSION="${LAST_TAG#v}"
+              IFS='.' read -r MAJOR MINOR PATCH <<< "${BASE_VERSION}"
+
+              if [[ -n "${CHANGED_FILES}" ]]; then
+                PATCH=$((PATCH + 1))
+                VERSION_NAME="${MAJOR}.${MINOR}.${PATCH}"
+                TAG="v${VERSION_NAME}"
+                APP_CHANGED="true"
+                SHOULD_BUILD="true"
+                SHOULD_RELEASE="true"
+              elif [[ "${{ inputs.force_release }}" == "true" ]]; then
+                VERSION_NAME="${BASE_VERSION}"
+                TAG="v${VERSION_NAME}"
+                APP_CHANGED="false"
+                SHOULD_BUILD="true"
+                SHOULD_RELEASE="true"
+              else
+                # Only git/docs/CI files changed — keep version unchanged and skip release
+                VERSION_NAME="${BASE_VERSION}"
+                TAG="v${VERSION_NAME}"
+                APP_CHANGED="false"
+                SHOULD_BUILD="false"
+                SHOULD_RELEASE="false"
+              fi
+            fi
+          fi
+
+          # Deterministic monotonic Android versionCode derived strictly from semantic version
+          IFS='.' read -r V_MAJ V_MIN V_PAT <<< "${VERSION_NAME%%-*}"
+          V_MAJ=${V_MAJ:-1}
+          V_MIN=${V_MIN:-0}
+          V_PAT=${V_PAT:-0}
+          VERSION_CODE=$((V_MAJ * 10000 + V_MIN * 100 + V_PAT + 1))
+
+          echo "app_changed=${APP_CHANGED}" >> "${GITHUB_OUTPUT}"
+          echo "should_build_android=${SHOULD_BUILD}" >> "${GITHUB_OUTPUT}"
+          echo "should_release=${SHOULD_RELEASE}" >> "${GITHUB_OUTPUT}"
+          echo "tag=${TAG}" >> "${GITHUB_OUTPUT}"
+          echo "version_name=${VERSION_NAME}" >> "${GITHUB_OUTPUT}"
+          echo "version_code=${VERSION_CODE}" >> "${GITHUB_OUTPUT}"
+          echo "prev_tag=${PREV_TAG}" >> "${GITHUB_OUTPUT}"
+
+          echo "App changed: ${APP_CHANGED} | Build: ${SHOULD_BUILD} | Release: ${SHOULD_RELEASE}"
+          echo "Resolved version: ${VERSION_NAME} (tag ${TAG}, versionCode ${VERSION_CODE})"
+
   verify-web-and-proxy:
     name: Verify Web Preview & AI Proxy
+    needs: detect-app-changes
+    if: needs.detect-app-changes.outputs.should_build_android == 'true'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -37,6 +173,8 @@ jobs:
 
   build-and-release-android:
     name: Build Android APK & Publish Release
+    needs: detect-app-changes
+    if: needs.detect-app-changes.outputs.should_build_android == 'true'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository with full history for changelogs
@@ -55,21 +193,6 @@ jobs:
         with:
           gradle-version: 8.11.1
           build-root-directory: android
-
-      - name: Determine release version & tag
-        id: meta
-        shell: bash
-        run: |
-          if [[ "${GITHUB_REF}" == refs/tags/v* ]]; then
-            TAG="${GITHUB_REF#refs/tags/}"
-            VERSION_NAME="${TAG#v}"
-          else
-            VERSION_NAME="1.0.${GITHUB_RUN_NUMBER}"
-            TAG="v${VERSION_NAME}"
-          fi
-          echo "tag=${TAG}" >> "${GITHUB_OUTPUT}"
-          echo "version_name=${VERSION_NAME}" >> "${GITHUB_OUTPUT}"
-          echo "version_code=${GITHUB_RUN_NUMBER}" >> "${GITHUB_OUTPUT}"
 
       - name: Decode optional release keystore
         id: signing
@@ -90,8 +213,8 @@ jobs:
       - name: Compile Android APKs
         working-directory: android
         env:
-          AEGIS_VERSION_NAME: ${{ steps.meta.outputs.version_name }}
-          AEGIS_VERSION_CODE: ${{ steps.meta.outputs.version_code }}
+          AEGIS_VERSION_NAME: ${{ needs.detect-app-changes.outputs.version_name }}
+          AEGIS_VERSION_CODE: ${{ needs.detect-app-changes.outputs.version_code }}
           ANDROID_KEYSTORE_PATH: ${{ steps.signing.outputs.keystore_path }}
           ANDROID_KEYSTORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
           ANDROID_KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
@@ -101,7 +224,7 @@ jobs:
       - name: Package APKs & SHA-256 checksums
         shell: bash
         env:
-          VERSION_NAME: ${{ steps.meta.outputs.version_name }}
+          VERSION_NAME: ${{ needs.detect-app-changes.outputs.version_name }}
         run: |
           mkdir -p release-artifacts
           cp android/app/build/outputs/apk/release/app-release.apk "release-artifacts/aegis-android-${VERSION_NAME}.apk"
@@ -112,32 +235,33 @@ jobs:
       - name: Generate release changelog
         shell: bash
         env:
-          TAG: ${{ steps.meta.outputs.tag }}
-          VERSION_NAME: ${{ steps.meta.outputs.version_name }}
+          TAG: ${{ needs.detect-app-changes.outputs.tag }}
+          PREV_TAG: ${{ needs.detect-app-changes.outputs.prev_tag }}
+          VERSION_NAME: ${{ needs.detect-app-changes.outputs.version_name }}
+          VERSION_CODE: ${{ needs.detect-app-changes.outputs.version_code }}
           SIGNING_MODE: ${{ steps.signing.outputs.mode }}
           REPO_URL: ${{ github.server_url }}/${{ github.repository }}
         run: |
-          PREV_TAG=$(git tag --sort=-v:refname | grep -v "^${TAG}$" | head -n 1 || true)
           KB_STATS=$(node -e 'const kb=require("./android/app/src/main/assets/aegis_kb.json"); console.log(`${kb.domainCount} domains / ${kb.articleCount} offline protocols`);')
 
           {
             echo "## AEGIS Android ${TAG}"
             echo ""
-            echo "- **Version**: \`${VERSION_NAME}\` (build \`${GITHUB_RUN_NUMBER}\`)"
+            echo "- **Version**: \`${VERSION_NAME}\` (versionCode \`${VERSION_CODE}\`)"
             echo "- **Offline Knowledge Base**: ${KB_STATS}"
             echo "- **Display Theme**: True AMOLED \`#000000\` pitch-black default for OLED battery conservation"
             echo "- **Signing**: ${SIGNING_MODE}"
             echo ""
-            echo "### Changelog"
+            echo "### App Changelog"
             if [[ -n "${PREV_TAG}" ]]; then
-              COMMITS=$(git log "${PREV_TAG}..HEAD" --pretty=format:"- %s (\`%h\`) — %an" --no-merges)
+              COMMITS=$(git log "${PREV_TAG}..HEAD" --pretty=format:"- %s (\`%h\`) — %an" --no-merges -- android/ index.html aegis-landing.html server.js package.json metadata.json)
             else
-              COMMITS=$(git log -n 20 --pretty=format:"- %s (\`%h\`) — %an" --no-merges)
+              COMMITS=$(git log -n 20 --pretty=format:"- %s (\`%h\`) — %an" --no-merges -- android/ index.html aegis-landing.html server.js package.json metadata.json)
             fi
             if [[ -n "${COMMITS}" ]]; then
               echo "${COMMITS}"
             else
-              echo "- Automated release build for commit \`${GITHUB_SHA::7}\`"
+              echo "- Release build for commit \`${GITHUB_SHA::7}\`"
             fi
             echo ""
             if [[ -n "${PREV_TAG}" ]]; then
@@ -155,17 +279,17 @@ jobs:
       - name: Upload APK build artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: aegis-android-${{ steps.meta.outputs.version_name }}
+          name: aegis-android-${{ needs.detect-app-changes.outputs.version_name }}
           path: |
             release-artifacts/*
             release-notes.md
 
       - name: Publish GitHub Release automatically
-        if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
+        if: needs.detect-app-changes.outputs.should_release == 'true'
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: ${{ steps.meta.outputs.tag }}
-          name: AEGIS Android ${{ steps.meta.outputs.tag }}
+          tag_name: ${{ needs.detect-app-changes.outputs.tag }}
+          name: AEGIS Android ${{ needs.detect-app-changes.outputs.tag }}
           body_path: release-notes.md
           make_latest: true
           files: |
