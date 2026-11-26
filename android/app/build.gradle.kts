@@ -5,8 +5,8 @@ plugins {
     id("org.jetbrains.kotlin.plugin.serialization")
 }
 
-val appVersionName = System.getenv("AEGIS_VERSION_NAME")?.takeIf { it.isNotBlank() } ?: "1.0.0"
-val appVersionCode = System.getenv("AEGIS_VERSION_CODE")?.toIntOrNull() ?: 1
+val appVersionName = System.getenv("AEGIS_VERSION_NAME")?.takeIf { it.isNotBlank() } ?: "1.1.0"
+val appVersionCode = System.getenv("AEGIS_VERSION_CODE")?.toIntOrNull() ?: 10101
 val githubRepo = System.getenv("GITHUB_REPOSITORY")?.takeIf { it.isNotBlank() } ?: "Aditya-Shaswat/AEGIS"
 
 android {

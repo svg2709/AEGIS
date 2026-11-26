@@ -56,6 +56,8 @@ jobs:
           )
 
           LAST_TAG=$(git tag --sort=-v:refname | grep -E '^v[0-9]+\.[0-9]+\.[0-9]+$' | head -n 1 || true)
+          PKG_VERSION=$(node -e 'try{const v=require("./package.json").version||"";console.log(/^\d+\.\d+\.\d+$/.test(v)?v:"");}catch{console.log("");}' 2>/dev/null || true)
+          PKG_VERSION="${PKG_VERSION:-1.0.0}"
 
           if [[ "${GITHUB_REF}" == refs/tags/v* ]]; then
             TAG="${GITHUB_REF#refs/tags/}"
@@ -71,7 +73,7 @@ jobs:
             if [[ -n "${LAST_TAG}" ]]; then
               VERSION_NAME="${LAST_TAG#v}"
             else
-              VERSION_NAME="1.0.0"
+              VERSION_NAME="${PKG_VERSION}"
             fi
             TAG="v${VERSION_NAME}"
             if [[ -n "${CHANGED_FILES}" ]]; then
@@ -91,7 +93,7 @@ jobs:
               else
                 CHANGED_FILES="initial"
               fi
-              VERSION_NAME="1.0.0"
+              VERSION_NAME="${PKG_VERSION}"
               TAG="v${VERSION_NAME}"
               if [[ -n "${CHANGED_FILES}" || "${{ inputs.force_release }}" == "true" ]]; then
                 APP_CHANGED="true"
@@ -108,8 +110,10 @@ jobs:
               IFS='.' read -r MAJOR MINOR PATCH <<< "${BASE_VERSION}"
 
               if [[ -n "${CHANGED_FILES}" ]]; then
-                PATCH=$((PATCH + 1))
-                VERSION_NAME="${MAJOR}.${MINOR}.${PATCH}"
+                NEXT_PATCH="${MAJOR}.${MINOR}.$((PATCH + 1))"
+                # Use package.json version if explicitly bumped higher (e.g., 1.1.0), else auto-bump patch
+                HIGHER=$(printf '%s\n%s\n' "${NEXT_PATCH}" "${PKG_VERSION}" | sort -V | tail -n 1)
+                VERSION_NAME="${HIGHER}"
                 TAG="v${VERSION_NAME}"
                 APP_CHANGED="true"
                 SHOULD_BUILD="true"

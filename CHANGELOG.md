@@ -2,6 +2,19 @@
 
 All notable changes to AEGIS are documented in this file and automatically summarized in GitHub Releases.
 
+## [1.1.0] - 2026-11-26
+
+### Added
+- **User-Confirmed In-App Auto-Updates**: Android and web now check GitHub Releases for newer versions, show the release changelog, verify APK SHA-256 checksums (`SHA256SUMS.txt`), and explicitly ask for user confirmation before downloading and installing.
+- **Automatic Battery Saver AMOLED Detection**: Monitors Android `PowerManager.ACTION_POWER_SAVE_MODE_CHANGED` (and web Battery Status API) to automatically engage pitch-black `#000000` Ultra AMOLED power-saving settings, conserve routine haptics, and pause background update checks while Battery Saver is active.
+- **Multi-Turn Gemini Chat & Live Grounding**: Upgraded `/api/ai/chat` and both clients with multi-turn `gemini-4-hydrogen` chat, fast `gemini-3.1-flash-lite` mode, live **Google Search grounding**, and **Google Maps grounding** with clickable verified source links and seamless offline KB fallback.
+- **Interactive Preparedness Field Resource Map**: Added a Google Maps Platform map tab (Maps JavaScript API + Places API New `searchNearby`/`searchByText` + `AdvancedMarkerElement`) for locating nearby supply stores, food/water, pharmacies, parks, campgrounds, and community hubs with opt-in revocable location sharing.
+- **Expanded Field Survival Utilities & Legibility**: Added interactive Rule of 3 triage tiles, altitude-aware Water Boiling countdown timer, unscented bleach water-purification calculator, visual Morse SOS step readout, saved bookmarks, S/M/L/XL reading text scaling, and upgraded `Plus Jakarta Sans` typography.
+
+### Changed
+- **Smart App-Only Auto-Versioning**: Updated GitHub Actions CI/CD to bump versions and cut releases only when actual application files change (skipping docs/git/CI-only commits) and to respect explicit minor/major version bumps in `package.json`.
+- **Expanded GitHub Documentation**: Rewrote `README.md` with quick-start install instructions, server API/environment reference, Android build steps, and CI/CD release documentation.
+
 ## [1.0.0] - 2026-11-26
 
 ### Added
